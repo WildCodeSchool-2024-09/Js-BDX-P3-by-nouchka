@@ -7,10 +7,10 @@
 :root {
   --titleFont: "League Spartan", sans-serif;
   --green: #41ad11;
-  --lightGreen: #A2CF8F;
-  --pink: #FF006B;
-  --lightPink:#FFF9FD;
-  --orange: #FF6725;
+  --lightGreen: #a2cf8f;
+  --pink: #ff006b;
+  --lightPink: #fff9fd;
+  --orange: #ff6725;
   --grey: #ada197;
 }
 
