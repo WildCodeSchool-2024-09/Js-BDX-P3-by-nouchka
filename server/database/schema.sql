@@ -1,21 +1,158 @@
-create table user (
-  id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(255) not null
+
+CREATE TABLE pages (
+    name VARCHAR(255) NOT NULL PRIMARY KEY,
+    description TEXT NOT NULL
 );
 
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null,
-  user_id int unsigned not null,
-  foreign key(user_id) references user(id)
+CREATE TABLE photos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    URL TEXT NOT NULL
 );
 
-insert into user(id, email, password)
-values
-  (1, "jdoe@mail.com", "123456");
+CREATE TABLE likes (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL
+);
 
-insert into item(id, title, user_id)
-values
-  (1, "Stuff", 1),
-  (2, "Doodads", 1);
+CREATE TABLE events (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    location TEXT NOT NULL,
+    description TEXT NOT NULL,
+    pages_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (pages_name) REFERENCES pages(name)
+);
+
+CREATE TABLE users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    firstname VARCHAR(255) NOT NULL,
+    mail VARCHAR(255) NOT NULL,
+    password VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE address (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    street_number TEXT NOT NULL,
+    street_name TEXT NOT NULL,
+    postal_code TEXT NOT NULL,
+    city VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    stock INT UNSIGNED NOT NULL,
+    description TEXT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE clients (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    users_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
+CREATE TABLE photos_jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    photos_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (photos_id) REFERENCES photos(id),
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+);
+
+
+CREATE TABLE billing_address (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    address_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(id)
+);
+
+CREATE TABLE shipping_address (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    address_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(id)
+);
+
+CREATE TABLE photos_pages (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    photos_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY(photos_id) REFERENCES photos(id)
+);
+
+CREATE TABLE photos_events (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    photos_id INT UNSIGNED NOT NULL,
+   FOREIGN KEY(photos_id) REFERENCES photos(id)
+);
+
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    status BOOLEAN NOT NULL,
+    date TIMESTAMP NOT NULL
+);
+
+CREATE TABLE clients_orders (
+  clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (clients_id) REFERENCES clients(id),
+    orders_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (orders_id) REFERENCES orders(id)
+);
+
+CREATE TABLE orders_address (
+  orders_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (orders_id) REFERENCES orders(id),
+    address_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(id)
+);
+
+CREATE TABLE jewelry_orders (
+  jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id),
+    orders_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (orders_id) REFERENCES orders(id),
+    quantity INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE jewelry_clients (
+  jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id),
+    clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (clients_id) REFERENCES clients(id)
+);
+
+CREATE TABLE likes_clients (
+  clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (clients_id) REFERENCES clients(id),
+    likes_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (likes_id) REFERENCES likes(id)
+);
+
+CREATE TABLE likes_jewelry (
+  jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id),
+    likes_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (likes_id) REFERENCES likes(id)
+);
+
+CREATE TABLE pages_photos_pages (
+  pages_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (pages_name) REFERENCES pages(name),
+    photos_pages_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (photos_pages_id) REFERENCES photos(id)
+);
+
+CREATE TABLE events_photos_events (
+  events_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (events_id) REFERENCES events(id),
+    photos_events_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (photos_events_id) REFERENCES photos_events(id)
+);
+
+CREATE TABLE jewelry_photos_jewelry (
+  photos_jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (photos_jewelry_id) REFERENCES photos_jewelry(id),
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+);
