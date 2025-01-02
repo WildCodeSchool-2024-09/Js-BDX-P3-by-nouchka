@@ -1,9 +1,9 @@
-
 import ContactBlock from "../components/contact-block/index";
+
 function App() {
   return (
     <>
-     <ContactBlock/>
+      <ContactBlock />
     </>
   );
 }
