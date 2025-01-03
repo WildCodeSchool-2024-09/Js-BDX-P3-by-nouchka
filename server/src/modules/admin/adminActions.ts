@@ -82,7 +82,7 @@ const destroy: RequestHandler = async (req, res, next) => {
       id: +req.params.id,
     };
 
-    const destroyedId = await adminRepository.update(destroyedAdmin);
+    const destroyedId = await adminRepository.delete(destroyedAdmin);
 
     if (destroyedId) {
       res.status(204);

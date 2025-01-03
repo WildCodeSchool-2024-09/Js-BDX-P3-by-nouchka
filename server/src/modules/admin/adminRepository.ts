@@ -56,10 +56,10 @@ class AdminRepository {
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an item by its ID
 
-  async delete(id: number) {
+  async delete(admin: Admin) {
     const [rows] = await databaseClient.query<Result>(
       "delete from admin where id = ? ",
-      [id],
+      [admin.users_id, admin.id],
     );
     return rows.affectedRows;
   }
