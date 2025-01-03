@@ -1,0 +1,13 @@
+header {
+  font-family: var(--titleFont);
+  background-color: var(--lightPink);
+}
+
+header .link {
+  text-decoration: none;
+  color: var(--pink);
+}
+
+header li {
+  list-style-type: none;
+}
