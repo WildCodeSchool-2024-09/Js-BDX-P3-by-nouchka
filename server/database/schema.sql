@@ -31,6 +31,12 @@ CREATE TABLE users (
     password VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE admin (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  users_id INT UNSIGNED NOT NULL, 
+  FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
 CREATE TABLE address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     street_number TEXT NOT NULL,
@@ -61,7 +67,6 @@ CREATE TABLE photos_jewelry (
     jewelry_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
 );
-
 
 CREATE TABLE billing_address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
