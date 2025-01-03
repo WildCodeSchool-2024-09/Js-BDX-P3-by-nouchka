@@ -10,7 +10,7 @@ export default function ContactBlock() {
 
   const [emailError, setEmailError] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setContactInfo({
       ...contactInfo,
