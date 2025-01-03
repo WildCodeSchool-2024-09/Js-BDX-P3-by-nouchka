@@ -1,4 +1,5 @@
 import "./App.css";
+import ContactBlock from "../src/components/contact-block/index";
 
 function App() {
   return (
@@ -7,6 +8,9 @@ function App() {
         <h1>by.Nouchka</h1>
         <img src="./src/assets/images/IMG_2711.png" alt="" />
       </hgroup>
+      <section>
+        <ContactBlock />
+      </section>
     </>
   );
 }

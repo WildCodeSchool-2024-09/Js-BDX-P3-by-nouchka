@@ -1,0 +1,43 @@
+@import url("./App.css");
+
+.contactFrom {
+  border: 2px solid #ccc;
+  padding: 2rem;
+  border-radius: .5rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: .5rem;
+}
+.contact {
+  font-family: var(--titleFont);
+  color: var(--pink);
+}
+label {
+  color: var(--green);
+  font-family: var(--titleFont);
+}
+input {
+  border: 1px solid rgb(164, 146, 146);
+  border-radius: 5px;
+  margin: 0 5rem 0 0;
+}
+.send {
+  margin: 0 7rem 0 7rem;
+  border: 1px solid rgb(164, 146, 146);
+  background-color: var(--pink);
+  border-radius: 3px;
+  font-family: var(--titleFont);
+  color: var(--orange);
+  cursor: pointer;
+}
+textarea {
+  color: var(--pink);
+}
+
+@media screen and (min-width: 481px) {
+  .contactFrom {
+    text-align: center;
+  }
+}
