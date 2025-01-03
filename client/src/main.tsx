@@ -10,8 +10,8 @@ import App from "./App";
 import CGU from "./pages/cgu";
 import CGV from "./pages/cgv";
 import FAQ from "./pages/faq";
-import PrivacyPolicy from "./pages/politiqueDeConfidentialite";
 import LegalMentions from "./pages/mentionslegales";
+import PrivacyPolicy from "./pages/politiqueDeConfidentialite";
 import SocialMedia from "./pages/reseauxSociaux";
 
 // Import additional components for new routes
