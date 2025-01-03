@@ -7,12 +7,12 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
-import CGU from "./pages/cgu";
-import CGV from "./pages/cgv";
-import FAQ from "./pages/faq";
-import LegalMentions from "./pages/mentionslegales";
-import PrivacyPolicy from "./pages/politiqueDeConfidentialite";
-import SocialMedia from "./pages/reseauxSociaux";
+import CGU from "./pages/CGU/cgu";
+import CGV from "./pages/CGV/cgv";
+import FAQ from "./pages/FAQ/faq";
+import LegalMentions from "./pages/Mentions-legales/mentionslegales";
+import PrivacyPolicy from "./pages/Politique-de-confidentialite/politiqueDeConfidentialite";
+import SocialMedia from "./pages/Reseaux-sociaux/reseauxSociaux";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
