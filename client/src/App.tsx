@@ -1,4 +1,5 @@
 import "./App.css";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -43,17 +44,7 @@ function App() {
         <p>Vous avez lu le README ?</p>
       </main>
 
-      <footer>
-        Développé par la&nbsp;
-        <a
-          href="https://www.wildcodeschool.com/"
-          className="wcs"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Wild Code School
-        </a>
-      </footer>
+      <Footer />
     </>
   );
 }
