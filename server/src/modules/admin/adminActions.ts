@@ -42,7 +42,10 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newAdmin = {
-      users_id: req.body.users_id,
+      lastname: req.body.lastname,
+      firstname: req.body.firstname,
+      mail: req.body.mail,
+      password: req.body.password,
     };
 
     // Create the item
@@ -59,8 +62,11 @@ const add: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const updateAdmin = {
-      users_id: req.body.users_id,
       id: +req.params.id,
+      lastname: req.body.lastname,
+      firstname: req.body.firstname,
+      mail: req.body.mail,
+      password: req.body.password,
     };
 
     const updatedId = await adminRepository.update(updateAdmin);
@@ -77,12 +83,9 @@ const edit: RequestHandler = async (req, res, next) => {
 
 const destroy: RequestHandler = async (req, res, next) => {
   try {
-    const destroyedAdmin = {
-      users_id: req.body.users_id,
-      id: +req.params.id,
-    };
+    const adminId = +req.params.id;
 
-    const destroyedId = await adminRepository.delete(destroyedAdmin);
+    const destroyedId = await adminRepository.delete(adminId);
 
     if (destroyedId) {
       res.status(204);

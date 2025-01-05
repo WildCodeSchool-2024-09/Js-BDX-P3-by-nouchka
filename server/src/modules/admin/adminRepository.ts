@@ -4,7 +4,10 @@ import type { Result, Rows } from "../../../database/client";
 
 type Admin = {
   id: number;
-  users_id: number;
+  lastname: string;
+  firstname: string;
+  mail: string;
+  password: string;
 };
 
 class AdminRepository {
@@ -12,13 +15,32 @@ class AdminRepository {
 
   async create(admin: Omit<Admin, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
-    const [result] = await databaseClient.query<Result>(
-      "insert into admin (users_id) values (?)",
-      [admin.users_id],
+    const connection = await databaseClient.getConnection();
+    await connection.beginTransaction();
+    const [users] = await databaseClient.query<Result>(
+      `INSERT INTO users 
+        (lastname, firstname, mail, password)
+      VALUES (?, ?, ?, ?) `,
+      [admin.lastname, admin.firstname, admin.mail, admin.password],
     );
+    const users_id = users.insertId;
 
-    // Return the ID of the newly inserted item
-    return result.insertId;
+    if (users_id) {
+      const [result] = await databaseClient.query<Result>(
+        `INSERT INTO admin 
+          (users_id) 
+         VALUES (?)`,
+        [users_id],
+      );
+
+      // Return the ID of the newly inserted item
+      if (result.insertId) {
+        await connection.commit();
+        return result.insertId;
+      }
+      await connection.rollback();
+      throw new Error("Failed to insert into admin table.");
+    }
   }
 
   // The Rs of CRUD - Read operations
@@ -26,7 +48,9 @@ class AdminRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from admin where id = ?",
+      `SELECT * 
+      FROM admin 
+      WHERE id = ?`,
       [id],
     );
 
@@ -46,22 +70,69 @@ class AdminRepository {
   // TODO: Implement the update operation to modify an existing item
 
   async update(admin: Admin) {
+    const connection = await databaseClient.getConnection();
+    await connection.beginTransaction();
     const [rows] = await databaseClient.query<Result>(
-      "update admin set users_id = ? where id = ?",
-      [admin.users_id, admin.id],
+      `UPDATE users 
+      SET lastname = ?, firstname = ?, mail = ?, password = ? 
+      WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
+      [admin.lastname, admin.firstname, admin.mail, admin.password, admin.id],
     );
-    return rows.affectedRows;
+    if (rows.affectedRows === 0) {
+      await connection.rollback();
+      throw new Error("Failed to update user.");
+    }
+
+    const [rowsAdmin] = await connection.query<Result>(
+      `UPDATE admin 
+    SET users_id = users_id 
+    WHERE id = ?`,
+      [admin.id],
+    );
+
+    if (rowsAdmin.affectedRows === 0) {
+      await connection.rollback();
+      throw new Error("Failed to update admin.");
+    }
+
+    await connection.commit();
+
+    return {
+      id: admin.id,
+      affectedRows: rows.affectedRows + rowsAdmin.affectedRows,
+    };
   }
 
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an item by its ID
 
-  async delete(admin: Admin) {
-    const [rows] = await databaseClient.query<Result>(
-      "delete from admin where id = ? ",
-      [admin.users_id, admin.id],
+  async delete(adminId: number) {
+    const connection = await databaseClient.getConnection();
+    await connection.beginTransaction();
+
+    const [rows] = await connection.query<Result>(
+      `DELETE FROM admin 
+      WHERE id = ?`,
+      [adminId],
     );
-    return rows.affectedRows;
+
+    if (rows.affectedRows === 0) {
+      await connection.rollback();
+      return { message: "Admin not found", affectedRows: 0 };
+    }
+
+    const [userRows] = await connection.query<Result>(
+      `DELETE FROM users 
+      WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
+      [adminId],
+    );
+
+    await connection.commit();
+
+    return {
+      affectedRows: rows.affectedRows + userRows.affectedRows,
+      message: "Admin and associated user deleted successfully.",
+    };
   }
 }
 
