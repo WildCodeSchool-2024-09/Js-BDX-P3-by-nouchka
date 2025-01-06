@@ -14,7 +14,7 @@ export default function UserNavbar() {
           <Link to="/cart" className="link-cart">
             <img
               src="../src/assets/cart/cart.svg"
-              alt="cart"
+              alt="panier"
               className="cart-img"
             />
           </Link>

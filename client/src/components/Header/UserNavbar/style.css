@@ -6,13 +6,14 @@
   display: flex;
   align-items: center;
   font-size: 0.8rem;
+  list-style-type: none;
 }
 
 .link-cart,
 .link-account {
   list-style-type: none;
   text-decoration: none;
-  color: var(--pink);
+  color: var(--primaryColor);
   padding: 0.5rem;
 }
 

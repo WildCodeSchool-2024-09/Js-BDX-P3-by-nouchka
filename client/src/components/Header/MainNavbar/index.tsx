@@ -20,18 +20,22 @@ export default function MainNavbar({
     <nav className="main-navbar">
       <ul className={`navbar-links ${showLinks ? "show-nav" : "hide-nav"}`}>
         <li>
-          <Link to="/shop" className="link" onClick={closeMenu}>
-            SHOP
+          <Link to="/shop" className="link-main-navbar" onClick={closeMenu}>
+            shop
           </Link>
         </li>
         <li>
-          <Link to="/upcycling" className="link" onClick={closeMenu}>
-            UPCYCLING
+          <Link
+            to="/upcycling"
+            className="link-main-navbar"
+            onClick={closeMenu}
+          >
+            upcycling
           </Link>
         </li>
         <li>
-          <Link to="/about" className="link" onClick={closeMenu}>
-            À PROPOS
+          <Link to="/about" className="link-main-navbar" onClick={closeMenu}>
+            à propos
           </Link>
         </li>
       </ul>

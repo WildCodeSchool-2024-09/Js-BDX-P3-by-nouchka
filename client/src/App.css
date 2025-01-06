@@ -8,12 +8,12 @@
   --titleFont: "League Spartan", sans-serif;
   --textFont: "Poppins", sans-serif;
   --secondTextFont: "DynaPuff", sans-serif;
-  --green: #41ad11;
-  --lightGreen: #a2cf8f;
-  --pink: #ff006b;
-  --lightPink: #fff9fd;
-  --orange: #ff6725;
-  --grey: #ada197;
+  --primaryColor: #ff006b;
+  --secondaryColor: #fff9fd;
+  --neutralColor: #ada197;
+  --successColor: #41ad11;
+  --successlightColor: #a2cf8f;
+  --warningColor: #ff6725;
 }
 
 @font-face {
@@ -62,7 +62,7 @@
 
 h1 {
   font-family: var(--titleFont);
-  color: var(--pink);
+  color: var(--primaryColor);
 }
 
 .img-example {
@@ -70,7 +70,7 @@ h1 {
   padding-top: 3rem;
 }
 
-hgroup {
+.section-example {
   text-align: center;
   margin-top: 2rem;
 }
@@ -86,5 +86,5 @@ hgroup {
 .text1,
 .text2 {
   padding: 2rem;
-  color: var(--pink);
+  color: var(--primaryColor);
 }

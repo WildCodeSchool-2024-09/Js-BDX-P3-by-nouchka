@@ -25,34 +25,36 @@ import App from "./App";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
+    // The root path
     element: <App />, // Renders the App component for the home page
-  },
-  // Try adding a new route! For example, "/about" with an About component
+    children: [
+      // Try adding a new route! For example, "/about" with an About component
 
-  {
-    path: "/shop",
-    element: <Shop />,
-  },
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
 
-  {
-    path: "/upcycling",
-    element: <Upcycling />,
-  },
+      {
+        path: "/upcycling",
+        element: <Upcycling />,
+      },
 
-  {
-    path: "/about",
-    element: <About />,
-  },
+      {
+        path: "/about",
+        element: <About />,
+      },
 
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
 
-  {
-    path: "/account",
-    element: <Account />,
+      {
+        path: "/account",
+        element: <Account />,
+      },
+    ],
   },
 ]);
 
