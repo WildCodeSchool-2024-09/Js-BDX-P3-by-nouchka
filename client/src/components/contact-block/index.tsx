@@ -1,24 +1,15 @@
-import { useState } from "react";
-import "./App.css";
+import React, { useState } from "react";
+import "../contact-block/style.css";
 
 export default function ContactBlock() {
-  const [contactInfo, setContactInfo] = useState({
-    firstName: "",
-    email: "",
-    message: "",
-  });
+  const [mail, setMail] = useState("");
 
   const [emailError, setEmailError] = useState("");
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
-    const { name, value } = e.target;
-    setContactInfo({
-      ...contactInfo,
-      [name]: value,
-    });
-    if (name === "email") {
-      validateEmail(value);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const userEmail= e.target.value;
+    setMail(userEmail)
+    validateEmail(userEmail)
   };
   const validateEmail = (value: string) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -32,32 +23,30 @@ export default function ContactBlock() {
   };
 
   return (
-    <section className="contactFrom">
-      <h2 className="contact">Contact</h2>
-      <h3>Nom, Prénom:</h3>
-      <input
+    <form action="sumbit" className="contactForm">
+      <h2 className="contact">Me Contacter</h2>
+      <p className="contactDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque harum necessitatibus reprehenderit molestias officiis amet culpa tempora asperiores cupiditate debitis, quia vero, alias dignissimos consectetur ducimus, doloribus fugiat maxime fugit?</p>
+      <input className="blockName"
+      required
         type="text"
         name="firstName"
-        value={contactInfo.firstName}
-        onChange={handleChange}
+        placeholder="Nom, Prénom..."
       />
-      <h3>Email:</h3>
-      <input
+      <input className="blockEmail"
         type="email"
         name="email"
-        value={contactInfo.email}
+        value={mail}
+        placeholder="Votre e-mail..."
         onChange={handleChange}
       />
-      {emailError && <p className="errorEmail">Error</p>}
-      <h3> Message: </h3>
-      <textarea
+      {emailError && <p className="errorEmail">{emailError}</p>}
+      <textarea className="blockMessage"
         name="message"
-        value={contactInfo.message}
-        onChange={handleChange}
+        placeholder="Votre message..."
       />
       <button className="send" type="submit">
         Envoyer
       </button>
-    </section>
+    </form>
   );
 }

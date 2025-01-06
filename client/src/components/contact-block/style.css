@@ -1,0 +1,80 @@
+@import url("../../App.css");
+
+.contactForm {
+  padding: 1rem;
+  color: var(--lightPink);
+  background-color: var(--grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact {
+  font-family: var(--titleFont);
+}
+.contactDescription {
+  font-family: var(--titleFont);
+  color: var(--textColor);
+  text-align: initial;
+}
+.contactTitle {
+  padding: .5rem;
+  font-family: var(--titleFont);
+  margin-top: .5rem;
+}
+
+.blockMessage, .blockName, .blockEmail {
+  font-weight: bold;
+  border: none;
+  background-color: var(--lightPink);
+  border-radius: 5px;
+  width: 75%;
+  height: 100%;
+  font-family: var(--titleFont);
+  padding: .5rem;
+  margin: .5rem;
+}
+
+.contactDescription {
+  padding: .5rem;
+}
+.send {
+  margin-top: .5rem;
+  padding: .5rem;
+  border: none;
+  background-color: var(--pink);
+  border-radius: 1rem;
+  font-family: var(--titleFont);
+  color: var(--textColor);
+  cursor: pointer;
+  width: 25%;
+  justify-items: center;
+}
+
+
+@media screen and (min-width: 481px) {
+  .contactForm {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+  }
+  .contact {
+    grid-column: span 2 / span 2;
+  }
+  .contactDescription {
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+  .blockMessage {
+    grid-row: span 2 / span 2;
+    grid-column-start: 1;
+    grid-row-start: 4;
+  }
+  .send {
+    justify-self: center;
+    grid-row-start: 6;
+  }
+}
