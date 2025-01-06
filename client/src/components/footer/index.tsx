@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-
+import SocialMedia from "../../pages/Reseaux-sociaux/reseauxSociaux";
 export default function Footer() {
   return (
     <>
-      <div className="footer">
+      <footer className="footer">
+        <Link to="/">
+          {" "}
+          <img
+            src="src/assets/logo/logo-lightPink.svg"
+            alt="Retour a la page d'accueil"
+            className="logo-footer"
+          />
+        </Link>
         <Link to="/CGV" className="footerLinks">
           CGV
         </Link>
@@ -15,15 +23,13 @@ export default function Footer() {
           FAQ
         </Link>
         <Link to="/Mentions légales" className="footerLinks">
-          Mentions Légales
+          Mentions légales
         </Link>
         <Link to="/Politique de confidentialité" className="footerLinks">
-          Politique de Confidentialité
+          Politique de confidentialité
         </Link>
-        <Link to="/Réseaux sociaux" className="footerLinks">
-          Réseaux sociaux
-        </Link>
-      </div>
+        <SocialMedia />
+      </footer>
     </>
   );
 }

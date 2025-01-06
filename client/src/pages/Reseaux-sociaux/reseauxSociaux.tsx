@@ -1,23 +1,18 @@
+import "../Reseaux-sociaux/style.css";
+
 export default function SocialMedia() {
   return (
-    <div className="social-icons">
+    <>
       <a
-        href="https://www.facebook.com"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="https://www.instagram.com/by.nouchka?igsh=MWFiMHZrNThmNzQ2Yw=="
+        target="_blanck"
       >
-        Facebook
+        <img
+          src="src/assets/Icones/instagram.png"
+          alt="by Nouchka"
+          className="instagram-icone"
+        />
       </a>
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-        Twitter
-      </a>
-      <a
-        href="https://www.instagram.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Instagram
-      </a>
-    </div>
+    </>
   );
 }

@@ -12,7 +12,7 @@ import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import LegalMentions from "./pages/Mentions-legales/mentionslegales";
 import PrivacyPolicy from "./pages/Politique-de-confidentialite/politiqueDeConfidentialite";
-import SocialMedia from "./pages/Reseaux-sociaux/reseauxSociaux";
+import Home from "./pages/Home";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -26,32 +26,34 @@ import SocialMedia from "./pages/Reseaux-sociaux/reseauxSociaux";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
+    // The root path
     element: <App />, // Renders the App component for the home page
-  },
-  {
-    path: "/CGU",
-    element: <CGU />,
-  },
-  {
-    path: "/CGV",
-    element: <CGV />,
-  },
-  {
-    path: "/FAQ",
-    element: <FAQ />,
-  },
-  {
-    path: "/Mentions légales",
-    element: <LegalMentions />,
-  },
-  {
-    path: "/Politique de confidentialité",
-    element: <PrivacyPolicy />,
-  },
-  {
-    path: "/Réseaux sociaux",
-    element: <SocialMedia />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/CGU",
+        element: <CGU />,
+      },
+      {
+        path: "/CGV",
+        element: <CGV />,
+      },
+      {
+        path: "/FAQ",
+        element: <FAQ />,
+      },
+      {
+        path: "/Mentions légales",
+        element: <LegalMentions />,
+      },
+      {
+        path: "/Politique de confidentialité",
+        element: <PrivacyPolicy />,
+      },
+    ],
   },
 
   // Try adding a new route! For example, "/about" with an About component
