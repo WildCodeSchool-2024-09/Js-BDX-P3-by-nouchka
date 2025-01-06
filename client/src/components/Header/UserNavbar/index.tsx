@@ -6,17 +6,17 @@ export default function UserNavbar() {
     <nav className="user-navbar">
       <ul>
         <li>
-          <Link to="/panier" className="link">
+          <Link to="/account" className="link-account">
+            Compte
+          </Link>
+        </li>
+        <li>
+          <Link to="/cart" className="link-cart">
             <img
               src="../src/assets/cart/cart.svg"
               alt="cart"
               className="cart-img"
             />
-          </Link>
-        </li>
-        <li>
-          <Link to="/compte" className="link">
-            Mon compte
           </Link>
         </li>
       </ul>

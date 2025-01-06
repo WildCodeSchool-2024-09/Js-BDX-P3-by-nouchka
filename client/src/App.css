@@ -6,6 +6,8 @@
 
 :root {
   --titleFont: "League Spartan", sans-serif;
+  --textFont: "Poppins", sans-serif;
+  --secondTextFont: "DynaPuff", sans-serif;
   --green: #41ad11;
   --lightGreen: #a2cf8f;
   --pink: #ff006b;
@@ -16,7 +18,7 @@
 
 @font-face {
   font-family: "League Spartan";
-  src: url("./assets/fonts/LeagueSpartan-VariableFont_wght.ttf")
+  src: url("./assets/fonts/LeagueSpartan/LeagueSpartan-VariableFont_wght.ttf")
     format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -24,7 +26,36 @@
 
 @font-face {
   font-family: "League Spartan";
-  src: url("./assets/fonts/LeagueSpartan-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/LeagueSpartan/LeagueSpartan-Bold.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DynaPuff";
+  src: url("./assets/fonts/DynaPuff/DynaPuff-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DynaPuff";
+  src: url("./assets/fonts/DynaPuff/DynaPuff-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -34,7 +65,7 @@ h1 {
   color: var(--pink);
 }
 
-img {
+.img-example {
   width: 30%;
   padding-top: 3rem;
 }
@@ -42,4 +73,18 @@ img {
 hgroup {
   text-align: center;
   margin-top: 2rem;
+}
+
+.text1 {
+  font-family: var(--textFont);
+}
+
+.text2 {
+  font-family: var(--secondTextFont);
+}
+
+.text1,
+.text2 {
+  padding: 2rem;
+  color: var(--pink);
 }

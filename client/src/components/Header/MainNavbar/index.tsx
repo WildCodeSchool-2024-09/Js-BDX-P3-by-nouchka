@@ -30,7 +30,7 @@ export default function MainNavbar({
           </Link>
         </li>
         <li>
-          <Link to="/a-propos" className="link" onClick={closeMenu}>
+          <Link to="/about" className="link" onClick={closeMenu}>
             À PROPOS
           </Link>
         </li>

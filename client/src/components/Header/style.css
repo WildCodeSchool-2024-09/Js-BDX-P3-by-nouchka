@@ -1,6 +1,9 @@
 header {
   font-family: var(--titleFont);
   background-color: var(--lightPink);
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.5fr;
+  align-items: center;
 }
 
 header .link {
@@ -10,4 +13,17 @@ header .link {
 
 header li {
   list-style-type: none;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .main-navbar {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .user-navbar {
+    grid-area: 1 / 3 / 2 / 4;
+  }
 }

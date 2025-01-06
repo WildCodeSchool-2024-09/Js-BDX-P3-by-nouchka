@@ -1,3 +1,31 @@
 .cart-img {
-  width: 2rem;
+  width: 1.5rem;
+}
+
+.user-navbar ul {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.link-cart,
+.link-account {
+  list-style-type: none;
+  text-decoration: none;
+  color: var(--pink);
+  padding: 0.5rem;
+}
+
+.link-account {
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 768px) {
+  .user-navbar ul {
+    justify-content: flex-end;
+  }
+
+  .link-account {
+    font-size: 1rem;
+  }
 }
