@@ -2,5 +2,44 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: bisque;
+}
+
+:root {
+  --titleFont: "League Spartan", sans-serif;
+  --green: #41ad11;
+  --lightGreen: #a2cf8f;
+  --pink: #ff006b;
+  --lightPink: #fff9fd;
+  --orange: #ff6725;
+  --grey: #ada197;
+}
+
+@font-face {
+  font-family: "League Spartan";
+  src: url("./assets/fonts/LeagueSpartan-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "League Spartan";
+  src: url("./assets/fonts/LeagueSpartan-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+h1 {
+  font-family: var(--titleFont);
+  color: var(--pink);
+}
+
+img {
+  width: 30%;
+  padding-top: 3rem;
+}
+
+hgroup {
+  text-align: center;
+  margin-top: 2rem;
 }
