@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "../Carousel";
 import DesktopCard from "./DesktopCards";
 
