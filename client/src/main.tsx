@@ -10,9 +10,9 @@ import App from "./App";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
+import Home from "./pages/Home";
 import LegalMentions from "./pages/Mentions-legales/mentionslegales";
 import PrivacyPolicy from "./pages/Politique-de-confidentialite/politiqueDeConfidentialite";
-import Home from "./pages/Home";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
