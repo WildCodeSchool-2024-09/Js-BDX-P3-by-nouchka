@@ -23,7 +23,9 @@
   margin-top: .5rem;
 }
 
-.blockMessage, .blockName, .blockEmail {
+.blockMessage,
+.blockName,
+.blockEmail {
   font-weight: bold;
   border: none;
   background-color: var(--lightPink);
@@ -50,7 +52,6 @@
   width: 25%;
   justify-items: center;
 }
-
 
 @media screen and (min-width: 481px) {
   .contactForm {
