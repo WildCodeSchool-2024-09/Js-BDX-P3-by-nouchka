@@ -1,0 +1,38 @@
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 300px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+.carousel-btn {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn.prev {
+  margin-right: 10px;
+}
+.carousel-btn.next {
+  margin-left: 10px;
+}
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+@media screen and (min-width: 768px) {
+  .carousel {
+    visibility: hidden;
+  }
+  .carousel-btn {
+    visibility: hidden;
+  }
+}
