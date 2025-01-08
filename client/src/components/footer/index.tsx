@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-import SocialMedia from "../../pages/Reseaux-sociaux/reseauxSociaux";
+import SocialMedia from "../../pages/social-media/SocialMedia";
 export default function Footer() {
   return (
     <>
@@ -13,19 +13,19 @@ export default function Footer() {
             className="logo-footer"
           />
         </Link>
-        <Link to="/CGV" className="footerLinks">
+        <Link to="/cgu" className="footerLinks">
           CGV
         </Link>
-        <Link to="/CGU" className="footerLinks">
+        <Link to="/cgv" className="footerLinks">
           CGU
         </Link>
-        <Link to="/FAQ" className="footerLinks">
+        <Link to="/faq" className="footerLinks">
           FAQ
         </Link>
-        <Link to="/Mentions légales" className="footerLinks">
+        <Link to="/legal-mentions" className="footerLinks">
           Mentions légales
         </Link>
-        <Link to="/Politique de confidentialité" className="footerLinks">
+        <Link to="/privacy-policy" className="footerLinks">
           Politique de confidentialité
         </Link>
         <SocialMedia />
