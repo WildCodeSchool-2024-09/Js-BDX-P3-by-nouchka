@@ -1,5 +1,9 @@
 import "../../App.css";
 
 export default function Shop() {
-  return <></>;
+  return (
+    <>
+      <h2>Shop by.Nouchka</h2>
+    </>
+  );
 }

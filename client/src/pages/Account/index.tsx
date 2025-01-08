@@ -1,5 +1,9 @@
 import "../../App.css";
 
 export default function Account() {
-  return <></>;
+  return (
+    <>
+      <h2>Mon Compte</h2>
+    </>
+  );
 }

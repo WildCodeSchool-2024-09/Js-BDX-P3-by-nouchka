@@ -1,5 +1,9 @@
 import "../../App.css";
 
 export default function Upcycling() {
-  return <></>;
+  return (
+    <>
+      <h2>Upcycling</h2>
+    </>
+  );
 }
