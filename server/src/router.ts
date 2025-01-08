@@ -21,7 +21,6 @@ router.post("/api/jewelry", jewelryActions.add);
 router.put("/api/jewelry/:id", jewelryActions.edit);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
 
-
 /* ************************************************************************* */
 
 export default router;
