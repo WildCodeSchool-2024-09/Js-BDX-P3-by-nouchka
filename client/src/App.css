@@ -34,7 +34,7 @@ h1 {
   color: var(--pink);
 }
 
-img {
+.img-example {
   width: 30%;
   padding-top: 3rem;
 }
