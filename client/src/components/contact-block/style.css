@@ -14,7 +14,7 @@
 }
 .contactDescription {
   font-family: var(--titleFont);
-  color: var(--textColor);
+  color: var(--lightPink);
   text-align: initial;
 }
 .contactTitle {
@@ -26,7 +26,8 @@
 .blockMessage,
 .blockName,
 .blockEmail {
-  font-weight: bold;
+  font-size: larger;
+  color: var(--textColor);
   border: none;
   background-color: var(--lightPink);
   border-radius: 5px;
@@ -47,19 +48,21 @@
   background-color: var(--pink);
   border-radius: 1rem;
   font-family: var(--titleFont);
-  color: var(--textColor);
+  color: var(--lightPink);
+  font-size: larger;
   cursor: pointer;
   width: 25%;
   justify-items: center;
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 768px) {
   .contactForm {
     text-align: center;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 8px;
+    justify-items: center;
   }
   .contact {
     grid-column: span 2 / span 2;
@@ -75,7 +78,6 @@
     grid-row-start: 4;
   }
   .send {
-    justify-self: center;
     grid-row-start: 6;
   }
 }
