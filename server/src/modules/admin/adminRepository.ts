@@ -60,11 +60,11 @@ class AdminRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT * 
-      FROM admin 
-      INNER JOIN users
-      ON admin.users_id = users.id
-      WHERE admin.id = ?`,
+      `SELECT users.lastname, users.firstname, users.mail
+     FROM admin
+     INNER JOIN users
+     ON admin.users_id = users.id
+     WHERE admin.id = ?`,
       [id],
     );
 
@@ -96,24 +96,8 @@ class AdminRepository {
       [admin.lastname, admin.firstname, admin.mail, admin.password, admin.id],
     );
 
-    if (rows.affectedRows === 0) {
-      throw new Error("Failed to update user.");
-    }
-
-    const [rowsAdmin] = await databaseClient.query<Result>(
-      `UPDATE admin 
-      SET users_id = users_id 
-      WHERE id = ?`,
-      [admin.id],
-    );
-
-    if (rowsAdmin.affectedRows === 0) {
-      throw new Error("Failed to update admin.");
-    }
-
     return {
-      id: admin.id,
-      affectedRows: rows.affectedRows + rowsAdmin.affectedRows,
+      success: rows.affectedRows > 0,
     };
   }
 
@@ -121,41 +105,19 @@ class AdminRepository {
   // TODO: Implement the delete operation to remove an item by its ID
 
   async delete(adminId: number) {
-    const connection = await databaseClient.getConnection();
+    const [rows] = await databaseClient.query<Result>(
+      `DELETE FROM admin 
+       WHERE id = ?`,
+      [adminId],
+    );
 
-    try {
-      await connection.beginTransaction();
-
-      const [rows] = await connection.query<Result>(
-        `DELETE FROM admin 
-        WHERE id = ?`,
-        [adminId],
-      );
-
-      if (rows.affectedRows === 0) {
-        await connection.rollback();
-        throw new Error(
-          `Delete failed in admin. affectedRows:${rows.affectedRows}`,
-        );
-      }
-
-      const [userRows] = await connection.query<Result>(
-        `DELETE FROM users 
-        WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
-        [adminId],
-      );
-
-      await connection.commit();
-
-      return {
-        affectedRows: rows.affectedRows + userRows.affectedRows,
-      };
-    } catch (error) {
-      await connection.rollback();
-      throw error;
-    } finally {
-      connection.release();
+    if (rows.affectedRows === 0) {
+      throw new Error("Delete failed in admin. No rows affected.");
     }
+
+    return {
+      affectedRows: rows.affectedRows,
+    };
   }
 }
 
