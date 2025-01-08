@@ -16,7 +16,7 @@ router.post("/api/items", itemActions.add);
 import clientsActions from "./modules/clients/clientsActions";
 
 router.get("/api/clients", clientsActions.browse);
-router.get("api/clients/:id", clientsActions.read);
+router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.post("/api/clients", clientsActions.add);
 router.delete("/api/clients/:id", clientsActions.destroy);
