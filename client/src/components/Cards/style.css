@@ -19,3 +19,28 @@
   padding: 10px;
   font-weight: bold;
 }
+@media screen and (min-width: 768px) {
+  .imageContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .cardCarousel {
+    position: relative;
+    margin: 20px;
+  }
+  .cardCarousel figcaption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  .cardCarousel:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 8px 10px #000000cd;
+  }
+  .imgCarousel {
+    height: 300px;
+    object-fit: cover;
+  }
+}
