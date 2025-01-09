@@ -72,9 +72,9 @@ const edit: RequestHandler = async (req, res, next) => {
     const updatedId = await adminRepository.update(updateAdmin);
 
     if (updatedId) {
-      res.status(204);
+      res.status(204).send();
     } else {
-      res.status(404);
+      res.status(404).send();
     }
   } catch (err) {
     next(err);
@@ -88,9 +88,9 @@ const destroy: RequestHandler = async (req, res, next) => {
     const destroyedId = await adminRepository.delete(adminId);
 
     if (destroyedId) {
-      res.status(204);
+      res.status(204).send();
     } else {
-      res.status(404);
+      res.status(404).send();
     }
   } catch (err) {
     next(err);

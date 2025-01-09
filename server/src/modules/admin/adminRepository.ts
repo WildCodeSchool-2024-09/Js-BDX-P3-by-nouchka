@@ -105,18 +105,16 @@ class AdminRepository {
   // TODO: Implement the delete operation to remove an item by its ID
 
   async delete(adminId: number) {
-    const [rows] = await databaseClient.query<Result>(
-      `DELETE FROM admin 
-       WHERE id = ?`,
+    const [result] = await databaseClient.query<Result>(
+      `DELETE users, admin
+       FROM users
+       INNER JOIN admin ON users.id = admin.users_id
+       WHERE admin.id = ?`,
       [adminId],
     );
 
-    if (rows.affectedRows === 0) {
-      throw new Error("Delete failed in admin. No rows affected.");
-    }
-
     return {
-      affectedRows: rows.affectedRows,
+      success: result.affectedRows > 0,
     };
   }
 }
