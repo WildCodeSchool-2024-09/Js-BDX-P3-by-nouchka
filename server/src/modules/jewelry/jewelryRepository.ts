@@ -75,7 +75,7 @@ class JewelryRepository {
       `SELECT jewelry.*, photos.URL
       FROM jewelry
       INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
-      INNER JOIN photos ON photos_jewelry.photos_id = photos.id`
+      INNER JOIN photos ON photos_jewelry.photos_id = photos.id`,
     );
 
     return rows as Jewelry[];
@@ -83,7 +83,7 @@ class JewelryRepository {
 
   async update(jewelry: Jewelry) {
     const [rows] = await databaseClient.query<Result>(
-       `UPDATE photos 
+      `UPDATE photos 
         SET URL = ?
         WHERE id = (SELECT photos_id FROM photos_jewelry
         WHERE jewelry_id = ?)`,
@@ -94,25 +94,25 @@ class JewelryRepository {
   }
   async delete(jewelryId: number) {
     const connection = await databaseClient.getConnection();
-    
+
     try {
-        await connection.beginTransaction();
+      await connection.beginTransaction();
 
-        const [result] = await connection.query<Result>(
-            `DELETE FROM jewelry 
+      const [result] = await connection.query<Result>(
+        `DELETE FROM jewelry 
              WHERE id = ?`,
-            [jewelryId]
-        );
+        [jewelryId],
+      );
 
-        await connection.commit();
-        return result.affectedRows > 0;
+      await connection.commit();
+      return result.affectedRows > 0;
     } catch (error) {
-        await connection.rollback();
-        throw error;
+      await connection.rollback();
+      throw error;
     } finally {
-        connection.release();
+      connection.release();
     }
-}
+  }
 }
 
 export default new JewelryRepository();
