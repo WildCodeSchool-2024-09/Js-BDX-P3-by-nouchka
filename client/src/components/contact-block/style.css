@@ -16,6 +16,7 @@
   font-family: var(--textFont);
   color: var(--secondaryColor);
   text-align: initial;
+  line-height: 2rem;
 }
 .contactTitle {
   padding: .5rem;
