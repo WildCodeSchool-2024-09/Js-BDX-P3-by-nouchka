@@ -53,10 +53,10 @@ const edit: RequestHandler = async (req, res, next) => {
 
     const result = await clientsRepository.update(updatedClient);
 
-    if (result.affectedRows === 0) {
+    if (!result) {
       res.sendStatus(404);
     } else {
-      res.json(result);
+      res.sendStatus(204);
     }
   } catch (err) {
     next(err);
@@ -68,10 +68,10 @@ const destroy: RequestHandler = async (req, res, next) => {
     const clientId = Number(req.params.id);
     const result = await clientsRepository.delete(clientId);
 
-    if (result.affectedRows === 0) {
+    if (!result) {
       res.sendStatus(404);
     } else {
-      res.json(result);
+      res.sendStatus(204);
     }
   } catch (err) {
     next(err);

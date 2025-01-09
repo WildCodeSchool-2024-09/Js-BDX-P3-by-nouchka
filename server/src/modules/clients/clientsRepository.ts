@@ -47,7 +47,7 @@ class ClientsRepository {
   }
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT * 
+      `SELECT lastname, firstname, mail
         FROM  clients
         Inner Join users
         ON clients.users_id = users.id
@@ -68,42 +68,26 @@ class ClientsRepository {
 
   async update(clients: Clients) {
     const connection = await databaseClient.getConnection();
-    try {
-      await connection.beginTransaction();
 
-      const [rows] = await connection.query<Result>(
-        `UPDATE users
+    const [rows] = await connection.query<Result>(
+      `UPDATE users
          SET lastname = ?, firstname = ?, mail = ?, password = ?
          WHERE id = (SELECT users_id FROM clients WHERE id = ?)`,
-        [
-          clients.lastname,
-          clients.firstname,
-          clients.mail,
-          clients.password,
-          clients.id,
-        ],
-      );
-
-      if (rows.affectedRows === 0) {
-        throw new Error("Failed to update user.");
-      }
-
-      await connection.commit();
-      return { id: clients.id, affectedRows: rows.affectedRows };
-    } catch (error) {
-      await connection.rollback();
-      throw error;
-    } finally {
-      connection.release();
-    }
+      [
+        clients.lastname,
+        clients.firstname,
+        clients.mail,
+        clients.password,
+        clients.id,
+      ],
+    );
+    return rows.affectedRows > 0;
   }
 
   async delete(clientsID: number) {
     const connection = await databaseClient.getConnection();
 
     try {
-      await connection.beginTransaction();
-
       const [rows] = await connection.query<Result>(
         `DELETE FROM clients
             WHERE id = ?`,
@@ -111,26 +95,12 @@ class ClientsRepository {
       );
 
       if (rows.affectedRows === 0) {
-        await connection.rollback();
-        throw new Error(
-          `Delete failed in clients.affectedRows:${rows.affectedRows}`,
-        );
+        return false;
       }
 
-      const [usersRow] = await connection.query<Result>(
-        `DELETE FROM users 
-            WHERE id = (SELECT users_id FROM clients WHERE id = ?)`,
-        [clientsID],
-      );
-
-      await connection.commit();
-
-      return {
-        affectedRows: rows.affectedRows + usersRow.affectedRows,
-      };
+      return true;
     } catch (error) {
-      await connection.rollback();
-      throw error;
+      return false;
     } finally {
       connection.release();
     }
