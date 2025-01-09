@@ -38,6 +38,30 @@ const router = createBrowserRouter([
       // Try adding a new route! For example, "/about" with an About component
 
       {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/cgu",
+        element: <CGU />,
+      },
+      {
+        path: "/cgv",
+        element: <CGV />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
+      },
+      {
+        path: "/legal-mentions",
+        element: <LegalMentions />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
         path: "/shop",
         element: <Shop />,
       },
@@ -63,33 +87,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/cgu",
-        element: <CGU />,
-      },
-      {
-        path: "/cgv",
-        element: <CGV />,
-      },
-      {
-        path: "/faq",
-        element: <FAQ />,
-      },
-      {
-        path: "/legal-mentions",
-        element: <LegalMentions />,
-      },
-      {
-        path: "/privacy-policy",
-        element: <PrivacyPolicy />,
-      },
-    ],
-  },
 
   // Try adding a new route! For example, "/about" with an About component
 ]);
@@ -106,7 +103,6 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
   </StrictMode>,
 );
 
