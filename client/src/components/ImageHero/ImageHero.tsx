@@ -1,3 +1,5 @@
+import "./ImageHero.css";
+
 interface ImageHeroProps {
   imageUrl: string;
   altText: string;

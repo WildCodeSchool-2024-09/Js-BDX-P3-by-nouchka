@@ -7,13 +7,14 @@ import ImageHero from "./components/ImageHero/ImageHero";
 function App() {
   return (
     <>
+      {" "}
+      <Header />
       <ImageHero
         imageUrl={heroImage}
         altText="Heroimge"
         title="BY Nouchka "
         subtitle="Bijoux et Upcycling"
       />
-      <Header />
       <Outlet />
     </>
   );
