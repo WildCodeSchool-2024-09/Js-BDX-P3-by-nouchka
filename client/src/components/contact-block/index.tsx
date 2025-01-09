@@ -14,14 +14,9 @@ export default function ContactBlock() {
   const validateEmail = (value: string) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     setEmailError(
-      !value
-        ? ""
-        : !emailRegex.test(value)
-          ? "Format d'email invalide"
-          : "",
+      !value ? "" : !emailRegex.test(value) ? "Format d'email invalide" : "",
     );
   };
-  
 
   return (
     <form action="sumbit" className="contactForm">
