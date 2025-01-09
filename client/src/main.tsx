@@ -9,7 +9,6 @@ import Account from "./pages/Account";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 
-
 /* ************************************************************************* */
 
 // Import the main app component
@@ -58,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact-block",
-        element: <ContactBlock />
+        element: <ContactBlock />,
       },
     ],
   },
