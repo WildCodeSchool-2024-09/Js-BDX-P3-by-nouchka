@@ -9,10 +9,10 @@ type Jewelry = {
   description: string;
   name: string;
   price: number;
-  URL: string;
+  url: string;
 };
 
-class jewelryRepository {
+class JewelryRepository {
   async create(jewelry: Omit<Jewelry, "id">) {
     const connection = await databaseClient.getConnection();
 
@@ -20,24 +20,18 @@ class jewelryRepository {
       await connection.beginTransaction();
 
       const [photos] = await connection.query<Result>(
-        `INSERT INTO photos 
+        `INSERT INTO photos
           (URL)
         VALUES (?) `,
-        [jewelry.URL],
+        [jewelry.url],
       );
       const photos_id = photos.insertId;
 
-      if (!photos_id) {
-        await connection.rollback();
-        throw new Error("Failed to insert into photos table.");
-      }
-
-      const [result] = await connection.query<Result>(
+      const [jewelryResult] = await connection.query<Result>(
         `INSERT INTO jewelry 
-          (photos_id, type, stock, description, name, price) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
+          (type, stock, description, name, price) 
+         VALUES (?, ?, ?, ?, ?)`,
         [
-          photos_id,
           jewelry.type,
           jewelry.stock,
           jewelry.description,
@@ -46,14 +40,14 @@ class jewelryRepository {
         ],
       );
 
-      if (!result.insertId) {
+      if (!jewelryResult.insertId) {
         await connection.rollback();
         throw new Error("Failed to insert into jewelry table.");
       }
 
       await connection.commit();
 
-      return result.insertId;
+      return jewelryResult.insertId;
     } catch (error) {
       await connection.rollback();
 
@@ -67,8 +61,8 @@ class jewelryRepository {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT * 
         FROM jewelry 
-        INNER JOIN photos
-        ON jewelry.photos_id = photos.id
+        INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
+        INNER JOIN photos ON photos_jewelry.photos_id = photos.id
         WHERE jewelry.id = ?`,
       [id],
     );
@@ -78,10 +72,10 @@ class jewelryRepository {
 
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT URL
-        FROM photos
-        INNER JOIN jewelry
-        ON jewelry.photos_id = photos.id`,
+      `SELECT jewelry.*, photos.URL
+      FROM jewelry
+      INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
+      INNER JOIN photos ON photos_jewelry.photos_id = photos.id`
     );
 
     return rows as Jewelry[];
@@ -89,33 +83,36 @@ class jewelryRepository {
 
   async update(jewelry: Jewelry) {
     const [rows] = await databaseClient.query<Result>(
-      `UPDATE photos 
+       `UPDATE photos 
         SET URL = ?
-        WHERE id = (SELECT photos_id FROM jewelry
-        WHERE id = ?)`,
-      [jewelry.URL, jewelry.id],
+        WHERE id = (SELECT photos_id FROM photos_jewelry
+        WHERE jewelry_id = ?)`,
+      [jewelry.url, jewelry.id],
     );
 
-    return {
-      success: rows.affectedRows > 0,
-    };
+    return rows.affectedRows > 0;
   }
-
   async delete(jewelryId: number) {
-    const [rows] = await databaseClient.query<Result>(
-      `DELETE FROM jewelry
-         WHERE id = ?`,
-      [jewelryId],
-    );
+    const connection = await databaseClient.getConnection();
+    
+    try {
+        await connection.beginTransaction();
 
-    if (rows.affectedRows === 0) {
-      throw new Error("Delete failed in admin. No rows affected.");
+        const [result] = await connection.query<Result>(
+            `DELETE FROM jewelry 
+             WHERE id = ?`,
+            [jewelryId]
+        );
+
+        await connection.commit();
+        return result.affectedRows > 0;
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
     }
-
-    return {
-      affectedRows: rows.affectedRows,
-    };
-  }
+}
 }
 
-export default new jewelryRepository();
+export default new JewelryRepository();
