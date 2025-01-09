@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
 import ContactBlock from "../src/components/contact-block/index";
+import Header from "./components/Header";
 
 function App() {
   return (
