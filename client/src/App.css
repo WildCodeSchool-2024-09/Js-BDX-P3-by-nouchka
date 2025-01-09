@@ -1,15 +1,87 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Assure un calcul cohérent des dimensions */
+
+:root {
+	--titleFont: "League Spartan", sans-serif;
+	--textFont: "Poppins", sans-serif;
+	--secondTextFont: "DynaPuff", sans-serif;
+	--primaryColor: #ff006b;
+	--secondaryColor: #fff9fd;
+	--neutralColor: #ada197;
+	--successColor: #41ad11;
+	--successlightColor: #a2cf8f;
+	--warningColor: #ff6725;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden; /* Empêche le défilement horizontal */
-  font-family: Arial, sans-serif; /* Police par défaut */
-  background-color: #f4f4f4; /* Couleur de fond (modifiable) */
+@font-face {
+	font-family: "League Spartan";
+	src: url("./assets/fonts/LeagueSpartan/LeagueSpartan-VariableFont_wght.ttf")
+		format("truetype");
+	font-weight: normal;
+	font-style: normal;
 }
+
+@font-face {
+	font-family: "League Spartan";
+	src: url("./assets/fonts/LeagueSpartan/LeagueSpartan-Bold.ttf")
+		format("truetype");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "DynaPuff";
+	src: url("./assets/fonts/DynaPuff/DynaPuff-Medium.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "DynaPuff";
+	src: url("./assets/fonts/DynaPuff/DynaPuff-Bold.ttf") format("truetype");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("./assets/fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("./assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+	font-weight: bold;
+	font-style: normal;
+}
+
+h1 {
+	font-family: var(--titleFont);
+	color: var(--primaryColor);
+}
+
+.img-example {
+	width: 30%;
+	padding-top: 3rem;
+}
+
+.section-example {
+	text-align: center;
+	margin-top: 2rem;
+}
+
+.text1 {
+	font-family: var(--textFont);
+}
+
+.text2 {
+	font-family: var(--secondTextFont);
+}
+
+.text1,
+.text2 {
+	padding: 2rem;
+	color: var(--primaryColor);
+}
+
+
