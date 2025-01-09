@@ -8,13 +8,7 @@ function App() {
     <>
       <Header />
       <Outlet />
-      <hgroup>
-        <h1>by.Nouchka</h1>
-        <img src="./src/assets/images/IMG_2711.png" alt="" />
-      </hgroup>
-      <section>
-        <ContactBlock />
-      </section>
+      <ContactBlock />
     </>
   );
 }

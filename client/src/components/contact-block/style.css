@@ -3,7 +3,7 @@
 .contactForm {
   padding: 1rem;
   color: var(--secondaryColor);
-  background-color: var(--grey);
+  background-color: var(--neutralColor);
   display: flex;
   flex-direction: column;
   align-items: center;
