@@ -8,27 +8,29 @@ export default function Footer() {
         <Link to="/">
           {" "}
           <img
-            src="src/assets/logo/logo-lightPink.svg"
+            src="src/assets/logo/logo_light.svg"
             alt="Retour a la page d'accueil"
             className="logo-footer"
           />
         </Link>
-        <Link to="/cgu" className="footerLinks">
-          CGV
-        </Link>
-        <Link to="/cgv" className="footerLinks">
-          CGU
-        </Link>
-        <Link to="/faq" className="footerLinks">
-          FAQ
-        </Link>
-        <Link to="/legal-mentions" className="footerLinks">
-          Mentions légales
-        </Link>
-        <Link to="/privacy-policy" className="footerLinks">
-          Politique de confidentialité
-        </Link>
-        <SocialMedia />
+        <article className="blocklink">
+          <Link to="/cgu" className="footerLinks">
+            CGV
+          </Link>
+          <Link to="/cgv" className="footerLinks">
+            CGU
+          </Link>
+          <Link to="/faq" className="footerLinks">
+            FAQ
+          </Link>
+          <Link to="/legal-mentions" className="footerLinks">
+            Mentions légales
+          </Link>
+          <Link to="/privacy-policy" className="footerLinks">
+            Politique de confidentialité
+          </Link>
+          <SocialMedia />
+        </article>
       </footer>
     </>
   );
