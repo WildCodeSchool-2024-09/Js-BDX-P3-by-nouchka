@@ -97,6 +97,11 @@ class ClientsRepository {
       if (rows.affectedRows === 0) {
         return false;
       }
+      await connection.query(
+        `DELETE FROM
+         users WHERE client_id = ?`,
+        [clientsID],
+      );
 
       return true;
     } catch (error) {
