@@ -48,9 +48,9 @@ class ClientsRepository {
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT lastname, firstname, mail
-        FROM  clients
-        Inner Join users
-        ON clients.users_id = users.id
+        FROM  users
+        Inner Join clients
+        ON clients.id = users.id
         WHERE clients.id = ?`,
       [id],
     );
@@ -61,7 +61,7 @@ class ClientsRepository {
       `SELECT lastname, firstname, mail
         FROM users
         INNER JOIN clients
-        ON clients.users_id = users.id`,
+        ON clients.id = users.id`,
     );
     return rows as Clients[];
   }
@@ -89,7 +89,7 @@ class ClientsRepository {
 
     try {
       const [rows] = await connection.query<Result>(
-        `DELETE FROM clients
+        `DELETE FROM users
             WHERE id = ?`,
         [clientsID],
       );
@@ -97,12 +97,6 @@ class ClientsRepository {
       if (rows.affectedRows === 0) {
         return false;
       }
-      await connection.query(
-        `DELETE FROM
-         users WHERE client_id = ?`,
-        [clientsID],
-      );
-
       return true;
     } catch (error) {
       return false;
