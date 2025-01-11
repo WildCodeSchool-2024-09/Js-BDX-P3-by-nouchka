@@ -88,4 +88,8 @@
     align-items: center;
     width: max-content;
   }
+
+  .main-navbar ul li {
+    font-size: 1.5vw;
+  }
 }
