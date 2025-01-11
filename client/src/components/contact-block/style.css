@@ -9,34 +9,36 @@
   align-items: center;
 }
 
-.contact {
-  font-family: var(--titleFont);
-}
 .contactDescription {
   font-family: var(--textFont);
   color: var(--secondaryColor);
   text-align: initial;
   line-height: 2rem;
 }
-.contactTitle {
+.contact{
+  text-align: center;
+  color: var(--secondaryColor);
+  background-color: var(--neutralColor);
   padding: .5rem;
   font-family: var(--titleFont);
   margin-top: .5rem;
+ 
+}
+.Name, .Email, .Message {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.blockMessage,
-.blockName,
-.blockEmail {
-  font-size: larger;
-  color: var(--textColor);
-  border: none;
-  background-color: var(--secondaryColor);
-  border-radius: 5px;
-  width: 75%;
-  height: 100%;
+.blockMessage, .blockEmail, .blockName{
   font-family: var(--textFont);
-  padding: .5rem;
-  margin: .5rem;
+  background-color: var(--secondaryColor);
+  border: none;
+  margin: .25rem;
+  padding-left: .5rem;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 45%;
 }
 
 .contactDescription {
@@ -52,8 +54,6 @@
   color: var(--secondaryColor);
   font-size: larger;
   cursor: pointer;
-  width: 25%;
-  justify-items: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -61,24 +61,27 @@
     text-align: center;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    gap: 8px;
+    grid-template-rows: repeat(5, auto);
     justify-items: center;
+    gap: 8px;
   }
-  .contact {
-    grid-column: span 2 / span 2;
-  }
+
   .contactDescription {
-    grid-row: span 3 / span 3;
+    grid-row: span 5 / span 5;
     grid-column-start: 2;
-    grid-row-start: 2;
+    grid-row-start: 1;
+  }
+  .Message {
+    height: 150%;
   }
   .blockMessage {
     grid-row: span 2 / span 2;
     grid-column-start: 1;
-    grid-row-start: 4;
+    grid-row-start: 3;
+    margin: 2rem;
   }
   .send {
-    grid-row-start: 6;
+    grid-column-start: 1;
+    grid-row-start: 5;
   }
 }
