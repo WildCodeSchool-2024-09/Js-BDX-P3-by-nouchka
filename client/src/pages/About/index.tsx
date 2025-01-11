@@ -1,11 +1,12 @@
 import "./style.css";
-import Event from "../../components/Event";
+import EventList from "../../components/Event/EventList";
 
 export default function About() {
   return (
     <>
+      <h1 className="title-about-section">À propos de by.Nouchka</h1>
+      <h2 className="title-concept">Le concept</h2>
       <section className="about-section">
-        <h2 className="title-about-section">À propos de by.Nouchka</h2>
         <img
           className="img-about"
           src="../src/assets/images/IMG_3890.png"
@@ -17,7 +18,7 @@ export default function About() {
           reprehenderit?
         </p>
       </section>
-      <Event />
+      <EventList />
     </>
   );
 }
