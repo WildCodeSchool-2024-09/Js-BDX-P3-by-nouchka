@@ -96,9 +96,7 @@ class AdminRepository {
       [admin.lastname, admin.firstname, admin.mail, admin.password, admin.id],
     );
 
-    return {
-      success: rows.affectedRows > 0,
-    };
+    return rows.affectedRows > 0;
   }
 
   // The D of CRUD - Delete operation
@@ -113,9 +111,7 @@ class AdminRepository {
       [adminId],
     );
 
-    return {
-      success: result.affectedRows > 0,
-    };
+    return result.affectedRows > 0;
   }
 }
 
