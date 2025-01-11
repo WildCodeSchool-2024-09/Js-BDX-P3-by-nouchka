@@ -136,7 +136,7 @@ class EventRepository {
       }
 
       await connection.commit();
-      return eventRows.affectedRows && photoRows.affectedRows;
+      return { success: true };
     } catch (error) {
       await connection.rollback();
       throw error;

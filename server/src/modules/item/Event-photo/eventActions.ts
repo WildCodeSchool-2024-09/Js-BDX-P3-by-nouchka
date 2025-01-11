@@ -39,7 +39,7 @@ const readPhoto: RequestHandler = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 // The A of BREAD - Add (Create) operation
 const add: RequestHandler = async (req, res, next) => {
   try {
