@@ -18,10 +18,7 @@ CREATE TABLE events (
     name VARCHAR(255) NOT NULL,
     date TIMESTAMP DEFAULT NOW() NOT NULL,
     location TEXT NOT NULL,
-    description TEXT NOT NULL,
-    pages_name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (pages_name) REFERENCES pages(name)
-    ON DELETE CASCADE
+    description TEXT NOT NULL
 );
 
 CREATE TABLE users (
@@ -97,8 +94,9 @@ CREATE TABLE photos_pages (
 CREATE TABLE photos_events (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     photos_id INT UNSIGNED NOT NULL,
-   FOREIGN KEY(photos_id) REFERENCES photos(id)
-   ON DELETE CASCADE
+   FOREIGN KEY(photos_id) REFERENCES photos(id) ON DELETE CASCADE
+   events_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY(events_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders (
