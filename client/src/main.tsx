@@ -2,7 +2,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Cart from "./components/Cart";
 import About from "./pages/About";
+import Account from "./pages/Account";
+import Shop from "./pages/Shop";
+import Upcycling from "./pages/Upcycling";
 
 /* ************************************************************************* */
 
@@ -21,12 +25,37 @@ import App from "./App";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
+    // The root path
     element: <App />, // Renders the App component for the home page
-  },
+    children: [
+      // Try adding a new route! For example, "/about" with an About component
 
-  { path: "/about", element: <About /> },
-  // Try adding a new route! For example, "/about" with an About component
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
+
+      {
+        path: "/upcycling",
+        element: <Upcycling />,
+      },
+
+      {
+        path: "/about",
+        element: <About />,
+      },
+
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+
+      {
+        path: "/account",
+        element: <Account />,
+      },
+    ],
+  },
 ]);
 
 /* ************************************************************************* */

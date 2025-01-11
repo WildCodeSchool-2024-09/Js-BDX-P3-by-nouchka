@@ -1,4 +1,5 @@
 import "./style.css";
+import Event from "../../components/Event";
 
 export default function About() {
   return (
@@ -13,31 +14,10 @@ export default function About() {
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
           molestiae sed, nobis laboriosam ut vero tempore nihil nostrum dolore
-          reprehenderit? Nesciunt ad dolorem praesentium quibusdam placeat
-          recusandae ratione voluptatibus impedit.
+          reprehenderit?
         </p>
       </section>
-      <section className="event-section">
-        <h2 className="title-event-section">À venir</h2>
-        <img
-          className="img-event1"
-          src="../src/assets/images/IMG_4417.png"
-          alt="stand by.Nouchka"
-        />
-        <article className="event1">
-          <p>Lieu</p> <p>date</p>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-        </article>
-        <img
-          className="img-event2"
-          src="../src/assets/images/IMG_4417.png"
-          alt="stand by.Nouchka"
-        />
-        <article className="event2">
-          <p>Lieu</p> <p>date</p>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-        </article>
-      </section>
+      <Event />
     </>
   );
 }
