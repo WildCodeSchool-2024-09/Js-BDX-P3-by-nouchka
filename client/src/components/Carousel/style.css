@@ -1,10 +1,79 @@
+.imageContainer {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  display: flex;
+}
+
 .mySwiper {
-  width: 80%;
-  border-radius: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+.swiper-slide p {
+  font-size: 1.5rem;
+  color: #555;
+  padding-top: 56px;
+}
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 }
 
 .swiperImg img {
-  width: 100%;
-  height: 100%;
+  width: 260px;
+  height: 260px;
   object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.swiper-pagination {
+  position: absolute;
+  text-align: center;
+}
+
+.swiper-pagination-bullet {
+  background-color: var(--green);
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--pink);
+  opacity: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .cardCarousel {
+    display: inline-block;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 260px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cardCarousel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .imgCarousel {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .cardCarousel figcaption {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 8px;
+  }
 }

@@ -1,11 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./Carousel/style.css";
 import "swiper/css";
-import "./Cards/style.css";
-import "swiper/css/autoplay";
-import { Autoplay } from "swiper/modules";
 import "swiper/css/pagination";
-import { useSwiper } from "../services/caroussel/caroussel";
+import "../Carousel/style.css";
+import "../Cards/style.css";
+import "swiper/css/autoplay";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css/pagination";
+import { useSwiper } from "../../services/caroussel/caroussel";
 
 export default function SwiperCaroussel() {
   const images = [
@@ -14,30 +15,40 @@ export default function SwiperCaroussel() {
     { id: 3, src: "./vite.svg", alt: "Vite Logo" },
   ];
   const isSwiperActive = useSwiper();
+
   return (
-    <section className="imageContainer">
+    <article className="imageContainer">
       {isSwiperActive ? (
-        <Swiper
+        <><Swiper
           className="mySwiper"
-          modules={[Autoplay]}
+          modules={[Autoplay, Pagination]}
+          pagination={{
+            clickable: true,
+            type: "bullets",
+          }}
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
           }}
           loop={true}
         >
           <SwiperSlide className="swiperImg">
             <img src={images[0].src} alt={images[0].alt} />
+            <p className="caption">{images[0].alt}</p>
           </SwiperSlide>
           <SwiperSlide className="swiperImg">
             <img src={images[1].src} alt={images[1].alt} />
+            <p className="caption">{images[1].alt}</p>
           </SwiperSlide>
           <SwiperSlide className="swiperImg">
             <img src={images[2].src} alt={images[2].alt} />
+            <p className="caption">{images[2].alt}</p>
           </SwiperSlide>
-          <figcaption>feur</figcaption>
           <div className="swiper-pagination" />
-        </Swiper>
+        </Swiper></>
+
+        
+        
       ) : (
         <>
           <figure className="cardCarousel">
@@ -66,6 +77,6 @@ export default function SwiperCaroussel() {
           </figure>
         </>
       )}
-    </section>
+    </article>
   );
 }
