@@ -67,9 +67,7 @@ class ClientsRepository {
   }
 
   async update(clients: Clients) {
-    const connection = await databaseClient.getConnection();
-
-    const [rows] = await connection.query<Result>(
+    const [rows] = await databaseClient.query<Result>(
       `UPDATE users
          SET lastname = ?, firstname = ?, mail = ?, password = ?
          WHERE id = (SELECT users_id FROM clients WHERE id = ?)`,
@@ -81,7 +79,7 @@ class ClientsRepository {
         clients.id,
       ],
     );
-    return rows.affectedRows > 0;
+    return rows.affectedRows;
   }
 
   async delete(clientsID: number) {
