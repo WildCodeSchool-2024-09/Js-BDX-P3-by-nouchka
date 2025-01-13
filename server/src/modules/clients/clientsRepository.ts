@@ -85,23 +85,16 @@ class ClientsRepository {
   }
 
   async delete(clientsID: number) {
-    const connection = await databaseClient.getConnection();
-
     try {
-      const [rows] = await connection.query<Result>(
+      const [rows] = await databaseClient.query<Result>(
         `DELETE FROM users
-            WHERE id = ?`,
+            WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
         [clientsID],
       );
 
-      if (rows.affectedRows === 0) {
-        return false;
-      }
-      return true;
+      return rows.affectedRows;
     } catch (error) {
-      return false;
-    } finally {
-      connection.release();
+      throw new Error("You've got an error:", error as Error);
     }
   }
 }
