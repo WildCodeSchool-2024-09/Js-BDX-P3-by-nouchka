@@ -1,5 +1,5 @@
 import "./App.css";
-import SwiperCaroussel from "./components/swiper";
+import SwiperCaroussel from "./components/Carousel/swiper";
 
 function App() {
   return (
