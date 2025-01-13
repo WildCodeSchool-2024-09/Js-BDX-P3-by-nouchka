@@ -1,0 +1,11 @@
+.logo-link img {
+  width: 45vw;
+  padding: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .logo-link img {
+    width: 25vw;
+    padding: 1rem;
+  }
+}
