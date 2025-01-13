@@ -28,16 +28,16 @@ export default function ContactBlock() {
           asperiores cupiditate debitis, quia vero, alias dignissimos
           consectetur ducimus, doloribus fugiat maxime fugit?
         </p>
-        <label className="Name">
+        <label htmlFor="fullName" className="Name">
           <input
             className="blockName"
             required
             type="text"
-            name="firstName"
-            placeholder="Nom, Prénom..."
+            name="fullName"
+            placeholder="Nom Prénom..."
           />
         </label>
-        <label className="Email">
+        <label htmlFor="email" className="Email">
           <input
             className="blockEmail"
             required
@@ -49,7 +49,7 @@ export default function ContactBlock() {
           />
         </label>
         {emailError && <p className="errorEmail">{emailError}</p>}
-        <label className="Message">
+        <label htmlFor="message" className="Message">
           <textarea
             className="blockMessage"
             name="message"
