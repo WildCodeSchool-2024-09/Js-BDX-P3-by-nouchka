@@ -15,22 +15,25 @@
   text-align: initial;
   line-height: 2rem;
 }
-.contact{
+.contact {
   text-align: center;
   color: var(--secondaryColor);
   background-color: var(--neutralColor);
   padding: .5rem;
   font-family: var(--titleFont);
   margin-top: .5rem;
- 
 }
-.Name, .Email, .Message {
+.Name,
+.Email,
+.Message {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.blockMessage, .blockEmail, .blockName{
+.blockMessage,
+.blockEmail,
+.blockName {
   font-family: var(--textFont);
   background-color: var(--secondaryColor);
   border: none;
