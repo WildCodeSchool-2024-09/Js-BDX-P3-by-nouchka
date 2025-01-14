@@ -27,6 +27,10 @@ class JewelryRepository {
       );
       const photos_id = photos.insertId;
 
+      if (!photos_id) {
+        throw new Error("Failed insertion into photos");
+      }
+
       const [jewelryResult] = await connection.query<Result>(
         `INSERT INTO jewelry 
           (type, stock, description, name, price) 
@@ -41,8 +45,17 @@ class JewelryRepository {
       );
 
       if (!jewelryResult.insertId) {
-        await connection.rollback();
         throw new Error("Failed to insert into jewelry table.");
+      }
+
+      const [photos_jewelry] = await connection.query<Result>(
+        `INSERT INTO photos_jewelry
+        (jewelry_id, photos_id)
+        VALUES (?, ?)`,
+        [jewelryResult.insertId, photos_id],
+      );
+      if (!photos_jewelry.insertId) {
+        throw new Error("Failed to insert into photos_jewelry");
       }
 
       await connection.commit();
@@ -82,36 +95,56 @@ class JewelryRepository {
   }
 
   async update(jewelry: Jewelry) {
-    const [rows] = await databaseClient.query<Result>(
-      `UPDATE photos 
-        SET URL = ?
-        WHERE id = (SELECT photos_id FROM photos_jewelry
-        WHERE jewelry_id = ?)`,
-      [jewelry.url, jewelry.id],
-    );
-
-    return rows.affectedRows > 0;
-  }
-  async delete(jewelryId: number) {
     const connection = await databaseClient.getConnection();
-
     try {
       await connection.beginTransaction();
-
-      const [result] = await connection.query<Result>(
-        `DELETE FROM jewelry 
-             WHERE id = ?`,
-        [jewelryId],
+      const [rows] = await connection.query<Result>(
+        `UPDATE jewelry
+        SET type=?, stock=?, description=?, name=?, price=?
+        WHERE id = ?`,
+        [
+          jewelry.type,
+          jewelry.stock,
+          jewelry.description,
+          jewelry.name,
+          jewelry.price,
+          jewelry.id,
+        ],
       );
+      if (!rows.affectedRows) {
+        throw new Error("Failed update jewelry");
+      }
+      const [photos] = await connection.query<Result>(
+        `UPDATE photos 
+          SET URL = ?
+          WHERE id = (SELECT photos_id FROM photos_jewelry
+          WHERE jewelry_id = ?)`,
+        [jewelry.url, jewelry.id],
+      );
+      if (!photos.affectedRows) {
+        throw new Error("Failed to update photos");
+      }
 
       await connection.commit();
-      return result.affectedRows > 0;
+      return rows.affectedRows;
     } catch (error) {
       await connection.rollback();
       throw error;
     } finally {
       connection.release();
     }
+  }
+  async delete(jewelryId: number) {
+    const [result] = await databaseClient.query<Result>(
+      `DELETE jewelry, photos, photos_jewelry
+       FROM jewelry
+       INNER JOIN photos_jewelry ON photos_jewelry.jewelry_id = jewelry.id
+       INNER JOIN photos ON photos.id = photos_jewelry.photos_id
+       WHERE jewelry.id = ?`,
+      [jewelryId],
+    );
+
+    return result.affectedRows;
   }
 }
 

@@ -7,10 +7,10 @@ import JewelryRepository from "./jewelryRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const jewelrys = await JewelryRepository.readAll();
+    const jewelries = await JewelryRepository.readAll();
 
     // Respond with the items in JSON format
-    res.json(jewelrys);
+    res.json(jewelries);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -70,7 +70,7 @@ const edit: RequestHandler = async (req, res, next) => {
       description: req.body.description,
       name: req.body.name,
       price: req.body.price,
-      url: req.body.URL,
+      url: req.body.url,
     };
 
     const updatedId = await JewelryRepository.update(updateJewelry);
