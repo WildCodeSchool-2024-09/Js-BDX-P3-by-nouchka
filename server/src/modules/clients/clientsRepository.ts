@@ -50,7 +50,7 @@ class ClientsRepository {
       `SELECT lastname, firstname, mail
         FROM  users
         Inner Join clients
-        ON clients.id = users.id
+        ON clients.users_id = users.id
         WHERE clients.id = ?`,
       [id],
     );
@@ -59,9 +59,8 @@ class ClientsRepository {
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT lastname, firstname, mail
-        FROM users
-        INNER JOIN clients
-        ON clients.id = users.id`,
+     FROM users
+     INNER JOIN clients ON clients.users_id = users.id`,
     );
     return rows as Clients[];
   }
