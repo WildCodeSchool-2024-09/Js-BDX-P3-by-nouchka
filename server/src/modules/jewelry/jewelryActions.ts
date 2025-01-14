@@ -41,7 +41,7 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newJewerly = {
+    const newJewelry = {
       type: req.body.type,
       stock: req.body.stock,
       description: req.body.description,
@@ -51,7 +51,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     // Create the item
-    const insertId = await JewelryRepository.create(newJewerly);
+    const insertId = await JewelryRepository.create(newJewelry);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
