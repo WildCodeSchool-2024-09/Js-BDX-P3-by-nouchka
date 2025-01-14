@@ -1,0 +1,19 @@
+.legalMentions-text {
+  font-family: var(--textFont);
+  margin: 1rem 0 1rem 0;
+  padding: 1rem;
+}
+.legalmentions-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.secondary-title {
+  font-family: var(--titleFont);
+  display: flex;
+  justify-content: center;
+}

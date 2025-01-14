@@ -60,31 +60,6 @@
   font-style: normal;
 }
 
-h1 {
-  font-family: var(--titleFont);
-  color: var(--primaryColor);
-}
-
-.img-example {
-  width: 30%;
-  padding-top: 3rem;
-}
-
-.section-example {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.text1 {
-  font-family: var(--textFont);
-}
-
-.text2 {
-  font-family: var(--secondTextFont);
-}
-
-.text1,
-.text2 {
-  padding: 2rem;
-  color: var(--primaryColor);
+body {
+  background-color: var(--secondaryColor);
 }

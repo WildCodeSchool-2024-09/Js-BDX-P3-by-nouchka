@@ -1,10 +1,13 @@
 .instagram-icone {
-  margin-top: 0.3rem;
-  margin-left: 4.8rem;
+  margin: 0.3rem 0 0.3rem 0;
+  margin-left: 4.3rem;
 }
 @media screen and (min-width: 768px) {
   .instagram-icone {
     display: flex;
     margin-bottom: 1rem;
+  }
+  .instagram-icone {
+    margin-left: 4.8rem;
   }
 }
