@@ -30,9 +30,7 @@ CREATE TABLE events (
     name VARCHAR(255) NOT NULL,
     date TIMESTAMP DEFAULT NOW() NOT NULL,
     location TEXT NOT NULL,
-    description TEXT NOT NULL,
-    photos_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (photos_id) REFERENCES photos(id) ON DELETE CASCADE
+    description TEXT NOT NULL
 );
 
 CREATE TABLE pages (
