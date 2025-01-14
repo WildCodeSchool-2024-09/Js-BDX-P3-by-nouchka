@@ -9,7 +9,7 @@ export default function Footer() {
           {" "}
           <img
             src="src/assets/logo/logo_light.svg"
-            alt="Retour a la page d'accueil"
+            alt="back to home page"
             className="logo-footer"
           />
         </Link>
