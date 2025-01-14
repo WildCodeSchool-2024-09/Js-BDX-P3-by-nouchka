@@ -1,4 +1,4 @@
-.cardCarousel {
+/* .cardCarousel {
   width: 300px;
   border-radius: 10px;
   overflow: hidden;
@@ -19,7 +19,8 @@
   padding: 10px;
   font-weight: bold;
 }
-@media screen and (min-width: 768px) {
+  */
+/* @media screen and (min-width: 768px) {
   .imageContainer {
     display: flex;
     justify-content: space-between;
@@ -43,4 +44,4 @@
     height: 300px;
     object-fit: cover;
   }
-}
+}  */

@@ -34,9 +34,8 @@ h1 {
   color: var(--pink);
 }
 
-img {
+hgroup img {
   width: 30%;
-  padding-top: 3rem;
 }
 
 hgroup {

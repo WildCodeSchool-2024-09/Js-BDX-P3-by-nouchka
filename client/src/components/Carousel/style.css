@@ -9,10 +9,10 @@
   width: 100%;
   overflow: hidden;
 }
-.swiper-slide p {
+.caption {
   font-size: 1.5rem;
-  color: #555;
-  padding-top: 56px;
+  color: var(--pink);
+  font-style: var(--titleFont);
 }
 .swiper-slide {
   display: flex;
@@ -33,7 +33,12 @@
 }
 .swiper-pagination {
   position: absolute;
-  text-align: center;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 5px;
 }
 
 .swiper-pagination-bullet {
@@ -47,6 +52,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  .imageContainer {
+    display: flex;
+    justify-content: space-between;
+  }
   .cardCarousel {
     display: inline-block;
     text-align: center;
@@ -58,12 +67,6 @@
     width: 260px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .cardCarousel:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  }
-
   .imgCarousel {
     width: 100%;
     height: 260px;
@@ -73,7 +76,7 @@
 
   .cardCarousel figcaption {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--pink);
     margin-top: 8px;
   }
 }

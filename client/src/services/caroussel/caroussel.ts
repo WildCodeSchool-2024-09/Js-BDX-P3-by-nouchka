@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 export const useSwiper = () => {
   const [isSwiperActive, setIsSwiperActive] = useState(
-    window.innerWidth >= 768,
+    window.innerWidth <= 768,
   );
 
   useEffect(() => {
+    console.info(window.innerWidth, Date.now());
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setIsSwiperActive(true);

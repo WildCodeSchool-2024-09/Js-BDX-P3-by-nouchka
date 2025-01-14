@@ -19,35 +19,32 @@ export default function SwiperCaroussel() {
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
-        <>
-          <Swiper
-            className="mySwiper"
-            modules={[Autoplay, Pagination]}
-            pagination={{
-              clickable: true,
-              type: "bullets",
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: true,
-            }}
-            loop={true}
-          >
-            <SwiperSlide className="swiperImg">
-              <img src={images[0].src} alt={images[0].alt} />
-              <p className="caption">{images[0].alt}</p>
-            </SwiperSlide>
-            <SwiperSlide className="swiperImg">
-              <img src={images[1].src} alt={images[1].alt} />
-              <p className="caption">{images[1].alt}</p>
-            </SwiperSlide>
-            <SwiperSlide className="swiperImg">
-              <img src={images[2].src} alt={images[2].alt} />
-              <p className="caption">{images[2].alt}</p>
-            </SwiperSlide>
-            <div className="swiper-pagination" />
-          </Swiper>
-        </>
+        <Swiper
+          className="mySwiper"
+          modules={[Autoplay, Pagination]}
+          pagination={{
+            clickable: true,
+            type: "bullets",
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: true,
+          }}
+          loop={true}
+        >
+          <SwiperSlide className="swiperImg">
+            <img src={images[0].src} alt={images[0].alt} />
+            <p className="caption">{images[0].alt}</p>
+          </SwiperSlide>
+          <SwiperSlide className="swiperImg">
+            <img src={images[1].src} alt={images[1].alt} />
+            <p className="caption">{images[1].alt}</p>
+          </SwiperSlide>
+          <SwiperSlide className="swiperImg">
+            <img src={images[2].src} alt={images[2].alt} />
+            <p className="caption">{images[2].alt}</p>
+          </SwiperSlide>
+        </Swiper>
       ) : (
         <>
           <figure className="cardCarousel">
