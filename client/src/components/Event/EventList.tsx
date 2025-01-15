@@ -9,17 +9,20 @@ export default function EventList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3310/api/events")
-      .then((response) => response.json())
-      .then((data: EventData[]) => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://localhost:3310/api/events");
+        const data: EventData[] = await response.json();
         setEvents(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Erreur lors de la récupération des événements :", err);
         setError("Erreur lors de la récupération des données");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   if (loading) return <p>Chargement...</p>;

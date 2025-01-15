@@ -9,25 +9,25 @@ interface AboutData {
 
 export default function About() {
   const [data, setData] = useState<AboutData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3310/api/about");
-        if (!response.ok) throw new Error();
-
+      const response = await fetch("http://localhost:3310/api/pages");
+      if (response.ok) {
         const result: AboutData = await response.json();
         setData(result);
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
+      } else {
+        setError("Erreur lors de la récupération des données.");
       }
+      setLoading(false);
     };
 
-    fetchData();
+    fetchData().catch(() => {
+      setError("Erreur lors de la récupération des données.");
+      setLoading(false);
+    });
   }, []);
 
   if (loading) {
