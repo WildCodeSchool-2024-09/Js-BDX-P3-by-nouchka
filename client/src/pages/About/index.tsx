@@ -1,7 +1,43 @@
 import "./style.css";
+import { useEffect, useState } from "react";
 import EventList from "../../components/Event/EventList";
 
+interface AboutData {
+  url: string;
+  description: string;
+}
+
 export default function About() {
+  const [data, setData] = useState<AboutData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3310/api/about");
+        if (!response.ok) throw new Error();
+
+        const result: AboutData = await response.json();
+        setData(result);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p>Chargement...</p>;
+  }
+
+  if (error) {
+    return <p>Une erreur est survenue lors du chargement des données.</p>;
+  }
+
   return (
     <>
       <h1 className="title-about-section">À propos de by.Nouchka</h1>
@@ -9,14 +45,10 @@ export default function About() {
       <section className="about-section">
         <img
           className="img-about"
-          src="../src/assets/images/IMG_3890.png"
-          alt="atelier de by.Nouchka"
+          src={data?.url}
+          alt="concept de by.Nouchka"
         />
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
-          molestiae sed, nobis laboriosam ut vero tempore nihil nostrum dolore
-          reprehenderit?
-        </p>
+        <p>{data?.description}</p>
       </section>
       <EventList />
     </>

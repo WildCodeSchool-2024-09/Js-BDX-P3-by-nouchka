@@ -25,6 +25,15 @@ router.get("/api/events", (req, res) => {
   ];
   res.json(events);
 });
+
+router.get("/api/about", (req, res) => {
+  const about = {
+    url: "../src/assets/images/IMG_3890.png",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis molestiae sed, nobis laboriosam ut vero tempore nihil nostrum dolore reprehenderit?",
+  };
+  res.json(about);
+});
 /* ************************************************************************* */
 
 // Define item-related routes
