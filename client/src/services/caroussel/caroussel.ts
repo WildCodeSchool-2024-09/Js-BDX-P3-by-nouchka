@@ -6,7 +6,6 @@ export const useSwiper = () => {
   );
 
   useEffect(() => {
-    console.info(window.innerWidth, Date.now());
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setIsSwiperActive(true);

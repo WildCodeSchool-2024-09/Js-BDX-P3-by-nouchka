@@ -1,12 +1,11 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "../Carousel/style.css";
-import "../Cards/style.css";
-import "swiper/css/autoplay";
 import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
+import "../Carousel/style.css";
+
+import "swiper/css/pagination";
+import "swiper/css";
+import "swiper/css/autoplay";
 
 export default function SwiperCaroussel() {
   const images = [
@@ -14,37 +13,46 @@ export default function SwiperCaroussel() {
     { id: 2, src: "./bijouxrandom.jpg", alt: "Bijoux Random" },
     { id: 3, src: "./vite.svg", alt: "Vite Logo" },
   ];
+
   const isSwiperActive = useSwiper();
 
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
-        <Swiper
-          className="mySwiper"
-          modules={[Autoplay, Pagination]}
-          pagination={{
-            clickable: true,
-            type: "bullets",
-          }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: true,
-          }}
-          loop={true}
-        >
-          <SwiperSlide className="swiperImg">
-            <img src={images[0].src} alt={images[0].alt} />
-            <p className="caption">{images[0].alt}</p>
-          </SwiperSlide>
-          <SwiperSlide className="swiperImg">
-            <img src={images[1].src} alt={images[1].alt} />
-            <p className="caption">{images[1].alt}</p>
-          </SwiperSlide>
-          <SwiperSlide className="swiperImg">
-            <img src={images[2].src} alt={images[2].alt} />
-            <p className="caption">{images[2].alt}</p>
-          </SwiperSlide>
-        </Swiper>
+        <>
+          <Swiper
+            className="mySwiper"
+            modules={[Autoplay, Pagination]}
+            pagination={{
+              clickable: true,
+              type: "bullets",
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: true,
+            }}
+            loop={true}
+          >
+            <SwiperSlide className="swiperImg">
+              <figure className="crlImgContainer">
+                <img src={images[0].src} alt={images[0].alt} />
+                <p className="caption">{images[0].alt}</p>
+              </figure>
+            </SwiperSlide>
+            <SwiperSlide className="swiperImg">
+              <figure className="crlImgContainer">
+                <img src={images[1].src} alt={images[1].alt} />
+                <p className="caption">{images[1].alt}</p>
+              </figure>
+            </SwiperSlide>
+            <SwiperSlide className="swiperImg">
+              <figure className="crlImgContainer">
+                <img src={images[2].src} alt={images[2].alt} />
+                <p className="caption">{images[2].alt}</p>
+              </figure>
+            </SwiperSlide>
+          </Swiper>
+        </>
       ) : (
         <>
           <figure className="cardCarousel">
