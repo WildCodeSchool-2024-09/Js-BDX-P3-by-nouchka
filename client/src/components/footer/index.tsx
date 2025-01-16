@@ -1,36 +1,44 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-import SocialMedia from "../../pages/social-media/SocialMedia";
 export default function Footer() {
   return (
     <>
       <footer className="footer">
-        <Link to="/">
+        <Link to="/" className="blockLogoFooter">
           {" "}
           <img
             src="src/assets/logo/logo_light.svg"
-            alt="back to home page"
+            alt="retour a la page d'acceuil"
             className="logo-footer"
           />
         </Link>
-        <article className="blocklink">
-          <Link to="/cgu" className="footerLinks">
-            CGV
-          </Link>
-          <Link to="/cgv" className="footerLinks">
-            CGU
-          </Link>
-          <Link to="/faq" className="footerLinks">
-            FAQ
-          </Link>
-          <Link to="/legal-mentions" className="footerLinks">
-            Mentions légales
-          </Link>
-          <Link to="/privacy-policy" className="footerLinks">
-            Politique de confidentialité
-          </Link>
-          <SocialMedia />
-        </article>
+        <Link to="/cgu" className="blocklink">
+          CGV
+        </Link>
+        <Link to="/cgv" className="blocklink">
+          CGU
+        </Link>
+        <Link to="/faq" className="blocklink">
+          FAQ
+        </Link>
+        <Link to="/legal-mentions" className="blocklink">
+          Mentions légales
+        </Link>
+        <Link to="/privacy-policy" className="blocklink">
+          Politique de confidentialité
+        </Link>
+        <a
+          href="https://www.instagram.com/by.nouchka?igsh=MWFiMHZrNThmNzQ2Yw=="
+          target="_blank"
+          rel="noreferrer"
+          className="blocklink"
+        >
+          <img
+            src="src/assets/Icones/instagram.png"
+            alt="redirection a la page instagram bynouchka."
+            className="instagram-icone"
+          />
+        </a>
       </footer>
     </>
   );
