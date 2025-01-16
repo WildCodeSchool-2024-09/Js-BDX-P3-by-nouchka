@@ -19,24 +19,25 @@ CREATE TABLE admin (
   FOREIGN KEY (users_id) REFERENCES users(id)
   ON DELETE CASCADE
 );
-
 CREATE TABLE photos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     URL TEXT NOT NULL
 );
-
 CREATE TABLE events (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
     date TIMESTAMP DEFAULT NOW() NOT NULL,
     location TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    photos_id INT UNSIGNED,
+    FOREIGN KEY (photos_id) REFERENCES photos(id)
+    ON DELETE CASCADE
 );
-
 CREATE TABLE pages (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
     description TEXT NOT NULL
 );
+
 
 CREATE TABLE likes (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL
@@ -76,23 +77,24 @@ CREATE TABLE photos_events (
 CREATE TABLE photos_jewelry (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     photos_id INT UNSIGNED NOT NULL,
+
     FOREIGN KEY (photos_id) REFERENCES photos(id)
     ON DELETE CASCADE,
     jewelry_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
     ON DELETE CASCADE
 );
-
 CREATE TABLE billing_address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     address_id INT UNSIGNED NOT NULL,
+
     FOREIGN KEY (address_id) REFERENCES address(id)
     ON DELETE CASCADE
 );
-
 CREATE TABLE shipping_address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     address_id INT UNSIGNED NOT NULL,
+
     FOREIGN KEY (address_id) REFERENCES address(id)
     ON DELETE CASCADE
 );
@@ -100,10 +102,10 @@ CREATE TABLE shipping_address (
 CREATE TABLE photos_pages (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     photos_id INT UNSIGNED NOT NULL,
+
     FOREIGN KEY(photos_id) REFERENCES photos(id)
     ON DELETE CASCADE
 );
-
 CREATE TABLE clients_orders (
   clients_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (clients_id) REFERENCES clients(id)
