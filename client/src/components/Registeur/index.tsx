@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../Registeur/style.css";
+import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { FormEvent } from "react";
 
 interface FormData {
   lastname: string;
@@ -29,7 +29,6 @@ export default function RegisteurBlock() {
       ...prev,
       [name]: value,
     }));
-  
 
     if (name === "mail") {
       validateEmail(value);
@@ -51,9 +50,9 @@ export default function RegisteurBlock() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const contentType = response.headers.get("content-type");
@@ -62,20 +61,21 @@ export default function RegisteurBlock() {
       }
 
       if (!response.ok) {
-        throw new Error ("Erreur de connexion au serveur");
+        throw new Error("Erreur de connexion au serveur");
       }
 
       setFormData({
         lastname: "",
         firstname: "",
         mail: "",
-        password: ""
+        password: "",
       });
       setError("");
-      
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error:", error);
-      setError(error.message || "Erreur lors de l'inscription");
+      setError(
+        error instanceof Error ? error.message : "Erreur lors de l'inscription",
+      );
     }
   };
   return (
