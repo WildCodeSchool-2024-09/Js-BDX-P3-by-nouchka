@@ -1,7 +1,8 @@
 
 CREATE TABLE pages (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    url_illustration TEXT NOT NULL
 );
 
 CREATE TABLE photos (
