@@ -31,4 +31,10 @@ router.post("/api/admins", adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
+import pagesActions from "./modules/pages/pagesActions";
+
+router.get("/api/pages", pagesActions.browse);
+router.get("/api/pages/:name", pagesActions.read);
+router.put("/api/pages/:name", pagesActions.edit);
+
 export default router;
