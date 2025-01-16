@@ -1,0 +1,66 @@
+@import url("../../App.css");
+
+.registeurForm {
+  background: var(--secondaryColor);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem;
+  gap: 2rem;
+}
+
+.titleForm {
+  display: flex;
+  justify-content: center;
+  font-family: var(--titleFont);
+  color: var(--primaryColor);
+  margin: 2rem;
+}
+
+.registeurName,
+.registeurFirstName,
+.registeurEmail,
+.registeurName,
+.registeurPassword {
+  background-color: var(--secondaryColor);
+  font-family: var(--textFont);
+  width: 100%;
+}
+
+.registeurBlockName,
+.registeurBlockFirstName,
+.registeurBlockEmail,
+.password {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--secondaryColor);
+  border-width: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: var(--textColor);
+}
+
+.registeurSend {
+  width: 20%;
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+}
+
+.linkShop {
+  text-decoration: none;
+  color: var(--textFont);
+  font-family: var(--textFont);
+}
+
+@media screen and (min-width: 768px) {
+  .registeurName,
+  .registeurFirstName,
+  .registeurEmail,
+  .registeurName,
+  .registeurPassword {
+    width: 35%;
+  }
+}
