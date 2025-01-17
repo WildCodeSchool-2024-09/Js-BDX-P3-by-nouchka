@@ -13,10 +13,10 @@ export default function Footer() {
           />
         </Link>
         <Link to="/cgu" className="blocklink">
-          CGV
+          CGU
         </Link>
         <Link to="/cgv" className="blocklink">
-          CGU
+          CGV
         </Link>
         <Link to="/faq" className="blocklink">
           FAQ
