@@ -188,3 +188,4 @@ CREATE TABLE jewelry_photos_jewelry (
     FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
     ON DELETE CASCADE
 );
+
