@@ -8,12 +8,25 @@
   --titleFont: "League Spartan", sans-serif;
   --textFont: "Poppins", sans-serif;
   --secondTextFont: "DynaPuff", sans-serif;
+
   --primaryColor: #ff006b;
   --secondaryColor: #fff9fd;
   --neutralColor: #ada197;
   --successColor: #41ad11;
   --successlightColor: #a2cf8f;
   --warningColor: #ff6725;
+
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --borderRadius: 16px;
+  --smallBoxShadow: 0px 4px 6px #0000001a;
+  --mediumBoxShadow: 0px 4px 8px #0000004d;
+  --border-solid: 1px solid #dddddd;
 }
 
 @font-face {

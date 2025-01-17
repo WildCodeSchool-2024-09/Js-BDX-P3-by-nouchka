@@ -1,3 +1,4 @@
+@import url("../../App.css");
 .imageContainer {
   width: 100%;
 }
@@ -10,10 +11,10 @@
 }
 .caption {
   font-size: 1.5rem;
-  color: var(--pink);
+  color: var(--primaryColor);
   font-family: var(--titleFont);
-  padding-top: 8px;
-  margin: 8px;
+  padding-top: var(--spacing-xs);
+  margin: var(--spacing-xs);
 }
 .mySwiper .swiper-slide {
   display: flex;
@@ -24,35 +25,36 @@
   width: 260px;
   height: 260px;
   object-fit: cover;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  border-top-left-radius: var(--borderRadius);
+  border-top-right-radius: var(--borderRadius);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .mySwiper .crlImgContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #dddddd;
-  border-radius: 16px;
-  box-shadow: 0px 4px 6px #0000001a;
+  border: var(--border-solid);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--lightBowShadow);
+  background-color: var(--secondaryColor);
 }
 .mySwiper .swiper-pagination {
   position: relative;
-  bottom: 15px;
+  bottom: var(--spacing-md);
   left: 50%;
   transform: translate3d(0, 0, 0);
   z-index: 10;
   gap: 5px;
-  padding-top: 16px;
+  padding-top: var(--spacing-md);
 }
 
 .mySwiper .swiper-pagination-bullet {
-  background-color: var(--green);
+  background-color: var(--successColor);
   opacity: 1;
 }
 
 .mySwiper .swiper-pagination-bullet-active {
-  background-color: var(--pink);
+  background-color: var(--primaryColor);
   opacity: 1;
 }
 
@@ -67,9 +69,9 @@
     display: inline-block;
     text-align: center;
     position: relative;
-    border: 1px solid #dddddd;
-    border-radius: 16px;
-    box-shadow: 0px 4px 6px #0000001a;
+    border: var(--border-solid);
+    border-radius: var(--borderRadius);
+    box-shadow: var(--lightBowShadow);
     margin: 10px;
     width: 260px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -78,18 +80,18 @@
     width: 100%;
     height: 260px;
     object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-top-left-radius: var(--borderRadius);
+    border-top-right-radius: var(--borderRadius);
   }
   .cardCarousel:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--mediumBoxShadow);
   }
   .cardCarousel figcaption {
     font-size: 1.5rem;
     color: var(--pink);
-    margin-top: 8px;
+    margin-top: var(--spacing-xs);
     font-family: var(--titleFont);
-    padding-bottom: 8px;
+    padding-bottom: var(--spacing-xs);
   }
 }

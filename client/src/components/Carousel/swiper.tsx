@@ -1,20 +1,50 @@
+import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
 import "../Carousel/style.css";
-
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
+interface JewelryItem {
+  id: number;
+  name: string;
+  url: string;
+}
 
+const images = [
+  { id: 1, src: "./bynouchka.png", alt: "Bynouchka" },
+  { id: 2, src: "./bijouxrandom.jpg", alt: "Bijoux Random" },
+  { id: 3, src: "./vite.svg", alt: "Vite Logo" },
+];
 export default function SwiperCaroussel() {
-  const images = [
-    { id: 1, src: "./bynouchka.png", alt: "Bynouchka" },
-    { id: 2, src: "./bijouxrandom.jpg", alt: "Bijoux Random" },
-    { id: 3, src: "./vite.svg", alt: "Vite Logo" },
-  ];
-
   const isSwiperActive = useSwiper();
+  const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://localhost:3310/api/jewelry", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        const data: JewelryItem[] = await response.json();
+        setJewelry(data);
+      } catch (err) {
+        console.error("Erreur lors de la récupération des événements :", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  if (loading) return <p>Chargement...</p>;
 
   return (
     <article className="imageContainer">
@@ -35,8 +65,8 @@ export default function SwiperCaroussel() {
           >
             <SwiperSlide className="swiperImg">
               <figure className="crlImgContainer">
-                <img src={images[0].src} alt={images[0].alt} />
-                <p className="caption">{images[0].alt}</p>
+                <img src={jewelry[0].url} alt={jewelry[0].name} />
+                <p className="caption">{jewelry[0].name}</p>
               </figure>
             </SwiperSlide>
             <SwiperSlide className="swiperImg">
@@ -58,10 +88,10 @@ export default function SwiperCaroussel() {
           <figure className="cardCarousel">
             <img
               className="imgCarousel"
-              src={images[0].src}
-              alt={images[0].alt}
+              src={jewelry[0].url}
+              alt={jewelry[0].name}
             />
-            <figcaption>{images[0].alt}</figcaption>
+            <figcaption>{jewelry[0].name}</figcaption>
           </figure>
           <figure className="cardCarousel">
             <img
