@@ -24,4 +24,5 @@
   border-top: 3px solid var(--primaryColor);
   margin-left: auto;
   margin-right: auto;
+  display: block;
 }
