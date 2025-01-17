@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import EventList from "../../components/Event/EventList";
 
 interface AboutData {
-  url: string;
+  url_illustration: string;
   description: string;
 }
 
@@ -14,7 +14,7 @@ export default function About() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3310/api/pages");
+      const response = await fetch("http://localhost:3310/api/about");
       if (response.ok) {
         const result: AboutData = await response.json();
         setData(result);
@@ -41,13 +41,9 @@ export default function About() {
   return (
     <>
       <h1 className="title-about-section">À propos de by.Nouchka</h1>
-      <h2 className="title-concept">Le concept</h2>
       <section className="about-section">
-        <img
-          className="img-about"
-          src={data?.url}
-          alt="concept de by.Nouchka"
-        />
+        <h2 className="title-concept">Le concept</h2>
+        <img className="img-about" src={data?.url_illustration} alt="" />
         <p>{data?.description}</p>
       </section>
       <EventList />
