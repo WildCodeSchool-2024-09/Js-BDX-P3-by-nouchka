@@ -27,6 +27,7 @@
   --smallBoxShadow: 0px 4px 6px #0000001a;
   --mediumBoxShadow: 0px 4px 8px #0000004d;
   --border-solid: 1px solid #dddddd;
+  --textColor: #222321;
 }
 
 @font-face {
