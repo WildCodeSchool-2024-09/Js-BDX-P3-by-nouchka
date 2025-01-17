@@ -46,7 +46,7 @@ export default function RegisteurBlock() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3310/api/users", {
+      const response = await fetch("http://localhost:3310/api/clients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function RegisteurBlock() {
         },
         body: JSON.stringify(formData),
       });
-
+      response.json();
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         throw new Error("Réponse invalide du serveur");
@@ -128,9 +128,11 @@ export default function RegisteurBlock() {
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}
+
         <button className="registeurSend" type="submit">
           Créer
         </button>
+
         <Link to="/shop" className="linkShop">
           Retour à la boutique
         </Link>

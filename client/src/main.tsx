@@ -13,6 +13,7 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import RegisteurBlock from "./components/Registeur";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/inscription",
+        element: <RegisteurBlock />,
       },
       {
         path: "/contact-block",

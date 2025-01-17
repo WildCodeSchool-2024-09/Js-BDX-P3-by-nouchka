@@ -10,11 +10,20 @@
 }
 
 .titleForm {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   font-family: var(--titleFont);
   color: var(--primaryColor);
   margin: 2rem;
+}
+
+.titleForm::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .registeurName,
@@ -49,10 +58,24 @@
   color: var(--secondaryColor);
 }
 
+.registeurSend:hover {
+  background-color: var(--primaryColor);
+}
+
+.registeurSend:active {
+  background-color: var(--primaryColor);
+}
+
 .linkShop {
   text-decoration: none;
   color: var(--textFont);
   font-family: var(--textFont);
+}
+
+.linkShop:hover {
+  color: var(--primaryColor);
+  text-decoration: underline;
+  text-decoration-color: var(--primaryColor);
 }
 
 @media screen and (min-width: 768px) {
