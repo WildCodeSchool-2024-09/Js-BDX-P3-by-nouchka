@@ -40,12 +40,6 @@ router.post("/api/admins", adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
-import orderActions from "./modules/order/orderActions";
-router.get("/api/orders", orderActions.browse);
-router.get("/api/orders/:id", orderActions.read);
-router.post("/api/orders", orderActions.add);
-router.put("/api/orders/:id", orderActions.edit);
-router.delete("/api/orders/:id", orderActions.destroy);
 import pagesActions from "./modules/pages/pagesActions";
 
 router.get("/api/pages", pagesActions.browse);
@@ -59,5 +53,13 @@ router.get("/api/events/:id", eventActions.read);
 router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
 router.delete("/api/events/:id", eventActions.destroy);
+
+import orderActions from "./modules/order/orderActions";
+
+router.get("/api/orders", orderActions.browse);
+router.get("/api/orders/:id", orderActions.read);
+router.post("/api/orders", orderActions.add);
+router.put("/api/orders/:id", orderActions.edit);
+router.delete("/api/orders/:id", orderActions.destroy);
 
 export default router;

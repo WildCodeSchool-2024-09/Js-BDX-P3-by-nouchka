@@ -142,10 +142,10 @@ class OrderRepository {
   async read(id: number) {
     const [rows] = await databaseClient.execute<Rows>(
       `SELECT * 
-        FROM order 
-        INNER JOIN billing_address ON order.id = billing_address_order.order_id
+        FROM orders 
+        INNER JOIN billing_address ON orders.id = billing_address_orders.orders_id
         INNER JOIN billing_address ON billing_address_order.billing_address_id = billing_address.id
-        WHERE order.id = ?`,
+        WHERE orders.id = ?`,
       [id],
     );
 
@@ -154,10 +154,10 @@ class OrderRepository {
 
   async readAll() {
     const [rows] = await databaseClient.execute<Rows>(
-      `SELECT order.*,
-      FROM order
-      INNER JOIN shipping_address_order ON order.id = shipping_address_order.order_id
-      INNER JOIN shipping_address ON shipping_address_order.shipping_address_id = shipping_address.id`,
+      `SELECT orders.*,
+      FROM orders
+      INNER JOIN shipping_address_orders ON orders.id = shipping_address_orders.orders_id
+      INNER JOIN shipping_address ON shipping_address_orders.shipping_address_id = shipping_address.id`,
     );
 
     return rows as Order[];
@@ -168,7 +168,7 @@ class OrderRepository {
     try {
       await connection.beginTransaction();
       const [rows] = await connection.execute<Result>(
-        `UPDATE order
+        `UPDATE orders
         SET type=?, stock=?, description=?, name=?, price=?
         WHERE id = ?`,
         [
@@ -196,11 +196,11 @@ class OrderRepository {
   }
   async delete(orderId: number) {
     const [result] = await databaseClient.execute<Result>(
-      `DELETE order, order, order_order
-       FROM order
-       INNER JOIN order_order ON order_order.order_id = order.id
-       INNER JOIN order ON order.id = order_order.order_id
-       WHERE order.id = ?`,
+      `DELETE orders, orders, orders_orders
+       FROM orders
+       INNER JOIN orders_orders ON orders_orders.orders_id = orders.id
+       INNER JOIN orders ON orders.id = orders_orders.orders_id
+       WHERE orders.id = ?`,
       [orderId],
     );
 
