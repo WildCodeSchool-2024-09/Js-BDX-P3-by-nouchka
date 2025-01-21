@@ -13,13 +13,13 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import RegisteurBlock from "./components/Registeur";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
-import RegisteurBlock from "./components/Registeur";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder

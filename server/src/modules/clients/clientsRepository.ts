@@ -56,6 +56,7 @@ class ClientsRepository {
     );
     return rows[0] as Clients;
   }
+
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT lastname, firstname, mail

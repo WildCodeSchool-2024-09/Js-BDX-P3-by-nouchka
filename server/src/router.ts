@@ -20,14 +20,13 @@ import clientsActions from "./modules/clients/clientsActions";
 router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
-router.post("/api/clients", clientsActions.add);
+router.post("/api/clients", authActions.hashPassword, clientsActions.add);
 router.delete("/api/clients/:id", clientsActions.destroy);
 
 import jewelryActions from "./modules/jewelry/jewelryActions";
 
 router.get("/api/jewelry", jewelryActions.browse);
 router.get("/api/jewelry/:id", jewelryActions.read);
-router.post("/api/jewelry", jewelryActions.add);
 router.put("/api/jewelry/:id", jewelryActions.edit);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
 
@@ -37,7 +36,7 @@ import adminActions from "./modules/admin/adminActions";
 
 router.get("/api/admins", adminActions.browse);
 router.get("/api/admins/:id", adminActions.read);
-router.post("/api/admins", adminActions.add);
+router.post("/api/admins", authActions.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
@@ -55,4 +54,11 @@ router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
 router.delete("/api/events/:id", eventActions.destroy);
 
+import authActions from "./modules/Auth/authActions";
+
+router.post("/api/auth/login", authActions.login);
+
+router.use(authActions.verifyToken);
+
+router.post("/api/jewelry", jewelryActions.add);
 export default router;
