@@ -4,6 +4,7 @@ const router = express.Router();
 
 /* ************************************************************************* */
 // Define Your API Routes Here
+
 /* ************************************************************************* */
 
 // Define item-related routes
@@ -39,6 +40,12 @@ router.get("/api/admins/:id", adminActions.read);
 router.post("/api/admins", adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
+
+import pagesActions from "./modules/pages/pagesActions";
+
+router.get("/api/pages", pagesActions.browse);
+router.get("/api/pages/:name", pagesActions.read);
+router.put("/api/pages/:name", pagesActions.edit);
 
 import eventActions from "./modules/event/eventActions";
 

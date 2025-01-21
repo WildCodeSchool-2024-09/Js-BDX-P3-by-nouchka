@@ -6,6 +6,12 @@ CREATE TABLE users (
     password VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE pages (
+    name VARCHAR(255) NOT NULL PRIMARY KEY,
+    description TEXT NOT NULL,
+    url_illustration TEXT NOT NULL
+);
+
 CREATE TABLE clients (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     users_id INT UNSIGNED NOT NULL,
@@ -19,10 +25,12 @@ CREATE TABLE admin (
   FOREIGN KEY (users_id) REFERENCES users(id)
   ON DELETE CASCADE
 );
+
 CREATE TABLE photos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     URL TEXT NOT NULL
 );
+
 CREATE TABLE events (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -32,10 +40,6 @@ CREATE TABLE events (
     photos_id INT UNSIGNED,
     FOREIGN KEY (photos_id) REFERENCES photos(id)
     ON DELETE CASCADE
-);
-CREATE TABLE pages (
-    name VARCHAR(255) NOT NULL PRIMARY KEY,
-    description TEXT NOT NULL
 );
 
 
