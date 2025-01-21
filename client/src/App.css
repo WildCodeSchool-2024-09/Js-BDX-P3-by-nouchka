@@ -8,12 +8,19 @@
   --titleFont: "League Spartan", sans-serif;
   --textFont: "Poppins", sans-serif;
   --secondTextFont: "DynaPuff", sans-serif;
+
   --primaryColor: #ff006b;
   --secondaryColor: #fff9fd;
   --neutralColor: #ada197;
   --successColor: #41ad11;
   --successlightColor: #a2cf8f;
   --warningColor: #ff6725;
+
+  --spacing: 16px;
+  --borderRadius: 16px;
+  --smallBoxShadow: 0px 4px 6px #0000001a;
+  --mediumBoxShadow: 0px 4px 8px #0000004d;
+  --border-solid: 1px solid #dddddd;
   --textColor: #222321;
 }
 
@@ -60,7 +67,6 @@
   font-weight: bold;
   font-style: normal;
 }
-
 body {
   background-color: var(--secondaryColor);
 }
