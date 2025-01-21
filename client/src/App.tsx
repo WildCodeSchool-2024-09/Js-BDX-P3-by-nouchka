@@ -7,7 +7,6 @@ import ImageHero from "./components/ImageHero/ImageHero";
 function App() {
   return (
     <>
-      {" "}
       <Header />
       <ImageHero
         imageUrl={heroImage}
