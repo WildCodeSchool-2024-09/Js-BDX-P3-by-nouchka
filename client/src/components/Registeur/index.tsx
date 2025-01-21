@@ -3,12 +3,12 @@ import "../Registeur/style.css";
 import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 
-interface FormData {
+type FormData = {
   lastname: string;
   firstname: string;
   mail: string;
   password: string;
-}
+};
 
 export default function RegisteurBlock() {
   const [formData, setFormData] = useState<FormData>({
@@ -46,14 +46,16 @@ export default function RegisteurBlock() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3310/api/clients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/clients`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
       response.json();
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
@@ -66,7 +68,8 @@ export default function RegisteurBlock() {
 
       setFormData({
         lastname: "",
-        firstname: "",
+        firstname:
+          "" /*ajout d'un UseNavigate pour rediriger vers la page de connexion*/,
         mail: "",
         password: "",
       });

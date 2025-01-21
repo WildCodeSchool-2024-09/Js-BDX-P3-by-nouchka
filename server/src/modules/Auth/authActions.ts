@@ -1,9 +1,8 @@
 import argon2 from "argon2";
-import type { RequestHandler, Request } from "express";
+import type { Request, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import adminRepository from "../admin/adminRepository";
 import usersRepository from "../users/usersRepository";
-
 
 import type { JwtPayload } from "jsonwebtoken";
 
