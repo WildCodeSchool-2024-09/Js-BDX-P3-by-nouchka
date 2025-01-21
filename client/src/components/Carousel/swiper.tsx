@@ -2,21 +2,18 @@ import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
+import CarouselCard from "../Carousel/cardCarousel";
 import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
+import CardDesktop from "./cardDesktop";
 interface JewelryItem {
   id: number;
   name: string;
-  url: string;
+  URL: string;
 }
 
-const images = [
-  { id: 1, src: "./bynouchka.png", alt: "Bynouchka" },
-  { id: 2, src: "./bijouxrandom.jpg", alt: "Bijoux Random" },
-  { id: 3, src: "./vite.svg", alt: "Vite Logo" },
-];
 export default function SwiperCaroussel() {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
@@ -25,13 +22,16 @@ export default function SwiperCaroussel() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/jewelry", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/jewelry`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
           },
-        });
+        );
         const data: JewelryItem[] = await response.json();
         setJewelry(data);
       } catch (err) {
@@ -40,12 +40,12 @@ export default function SwiperCaroussel() {
         setLoading(false);
       }
     };
-
     fetchEvents();
   }, []);
 
   if (loading) return <p>Chargement...</p>;
 
+  console.info(jewelry);
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
@@ -63,52 +63,25 @@ export default function SwiperCaroussel() {
             }}
             loop={true}
           >
-            <SwiperSlide className="swiperImg">
-              <figure className="crlImgContainer">
-                <img src={jewelry[0].url} alt={jewelry[0].name} />
-                <p className="caption">{jewelry[0].name}</p>
-              </figure>
-            </SwiperSlide>
-            <SwiperSlide className="swiperImg">
-              <figure className="crlImgContainer">
-                <img src={images[1].src} alt={images[1].alt} />
-                <p className="caption">{images[1].alt}</p>
-              </figure>
-            </SwiperSlide>
-            <SwiperSlide className="swiperImg">
-              <figure className="crlImgContainer">
-                <img src={images[2].src} alt={images[2].alt} />
-                <p className="caption">{images[2].alt}</p>
-              </figure>
-            </SwiperSlide>
+            {jewelry.slice(0, 3).map((item) => (
+              <SwiperSlide key={item.id} className="swiperImg">
+                <CarouselCard
+                  url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                  name={item.name}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </>
       ) : (
         <>
-          <figure className="cardCarousel">
-            <img
-              className="imgCarousel"
-              src={jewelry[0].url}
-              alt={jewelry[0].name}
+          {jewelry.slice(0, 3).map((item) => (
+            <CardDesktop
+              key={item.id}
+              url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+              name={item.name}
             />
-            <figcaption>{jewelry[0].name}</figcaption>
-          </figure>
-          <figure className="cardCarousel">
-            <img
-              className="imgCarousel"
-              src={images[1].src}
-              alt={images[1].alt}
-            />
-            <figcaption>{images[1].alt}</figcaption>
-          </figure>
-          <figure className="cardCarousel">
-            <img
-              className="imgCarousel"
-              src={images[2].src}
-              alt={images[2].alt}
-            />
-            <figcaption>{images[2].alt}</figcaption>
-          </figure>
+          ))}
         </>
       )}
     </article>

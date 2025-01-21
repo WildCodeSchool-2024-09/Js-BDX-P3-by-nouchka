@@ -16,13 +16,7 @@
   --successlightColor: #a2cf8f;
   --warningColor: #ff6725;
 
-  --spacing-xxs: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-xxl: 48px;
+  --spacing: 16px;
   --borderRadius: 16px;
   --smallBoxShadow: 0px 4px 6px #0000001a;
   --mediumBoxShadow: 0px 4px 8px #0000004d;

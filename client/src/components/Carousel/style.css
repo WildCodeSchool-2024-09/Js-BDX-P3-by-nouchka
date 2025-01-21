@@ -1,4 +1,3 @@
-@import url("../../App.css");
 .imageContainer {
   width: 100%;
 }
@@ -13,8 +12,8 @@
   font-size: 1.5rem;
   color: var(--primaryColor);
   font-family: var(--titleFont);
-  padding-top: var(--spacing-xs);
-  margin: var(--spacing-xs);
+  padding-top: calc(var(--spacing) * 0.5);
+  margin: calc(var(--spacing) * 0.5);
 }
 .mySwiper .swiper-slide {
   display: flex;
@@ -36,16 +35,14 @@
   border: var(--border-solid);
   border-radius: var(--borderRadius);
   box-shadow: var(--lightBowShadow);
-  background-color: var(--secondaryColor);
 }
 .mySwiper .swiper-pagination {
   position: relative;
-  bottom: var(--spacing-md);
+  bottom: var(--spacing);
   left: 50%;
   transform: translate3d(0, 0, 0);
   z-index: 10;
-  gap: 5px;
-  padding-top: var(--spacing-md);
+  padding-top: var(--spacing);
 }
 
 .mySwiper .swiper-pagination-bullet {
@@ -62,10 +59,10 @@
   .imageContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     cursor: pointer;
   }
-  .cardCarousel {
+  .cardDesktop {
     display: inline-block;
     text-align: center;
     position: relative;
@@ -76,22 +73,22 @@
     width: 260px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .imgCarousel {
+  .imgDesktop {
     width: 100%;
     height: 260px;
     object-fit: cover;
     border-top-left-radius: var(--borderRadius);
     border-top-right-radius: var(--borderRadius);
   }
-  .cardCarousel:hover {
+  .cardDesktop:hover {
     transform: scale(1.1);
     box-shadow: var(--mediumBoxShadow);
   }
-  .cardCarousel figcaption {
+  .cardDesktop figcaption {
     font-size: 1.5rem;
-    color: var(--pink);
-    margin-top: var(--spacing-xs);
+    color: var(--primaryColor);
+    margin-top: calc(var(--spacing) * 0.5);
     font-family: var(--titleFont);
-    padding-bottom: var(--spacing-xs);
+    padding-bottom: calc(var(--spacing) * 0.5);
   }
 }
