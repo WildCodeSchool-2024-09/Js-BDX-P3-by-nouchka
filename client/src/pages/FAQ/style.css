@@ -1,0 +1,33 @@
+.faq-title {
+  font-family: var(--titleFont);
+  padding: 1.5rem;
+  color: var(--primaryColor);
+  text-align: center;
+}
+.faq-title::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq-question,
+.faq-answer {
+  border: solid var(--primaryColor);
+  font-family: var(--textFont);
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 15px;
+  padding: 0.5rem;
+}
+.faq-section {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+}
