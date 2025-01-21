@@ -45,7 +45,6 @@ export default function SwiperCaroussel() {
 
   if (loading) return <p>Chargement...</p>;
 
-  console.info(jewelry);
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
