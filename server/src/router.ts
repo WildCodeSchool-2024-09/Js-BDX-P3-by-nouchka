@@ -37,7 +37,7 @@ import adminActions from "./modules/admin/adminActions";
 
 router.get("/api/admins", adminActions.browse);
 router.get("/api/admins/:id", adminActions.read);
-router.post("/api/admins", adminActions.add);
+router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
