@@ -15,7 +15,6 @@ class ClientsRepository {
     const connection = await databaseClient.getConnection();
     try {
       await connection.beginTransaction();
-
       const [users] = await connection.query<Result>(
         `INSERT INTO users
             (lastname, firstname, mail, password)

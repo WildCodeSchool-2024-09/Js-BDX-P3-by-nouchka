@@ -3,7 +3,7 @@ CREATE TABLE users (
     lastname VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     mail VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(512) NOT NULL
 );
 
 CREATE TABLE pages (
@@ -41,11 +41,16 @@ CREATE TABLE events (
     FOREIGN KEY (photos_id) REFERENCES photos(id)
     ON DELETE CASCADE
 );
-
-
 CREATE TABLE likes (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    status BOOLEAN DEFAULT true
+    status BOOLEAN DEFAULT true,
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+    ON DELETE CASCADE,
+    users_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES users(id)
+    ON DELETE CASCADE
+
 );
 
 CREATE TABLE address (
@@ -145,23 +150,5 @@ CREATE TABLE jewelry_clients (
     ON DELETE CASCADE,
     clients_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (clients_id) REFERENCES clients(id)
-    ON DELETE CASCADE
-);
-
-CREATE TABLE likes_clients (
-  clients_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (clients_id) REFERENCES clients(id)
-    ON DELETE CASCADE,
-    likes_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (likes_id) REFERENCES likes(id)
-    ON DELETE CASCADE
-);
-
-CREATE TABLE likes_jewelry (
-  jewelry_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
-    ON DELETE CASCADE,
-    likes_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (likes_id) REFERENCES likes(id)
     ON DELETE CASCADE
 );
