@@ -47,9 +47,9 @@ export const useRegisteurForm = () => {
           body: JSON.stringify(formData),
         },
       );
-
+      response.json();
       if (!response.ok) {
-        const errorData = await response.text();
+        const errorData = await response.json();
         if (
           errorData.includes("Duplicate entry") ||
           errorData.includes("mail")
