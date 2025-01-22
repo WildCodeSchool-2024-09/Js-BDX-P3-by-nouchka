@@ -13,7 +13,10 @@ export default function EventList() {
       try {
         const response = await fetch("http://localhost:3310/api/events");
         const data: EventData[] = await response.json();
-        setEvents(data);
+        const uniqueEvents = Array.from(
+          new Map(data.map((event) => [event.id, event])).values(),
+        );
+        setEvents(uniqueEvents);
       } catch (err) {
         setError("Erreur lors de la récupération des données");
       } finally {

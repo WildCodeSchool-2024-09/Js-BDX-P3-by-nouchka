@@ -19,7 +19,9 @@
   color: var(--primaryColor);
   text-align: center;
   margin: 2rem;
+  grid-area: 1 / 1 / 2 / 3;
 }
+
 .about-section {
   font-family: var(--textFont);
   font-size: 0.9rem;
