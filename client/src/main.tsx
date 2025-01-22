@@ -13,6 +13,12 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import CGU from "./pages/CGU/cgu";
+import CGV from "./pages/CGV/cgv";
+import FAQ from "./pages/FAQ/faq";
+import Home from "./pages/Home";
+import LegalMentions from "./pages/legal-mentions/LegalMentions";
+import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -27,10 +33,35 @@ import App from "./App";
 const router = createBrowserRouter([
   {
     // The root path
+    // The root path
     element: <App />, // Renders the App component for the home page
     children: [
       // Try adding a new route! For example, "/about" with an About component
 
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/cgu",
+        element: <CGU />,
+      },
+      {
+        path: "/cgv",
+        element: <CGV />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
+      },
+      {
+        path: "/legal-mentions",
+        element: <LegalMentions />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
       {
         path: "/shop",
         element: <Shop />,
@@ -61,6 +92,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  // Try adding a new route! For example, "/about" with an About component
 ]);
 
 /* ************************************************************************* */
@@ -81,22 +114,28 @@ createRoot(rootElement).render(
 /**
  * Helpful Notes:
  *
+ *
  * 1. Adding More Routes:
  *    To add more pages to your app, first create a new component (e.g., About.tsx).
  *    Then, import that component above like this:
  *
+ *
  *    import About from "./pages/About";
  *
+ *
  *    Add a new route to the router:
+ *
  *
  *      {
  *        path: "/about",
  *        element: <About />,  // Renders the About component
  *      }
  *
+ *
  * 2. Try Nested Routes:
  *    For more complex applications, you can nest routes. This lets you have sub-pages within a main page.
  *    Documentation: https://reactrouter.com/en/main/start/tutorial#nested-routes
+ *
  *
  * 3. Experiment with Dynamic Routes:
  *    You can create routes that take parameters (e.g., /users/:id).
