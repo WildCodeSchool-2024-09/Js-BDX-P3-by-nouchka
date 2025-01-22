@@ -27,6 +27,7 @@ import jewelryActions from "./modules/jewelry/jewelryActions";
 
 router.get("/api/jewelry", jewelryActions.browse);
 router.get("/api/jewelry/:id", jewelryActions.read);
+router.post("/api/jewelry", jewelryActions.add);
 router.put("/api/jewelry/:id", jewelryActions.edit);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
 
@@ -60,5 +61,4 @@ router.post("/api/auth/login", authActions.login);
 
 router.use(authActions.verifyToken);
 
-router.post("/api/jewelry", jewelryActions.add);
 export default router;

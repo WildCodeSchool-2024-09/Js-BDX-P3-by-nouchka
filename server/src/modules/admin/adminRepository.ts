@@ -57,7 +57,16 @@ class AdminRepository {
     );
     return rows[0] as Admin;
   }
-
+  async checkIsAdmin(id: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT lastname, firstname, mail, admin.id
+    FROM users
+    INNER JOIN admin ON users.id = admin.users_id
+    WHERE users.id = ? `,
+      [id],
+    );
+    return rows[0] as Admin;
+  }
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT lastname, firstname, mail

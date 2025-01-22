@@ -5,6 +5,7 @@ import adminRepository from "../admin/adminRepository";
 import usersRepository from "../users/usersRepository";
 
 import type { JwtPayload } from "jsonwebtoken";
+import clientsRepository from "../clients/clientsRepository";
 
 interface MyPayload extends JwtPayload {
   sub: string;
@@ -26,10 +27,10 @@ const login: RequestHandler = async (req, res, next) => {
     const verified = await argon2.verify(user.password, req.body.password);
     if (verified) {
       const { password, ...userWithoutHashedPassword } = user;
-      const admin = await adminRepository.read(user.id);
-
+      const admin = await adminRepository.checkIsAdmin(user.id);
+      const client = await clientsRepository.checkIsClient(user.id);
       const myPayload: MyPayload = {
-        sub: user.id.toString(),
+        sub: admin.id.toString() || client.id.toString(),
         isAdmin: !!admin,
       };
 
