@@ -12,9 +12,18 @@ interface JewelryItem {
   id: number;
   name: string;
   URL: string;
+  type: string;
 }
 
-export default function SwiperCaroussel() {
+interface SwiperCarouselProps {
+  itemsToShow?: number;
+  type?: string;
+}
+
+export default function SwiperCaroussel({
+  itemsToShow = 4,
+  type = "boucle d'oreille",
+}: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -33,7 +42,10 @@ export default function SwiperCaroussel() {
           },
         );
         const data: JewelryItem[] = await response.json();
-        setJewelry(data);
+        const filteredData = type
+          ? data.filter((item) => item.type === type)
+          : data;
+        setJewelry(filteredData);
       } catch (err) {
         console.error("Erreur lors de la récupération des événements :", err);
       } finally {
@@ -41,7 +53,7 @@ export default function SwiperCaroussel() {
       }
     };
     fetchEvents();
-  }, []);
+  }, [type]);
 
   if (loading) return <p>Chargement...</p>;
 
@@ -62,7 +74,7 @@ export default function SwiperCaroussel() {
             }}
             loop={true}
           >
-            {jewelry.slice(0, 3).map((item) => (
+            {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
                 <CarouselCard
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
@@ -74,7 +86,7 @@ export default function SwiperCaroussel() {
         </>
       ) : (
         <>
-          {jewelry.slice(0, 3).map((item) => (
+          {jewelry.slice(0, itemsToShow).map((item) => (
             <CardDesktop
               key={item.id}
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
