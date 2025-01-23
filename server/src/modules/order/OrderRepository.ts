@@ -66,7 +66,7 @@ class OrderRepository {
       const [shipping_address] = await connection.execute<Result>(
         `INSERT INTO address
           (street_number, street_name, postal_code, city)
-      
+        
         VALUES (?, ?, ?, ?) `,
         [
           order.shipping_address?.street_number,
