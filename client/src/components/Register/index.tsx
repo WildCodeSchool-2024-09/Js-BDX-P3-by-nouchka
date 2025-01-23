@@ -12,7 +12,7 @@ export default function RegisteurBlock() {
       <form className="registerForm" onSubmit={handleSubmit}>
         <label htmlFor="register" className="registerName">
           <input
-          id="lastname"
+            id="lastname"
             className="registerBlockName"
             required
             type="text"
@@ -24,7 +24,7 @@ export default function RegisteurBlock() {
         </label>
         <label htmlFor="registerFirstName" className="registerFirstName">
           <input
-          id="firstname"
+            id="firstname"
             className="registerBlockFirstName"
             required
             type="text"
@@ -36,7 +36,7 @@ export default function RegisteurBlock() {
         </label>
         <label htmlFor="email" className="registerEmail">
           <input
-          id="email"
+            id="email"
             className="registerBlockEmail"
             required
             type="email"
@@ -49,7 +49,7 @@ export default function RegisteurBlock() {
         {emailError && <p className="errorEmail">{emailError}</p>}
         <label htmlFor="password" className="registerPassword">
           <input
-          id="password"
+            id="password"
             className="password"
             required
             type="password"

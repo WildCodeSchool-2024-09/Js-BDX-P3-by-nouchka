@@ -1,8 +1,8 @@
 import argon2 from "argon2";
 import type { Request, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import adminRepository from "../modules/admin/adminRepository";
 import usersRepository from "../modules/Auth/usersRepository";
+import adminRepository from "../modules/admin/adminRepository";
 
 import type { JwtPayload } from "jsonwebtoken";
 import clientsRepository from "../modules/clients/clientsRepository";
@@ -25,13 +25,13 @@ const login: RequestHandler = async (req, res, next) => {
       return;
     }
     const verified = await argon2.verify(user.password, req.body.password);
-    console.info(verified)
+    console.info(verified);
     if (verified) {
       const { password, ...userWithoutHashedPassword } = user;
       const admin = await adminRepository.checkIsAdmin(user.id);
       const client = await clientsRepository.checkIsClient(user.id);
       const myPayload: MyPayload = {
-        sub:user.id.toString(),
+        sub: user.id.toString(),
         isAdmin: !!admin,
       };
 

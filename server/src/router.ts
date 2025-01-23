@@ -57,7 +57,6 @@ router.delete("/api/events/:id", eventActions.destroy);
 
 import authMiddleware from "../src/Middleware/authMiddleware";
 
-
 router.post("/api/auth/login", authMiddleware.login);
 
 router.use(authMiddleware.verifyToken);
