@@ -12,7 +12,7 @@ function App() {
         imageUrl={heroImage}
         altText="Heroimge"
         title="BY Nouchka "
-        subtitle="Bijoux et Upcycling"
+        subtitle="Fait main avec beaucoup d’amour ❤️"
       />
       <Outlet />
     </>
