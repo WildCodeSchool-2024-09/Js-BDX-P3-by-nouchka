@@ -5,24 +5,33 @@
 }
 
 :root {
-  --hero-image: url("./assets/images/hero.jpg"); /* Image de fond par défaut */
-  --hero-title: "BY Nouchka"; /* Titre par défaut */
-  --hero-subtitle: "Bijoux et Upcycling"; /* Sous-titre par défaut */
-  --hero-height: 400px; /* Hauteur du composant */
-  --hero-text-color: white; /* Couleur du texte */
+  --hero-image: url("./assets/images/hero.jpg");
+  --hero-height: 400px;
+  --hero-text-color: white;
 }
 
 .image-hero {
-  width: 100vw; /* Prend toute la largeur de la fenêtre */
-  height: var(--hero-height); /* Utilise la hauteur définie */
-  background-size: cover; /* Couvre tout le conteneur */
-  background-position: center; /* Centre l'image */
-  display: flex; /* Permet de centrer le contenu */
-  flex-direction: column; /* Aligne les enfants en colonne */
-  justify-content: center; /* Centre verticalement */
-  align-items: center; /* Centre horizontalement */
+  width: 100vw;
+  height: var(--hero-height);
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: var(--hero-text-color);
-  margin: 0; /* Supprime les marges */
-  padding: 0; /* Supprime les paddings */
+  margin: 0;
+  padding: 0;
+}
+
+.image-hero-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.image-hero-subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
 }
