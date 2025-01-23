@@ -1,0 +1,6 @@
+@import url("../../App.css");
+
+.garbageButton {
+  background-color: var(--secondaryColor);
+  border: none;
+}

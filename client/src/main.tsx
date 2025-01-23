@@ -18,6 +18,7 @@ import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
+import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
 
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path: "/contact-block",
         element: <ContactBlock />,
+      },
+      {
+        path: "/product",
+        element: <ProductPage />,
       },
     ],
   },
