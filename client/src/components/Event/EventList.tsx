@@ -32,7 +32,7 @@ export default function EventList() {
 
   return (
     <section className="event-section">
-      <h2 className="title-event-section">À venir</h2>
+      <h2 className="title-event-section">Où me trouver ?</h2>
       {events.map((event, index) => (
         <EventItem
           event={event}

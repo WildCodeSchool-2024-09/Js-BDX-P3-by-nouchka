@@ -1,9 +1,9 @@
-interface CarouselCardProps {
+interface CardCarouselProps {
   url: string;
   name: string;
 }
 
-function CarouselCard({ url, name }: CarouselCardProps) {
+function CardCarousel({ url, name }: CardCarouselProps) {
   return (
     <figure className="crlImgContainer">
       <img src={url} alt="" />
@@ -12,4 +12,4 @@ function CarouselCard({ url, name }: CarouselCardProps) {
   );
 }
 
-export default CarouselCard;
+export default CardCarousel;

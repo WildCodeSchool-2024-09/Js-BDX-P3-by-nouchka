@@ -40,7 +40,7 @@ export default function About() {
 
   return (
     <>
-      <h1 className="title-about-section">À propos de by.Nouchka</h1>
+      <h1 className="title-about-section">" À propos de by.Nouchka "</h1>
       <section className="about-section">
         <h2 className="title-concept">Le concept</h2>
         <img

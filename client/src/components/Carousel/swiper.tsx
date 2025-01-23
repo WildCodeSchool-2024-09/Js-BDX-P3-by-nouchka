@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
-import CarouselCard from "../Carousel/cardCarousel";
+import CardCarousel from "../Carousel/cardCarousel";
 import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
@@ -21,8 +21,8 @@ interface SwiperCarouselProps {
 }
 
 export default function SwiperCaroussel({
-  itemsToShow = 4,
-  type = "boucle d'oreille",
+  itemsToShow,
+  type,
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
@@ -76,7 +76,7 @@ export default function SwiperCaroussel({
           >
             {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <CarouselCard
+                <CardCarousel
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                   name={item.name}
                 />
