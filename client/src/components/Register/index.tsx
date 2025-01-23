@@ -1,18 +1,19 @@
-import "../Registeur/style.css";
+import "../Register/style.css";
 import { Link } from "react-router-dom";
-import { useRegisteurForm } from "./RegisteurLogic";
+import { useRegisterForm } from "./RegisterLogic";
 
 export default function RegisteurBlock() {
   const { formData, emailError, error, handleChange, handleSubmit } =
-    useRegisteurForm();
+    useRegisterForm();
 
   return (
     <>
       <h2 className="titleForm">Créer un compte</h2>
-      <form className="registeurForm" onSubmit={handleSubmit}>
-        <label htmlFor="registeur" className="registeurName">
+      <form className="registerForm" onSubmit={handleSubmit}>
+        <label htmlFor="register" className="registerName">
           <input
-            className="registeurBlockName"
+          id="lastname"
+            className="registerBlockName"
             required
             type="text"
             name="lastname"
@@ -21,9 +22,10 @@ export default function RegisteurBlock() {
             placeholder="Nom..."
           />
         </label>
-        <label htmlFor="registeurFirstName" className="registeurFirstName">
+        <label htmlFor="registerFirstName" className="registerFirstName">
           <input
-            className="registeurBlockFirstName"
+          id="firstname"
+            className="registerBlockFirstName"
             required
             type="text"
             name="firstname"
@@ -32,9 +34,10 @@ export default function RegisteurBlock() {
             placeholder="Prénom..."
           />
         </label>
-        <label htmlFor="email" className="registeurEmail">
+        <label htmlFor="email" className="registerEmail">
           <input
-            className="registeurBlockEmail"
+          id="email"
+            className="registerBlockEmail"
             required
             type="email"
             name="mail"
@@ -44,8 +47,9 @@ export default function RegisteurBlock() {
           />
         </label>
         {emailError && <p className="errorEmail">{emailError}</p>}
-        <label htmlFor="pasword" className="registeurPassword">
+        <label htmlFor="password" className="registerPassword">
           <input
+          id="password"
             className="password"
             required
             type="password"
@@ -57,7 +61,7 @@ export default function RegisteurBlock() {
         </label>
         {error && <p className="errorMessage">{error}</p>}
 
-        <button className="registeurSend" type="submit">
+        <button className="registerSend" type="submit">
           Créer
         </button>
 

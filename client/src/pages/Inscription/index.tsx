@@ -1,10 +1,10 @@
 import "../../App.css";
-import RegisteurBlock from "../../components/Registeur";
+import RegisterBlock from "../../components/Register";
 
 export default function Inscription() {
   return (
-    <>
-      <RegisteurBlock />
-    </>
+    
+      <RegisterBlock />
+    
   );
 }

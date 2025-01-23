@@ -11,12 +11,12 @@ type User = {
 };
 
 class UsersRepository {
-  async readByEmailWithPassword(email: string) {
+  async readByEmailWithPassword(mail: string) {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT id, lastname, firstname, mail, password 
           FROM users 
           WHERE mail = ?`,
-      [email],
+      [mail],
     );
 
     return rows[0] as User;

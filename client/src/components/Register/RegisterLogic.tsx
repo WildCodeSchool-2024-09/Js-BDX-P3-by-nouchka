@@ -2,9 +2,9 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FormData } from "../../types/Registeur_type/index";
-import { validateEmail, validatePassword } from "../Registeur/Validation";
+import { validateEmail, validatePassword } from "../Register/Validation";
 
-export const useRegisteurForm = () => {
+export const useRegisterForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     lastname: "",

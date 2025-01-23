@@ -1,6 +1,6 @@
 @import url("../../App.css");
 
-.registeurForm {
+.registerForm {
   background: var(--secondaryColor);
   display: flex;
   align-items: center;
@@ -26,19 +26,19 @@
   margin-right: auto;
 }
 
-.registeurName,
-.registeurFirstName,
-.registeurEmail,
-.registeurName,
-.registeurPassword {
+.registerName,
+.registerFirstName,
+.registerEmail,
+.registerName,
+.registerPassword {
   background-color: var(--secondaryColor);
   font-family: var(--textFont);
   width: 100%;
 }
 
-.registeurBlockName,
-.registeurBlockFirstName,
-.registeurBlockEmail,
+.registerBlockName,
+.registerBlockFirstName,
+.registerBlockEmail,
 .password {
   width: 100%;
   padding: 1rem;
@@ -49,7 +49,7 @@
   color: var(--textColor);
 }
 
-.registeurSend {
+.registerSend {
   width: 20%;
   background-color: var(--textColor);
   border: none;
@@ -58,11 +58,11 @@
   color: var(--secondaryColor);
 }
 
-.registeurSend:hover {
+.registerSend:hover {
   background-color: var(--primaryColor);
 }
 
-.registeurSend:active {
+.registerSend:active {
   background-color: var(--primaryColor);
 }
 
@@ -79,11 +79,11 @@
 }
 
 @media screen and (min-width: 768px) {
-  .registeurName,
-  .registeurFirstName,
-  .registeurEmail,
-  .registeurName,
-  .registeurPassword {
+  .registerName,
+  .registerFirstName,
+  .registerEmail,
+  .registerName,
+  .registerPassword {
     width: 35%;
   }
 }
