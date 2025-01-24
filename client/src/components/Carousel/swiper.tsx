@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
-import CardCarousel from "../Carousel/cardCarousel";
 import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
-import CardDesktop from "./cardDesktop";
+import Card from "./card.tsx";
 interface JewelryItem {
   id: number;
   name: string;
@@ -76,7 +75,9 @@ export default function SwiperCaroussel({
           >
             {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <CardCarousel
+                <Card
+                  figureClass="crlImgContainer"
+                  caption="caption"
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                   name={item.name}
                 />
@@ -87,8 +88,10 @@ export default function SwiperCaroussel({
       ) : (
         <>
           {jewelry.slice(0, itemsToShow).map((item) => (
-            <CardDesktop
+            <Card
               key={item.id}
+              figureClass="cardDesktop"
+              imgClass="imgDesktop"
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
             />

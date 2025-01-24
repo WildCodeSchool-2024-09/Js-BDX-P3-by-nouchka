@@ -35,7 +35,7 @@ class PagesRepository {
       [page.description, page.url_illustration, page.name],
     );
 
-    return rows.affectedRows > 0;
+    return rows.affectedRows;
   }
 }
 

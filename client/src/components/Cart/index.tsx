@@ -3,9 +3,7 @@ import "./style.css";
 export default function Cart() {
   return (
     <section className="cart">
-      <h2>Votre Panier</h2>
-      <img src="../src/assets/cart/cart.svg" alt="" />
-      <p>Votre panier est vide.</p>
+      <h2 className="title-cart">Votre Panier</h2>
     </section>
   );
 }

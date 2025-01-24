@@ -111,7 +111,7 @@ class AdminRepository {
       [adminId],
     );
 
-    return result.affectedRows > 0;
+    return result.affectedRows;
   }
 }
 
