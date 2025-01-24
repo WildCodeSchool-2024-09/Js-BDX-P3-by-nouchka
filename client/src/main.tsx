@@ -6,6 +6,8 @@ import Cart from "./components/Cart";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
+import LoginBackoffice from "./pages/Account/LoginBackOffice";
+import BackofficeHome from "./pages/BackOffice/BackOfficeHome";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 
@@ -13,6 +15,14 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
+import BackOfficeOrders from "./pages/BackOffice/BackOfficeOrders";
+import BackOfficePageAbout from "./pages/BackOffice/BackOfficePageAbout";
+import BackOfficePages from "./pages/BackOffice/BackOfficePageHome";
+import BackOfficePageHome from "./pages/BackOffice/BackOfficePageHome";
+import BackOfficePageUpcycling from "./pages/BackOffice/BackOfficePageUpcycling";
+import BackOfficeProducts from "./pages/BackOffice/BackOfficeProducts";
+import BackOfficeStats from "./pages/BackOffice/BackOfficeStats";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
@@ -89,6 +99,26 @@ const router = createBrowserRouter([
       {
         path: "/contact-block",
         element: <ContactBlock />,
+      },
+      { path: "/login-backoffice", element: <LoginBackoffice /> },
+      {
+        path: "/backoffice",
+        element: <BackofficeHome />,
+        children: [
+          {
+            path: "pages",
+            element: <BackOfficePages />,
+            children: [
+              { path: "home", element: <BackOfficePageHome /> },
+              { path: "upcycling", element: <BackOfficePageUpcycling /> },
+              { path: "about", element: <BackOfficePageAbout /> },
+            ],
+          },
+          { path: "products", element: <BackOfficeProducts /> },
+          { path: "clients", element: <BackOfficeClients /> },
+          { path: "orders", element: <BackOfficeOrders /> },
+          { path: "stats", element: <BackOfficeStats /> },
+        ],
       },
     ],
   },
