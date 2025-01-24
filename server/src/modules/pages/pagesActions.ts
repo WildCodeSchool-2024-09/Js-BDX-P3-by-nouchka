@@ -30,6 +30,7 @@ const edit: RequestHandler = async (req, res, next) => {
     const pageName = req.params.name;
     const updatePages = {
       name: pageName,
+      title: req.body.title,
       description: req.body.description,
       url_illustration: req.body.url_illustration,
     };

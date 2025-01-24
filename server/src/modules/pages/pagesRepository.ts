@@ -4,6 +4,7 @@ import type { Result, Rows } from "../../../database/client";
 
 type Pages = {
   name: string;
+  title: string;
   description: string;
   url_illustration: string;
 };
@@ -30,7 +31,7 @@ class PagesRepository {
   async update(page: Pages) {
     const [rows] = await databaseClient.execute<Result>(
       `UPDATE pages 
-      SET description = ?, url_illustration = ? 
+      SET title = ?, description = ?, url_illustration = ? 
       WHERE name = ?`,
       [page.description, page.url_illustration, page.name],
     );
