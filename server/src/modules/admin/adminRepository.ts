@@ -19,7 +19,7 @@ class AdminRepository {
     try {
       await connection.beginTransaction();
 
-      const [users] = await connection.query<Result>(
+      const [users] = await connection.execute<Result>(
         `INSERT INTO users 
           (lastname, firstname, mail, password)
         VALUES (?, ?, ?, ?) `,
@@ -32,7 +32,7 @@ class AdminRepository {
         throw new Error("Failed to insert into users table.");
       }
 
-      const [result] = await connection.query<Result>(
+      const [result] = await connection.execute<Result>(
         `INSERT INTO admin 
           (users_id) 
          VALUES (?)`,
@@ -59,7 +59,7 @@ class AdminRepository {
 
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT users.lastname, users.firstname, users.mail
      FROM admin
      INNER JOIN users
@@ -89,7 +89,7 @@ class AdminRepository {
   // TODO: Implement the update operation to modify an existing item
 
   async update(admin: Admin) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `UPDATE users 
       SET lastname = ?, firstname = ?, mail = ?, password = ? 
       WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
@@ -103,7 +103,7 @@ class AdminRepository {
   // TODO: Implement the delete operation to remove an item by its ID
 
   async delete(adminId: number) {
-    const [result] = await databaseClient.query<Result>(
+    const [result] = await databaseClient.execute<Result>(
       `DELETE users, admin
        FROM users
        INNER JOIN admin ON users.id = admin.users_id
@@ -111,7 +111,7 @@ class AdminRepository {
       [adminId],
     );
 
-    return result.affectedRows > 0;
+    return result.affectedRows;
   }
 }
 

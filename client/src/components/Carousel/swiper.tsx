@@ -2,19 +2,27 @@ import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
-import CarouselCard from "../Carousel/cardCarousel";
 import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
-import CardDesktop from "./cardDesktop";
+import Card from "./card.tsx";
 interface JewelryItem {
   id: number;
   name: string;
   URL: string;
+  type: string;
 }
 
-export default function SwiperCaroussel() {
+interface SwiperCarouselProps {
+  itemsToShow?: number;
+  type?: string;
+}
+
+export default function SwiperCaroussel({
+  itemsToShow,
+  type,
+}: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -33,7 +41,10 @@ export default function SwiperCaroussel() {
           },
         );
         const data: JewelryItem[] = await response.json();
-        setJewelry(data);
+        const filteredData = type
+          ? data.filter((item) => item.type === type)
+          : data;
+        setJewelry(filteredData);
       } catch (err) {
         console.error("Erreur lors de la récupération des événements :", err);
       } finally {
@@ -41,7 +52,7 @@ export default function SwiperCaroussel() {
       }
     };
     fetchEvents();
-  }, []);
+  }, [type]);
 
   if (loading) return <p>Chargement...</p>;
 
@@ -62,9 +73,11 @@ export default function SwiperCaroussel() {
             }}
             loop={true}
           >
-            {jewelry.slice(0, 3).map((item) => (
+            {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <CarouselCard
+                <Card
+                  figureClass="crlImgContainer"
+                  caption="caption"
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                   name={item.name}
                 />
@@ -74,9 +87,11 @@ export default function SwiperCaroussel() {
         </>
       ) : (
         <>
-          {jewelry.slice(0, 3).map((item) => (
-            <CardDesktop
+          {jewelry.slice(0, itemsToShow).map((item) => (
+            <Card
               key={item.id}
+              figureClass="cardDesktop"
+              imgClass="imgDesktop"
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
             />

@@ -1,6 +1,7 @@
 .title-event-section {
   font-family: var(--titleFont);
-  color: var(--primaryColor);
+  font-size: 2rem;
+  color: var(--textColor);
   text-align: center;
   padding-bottom: 2rem;
 }
@@ -44,6 +45,7 @@
   width: 8rem;
   object-fit: cover;
   margin: 1rem;
+  border-radius: calc(var(--borderRadius) * 0.5);
 }
 
 @media screen and (min-width: 768px) {
