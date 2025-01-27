@@ -6,9 +6,9 @@ type Order = {
   id: number;
   status?: boolean;
   date?: string;
-  billing_address?: Omit<Address, "id">;
-  shipping_address?: Omit<Address, "id">;
-  jewelries?: Jewelry[];
+  billing_address: Omit<Address, "id">;
+  shipping_address: Omit<Address, "id">;
+  jewelries: Jewelry[];
   clients_id?: number;
 };
 
@@ -39,15 +39,15 @@ class OrderRepository {
       
         VALUES (?, ?, ?, ?) `,
         [
-          order.billing_address?.street_number,
-          order.billing_address?.street_name,
-          order.billing_address?.postal_code,
-          order.billing_address?.city,
+          order.billing_address.street_number,
+          order.billing_address.street_name,
+          order.billing_address.postal_code,
+          order.billing_address.city,
         ],
       );
 
       const billing_addressId = billing_address.insertId;
-
+      console.info(billing_addressId);
       if (!billing_addressId) {
         throw new Error("Failed insertion into billing_address");
       }
@@ -59,7 +59,7 @@ class OrderRepository {
         [billing_addressId],
       );
 
-      if (!billing_address.insertId) {
+      if (!billing_addressInsert.insertId) {
         throw new Error("Failed to insert into billing_address");
       }
 
@@ -69,10 +69,10 @@ class OrderRepository {
         
         VALUES (?, ?, ?, ?) `,
         [
-          order.shipping_address?.street_number,
-          order.shipping_address?.street_name,
-          order.shipping_address?.postal_code,
-          order.shipping_address?.city,
+          order.shipping_address.street_number,
+          order.shipping_address.street_name,
+          order.shipping_address.postal_code,
+          order.shipping_address.city,
         ],
       );
 
@@ -93,10 +93,10 @@ class OrderRepository {
 
       const [ordersResult] = await connection.execute<Result>(
         `INSERT INTO orders
-          (billing_address, shipping_address)
+          (billing_address_id, shipping_address_id)
       
         VALUES (?, ?) `,
-        [billing_addressId, shippingAddressId],
+        [billing_addressInsert.insertId, shippingAddressInsert.insertId],
       );
       const ordersId = ordersResult.insertId;
       if (!ordersId) {
@@ -125,6 +125,9 @@ class OrderRepository {
           `,
           [order.clients_id, ordersId],
         );
+        if (clientsOrder.insertId) {
+          throw new Error("Failed to insert client order");
+        }
       }
 
       await connection.commit();
@@ -141,11 +144,36 @@ class OrderRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.execute<Rows>(
-      `SELECT * 
-        FROM orders 
-        INNER JOIN billing_address ON orders.id = billing_address_orders.orders_id
-        INNER JOIN billing_address ON billing_address_order.billing_address_id = billing_address.id
-        WHERE orders.id = ?`,
+      `SELECT 
+    ba.street_number AS street_number_ba, 
+    ba.street_name AS street_name_ba,
+    ba.postal_code AS postal_code_ba,
+    ba.city AS city_ba,
+
+    sa.street_number AS street_number_sa,
+    sa.street_name AS street_name_sa,
+    sa.postal_code AS postal_code_sa,
+    sa.city AS city_sa,
+
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'name', jewelry.name,
+            'price', jewelry.price,
+            'quantity', jewelry_orders.quantity
+        )
+    ) AS jewelries
+
+FROM orders
+INNER JOIN billing_address ON orders.billing_address_id = billing_address.id
+INNER JOIN shipping_address ON orders.shipping_address_id = shipping_address.id
+INNER JOIN address ba ON ba.id = billing_address.address_id
+INNER JOIN address sa ON sa.id = shipping_address.address_id
+INNER JOIN jewelry_orders ON orders.id = jewelry_orders.orders_id
+INNER JOIN jewelry ON jewelry.id = jewelry_orders.jewelry_id
+WHERE orders.id = ?
+GROUP BY ba.street_number, ba.street_name, ba.postal_code, ba.city, 
+ sa.street_number, sa.street_name, sa.postal_code, sa.city
+`,
       [id],
     );
 
@@ -154,53 +182,54 @@ class OrderRepository {
 
   async readAll() {
     const [rows] = await databaseClient.execute<Rows>(
-      `SELECT orders.*,
-      FROM orders
-      INNER JOIN shipping_address_orders ON orders.id = shipping_address_orders.orders_id
-      INNER JOIN shipping_address ON shipping_address_orders.shipping_address_id = shipping_address.id`,
+      `SELECT 
+    ba.street_number AS street_number_ba, 
+    ba.street_name AS street_name_ba,
+    ba.postal_code AS postal_code_ba,
+    ba.city AS city_ba,
+
+    sa.street_number AS street_number_sa,
+    sa.street_name AS street_name_sa,
+    sa.postal_code AS postal_code_sa,
+    sa.city AS city_sa,
+
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'name', jewelry.name,
+            'price', jewelry.price,
+            'quantity', jewelry_orders.quantity
+        )
+    ) AS jewelries
+
+FROM orders
+INNER JOIN billing_address ON orders.billing_address_id = billing_address.id
+INNER JOIN shipping_address ON orders.shipping_address_id = shipping_address.id
+INNER JOIN address ba ON ba.id = billing_address.address_id
+INNER JOIN address sa ON sa.id = shipping_address.address_id
+INNER JOIN jewelry_orders ON orders.id = jewelry_orders.orders_id
+INNER JOIN jewelry ON jewelry.id = jewelry_orders.jewelry_id
+GROUP BY ba.street_number, ba.street_name, ba.postal_code, ba.city, 
+ sa.street_number, sa.street_name, sa.postal_code, sa.city
+`,
     );
 
     return rows as Order[];
   }
 
-  async update(order: Order) {
-    const connection = await databaseClient.getConnection();
-    try {
-      await connection.beginTransaction();
-      const [rows] = await connection.execute<Result>(
-        `UPDATE orders
-        SET type=?, stock=?, description=?, name=?, price=?
+  async update(order: { id: number; status: boolean }) {
+    const [rows] = await databaseClient.execute<Result>(
+      `UPDATE orders
+        SET status=?
         WHERE id = ?`,
-        [
-          order.billing_address,
-          order.shipping_address,
-          order.jewelries,
-          order.date,
-          order.status,
-          order.id,
-          order.clients_id,
-        ],
-      );
-      if (!rows.affectedRows) {
-        throw new Error("Failed update order");
-      }
+      [order.status, order.id],
+    );
 
-      await connection.commit();
-      return rows.affectedRows;
-    } catch (error) {
-      await connection.rollback();
-      throw error;
-    } finally {
-      connection.release();
-    }
+    return rows.affectedRows;
   }
   async delete(orderId: number) {
     const [result] = await databaseClient.execute<Result>(
-      `DELETE orders, orders, orders_orders
-       FROM orders
-       INNER JOIN orders_orders ON orders_orders.orders_id = orders.id
-       INNER JOIN orders ON orders.id = orders_orders.orders_id
-       WHERE orders.id = ?`,
+      `DELETE FROM orders
+       WHERE id = ?`,
       [orderId],
     );
 
