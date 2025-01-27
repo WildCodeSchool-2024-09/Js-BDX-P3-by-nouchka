@@ -14,7 +14,9 @@ export default function About() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3310/api/pages/about");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/pages/about`,
+      );
       if (response.ok) {
         const result: AboutData = await response.json();
         setData(result);

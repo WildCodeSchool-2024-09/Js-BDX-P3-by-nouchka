@@ -104,10 +104,8 @@ class AdminRepository {
 
   async delete(adminId: number) {
     const [result] = await databaseClient.execute<Result>(
-      `DELETE users, admin
-       FROM users
-       INNER JOIN admin ON users.id = admin.users_id
-       WHERE admin.id = ?`,
+      `DELETE FROM admin 
+      WHERE id = ?`,
       [adminId],
     );
 

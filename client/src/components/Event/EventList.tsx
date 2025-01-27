@@ -11,12 +11,11 @@ export default function EventList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/events");
-        const data: EventData[] = await response.json();
-        const uniqueEvents = Array.from(
-          new Map(data.map((event) => [event.id, event])).values(),
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/events`,
         );
-        setEvents(uniqueEvents);
+        const data: EventData[] = await response.json();
+        setEvents(data);
       } catch (err) {
         setError("Erreur lors de la récupération des données");
       } finally {
