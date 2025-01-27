@@ -2,15 +2,12 @@ export default function LegalMentions() {
   return (
     <>
       <section>
-        <h2 className="secondary-title">
-          Mentions Légales: questions fréquemment posées{" "}
+        <h2>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis nulla
+          debitis assumenda, ducimus vel eaque sapiente quidem odio,
+          perspiciatis ipsa soluta laboriosam amet minima iste, voluptas natus
+          cum voluptatibus eum.
         </h2>
-        <p className="legalMentions-text">
-          Les mentions légales sont les informations qui permettent à
-          l'internaute de vous identifier. Les mentions légales sont
-          obligatoires sur tout site internet professionnel et doivent être
-          facilement accessibles.
-        </p>
       </section>
     </>
   );

@@ -22,6 +22,7 @@ router.get("/api/clients/:id", clientsActions.read);
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+router.post("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.like);
 
 import jewelryActions from "./modules/jewelry/jewelryActions";
 
@@ -54,13 +55,6 @@ router.get("/api/events/:id", eventActions.read);
 router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
 router.delete("/api/events/:id", eventActions.destroy);
-
-import likesActions from "./modules/likes/likesActions";
-
-router.get("/api/likes", likesActions.browse);
-router.get("/api/likes/:id", likesActions.read);
-router.post("/api/likes", likesActions.add);
-router.delete("/api/likes/:id", likesActions.destroy);
 
 import authMiddleware from "./middleware/authMiddleware";
 router.post("/api/login", authMiddleware.login);
