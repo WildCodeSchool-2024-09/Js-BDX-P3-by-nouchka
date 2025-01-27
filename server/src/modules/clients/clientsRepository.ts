@@ -91,7 +91,7 @@ class ClientsRepository {
 
       return rows.affectedRows;
     } catch (error) {
-      throw new Error("You've got an error:", error as Error);
+      throw new Error("You've got an error.");
     }
   }
 }
