@@ -11,11 +11,7 @@ const router = express.Router();
 
 import clientsActions from "./modules/clients/clientsActions";
 
-router.get("/api/clients", clientsActions.browse);
-router.get("/api/clients/:id", clientsActions.read);
-router.put("/api/clients/:id", clientsActions.edit);
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
-router.delete("/api/clients/:id", clientsActions.destroy);
 
 import jewelryActions from "./modules/jewelry/jewelryActions";
 
@@ -28,7 +24,6 @@ import adminActions from "./modules/admin/adminActions";
 
 router.get("/api/admins", adminActions.browse);
 router.get("/api/admins/:id", adminActions.read);
-router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 
 import pagesActions from "./modules/pages/pagesActions";
 
@@ -53,7 +48,13 @@ router.delete("/api/events/:id", eventActions.destroy);
 router.post("/api/jewelry", jewelryActions.add);
 router.put("/api/jewelry/:id", jewelryActions.edit);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
+router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
+router.get("/api/clients", clientsActions.browse);
+router.get("/api/clients/:id", clientsActions.read);
+router.put("/api/clients/:id", clientsActions.edit);
+
+router.delete("/api/clients/:id", clientsActions.destroy);
 
 export default router;
