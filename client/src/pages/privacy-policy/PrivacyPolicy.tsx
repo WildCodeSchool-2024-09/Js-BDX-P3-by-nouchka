@@ -13,10 +13,8 @@ export default function PrivacyPolicy() {
           notre site internet (ci-après "le Site").
         </p>
         <p className="legalMentions-text">
-          <strong>
-            1. Responsable du traitement des données Le responsable du
-            traitement des données est :
-          </strong>
+          1. Responsable du traitement des données Le responsable du traitement
+          des données est :
           <ul>
             {" "}
             <li>
@@ -30,7 +28,7 @@ export default function PrivacyPolicy() {
           </ul>
         </p>
         <p className="legalMentions-text">
-          <strong>2. Données collectées</strong>.{" "}
+          2. Données collectées.{" "}
           <p>
             Nous collectons uniquement les données nécessaires pour traiter vos
             commandes et améliorer votre
@@ -38,9 +36,7 @@ export default function PrivacyPolicy() {
           expérience sur le Site. Ces données incluent :
           <ul>
             <li>
-              <strong>
-                Données personnelles fournies directement par vous :
-              </strong>
+              Données personnelles fournies directement par vous :
               <ul>
                 <li>Nom et prénom </li> <li>Adresse e-mail </li>{" "}
                 <li>Adresse postale </li> <li>Numéro de téléphone </li>
@@ -52,7 +48,7 @@ export default function PrivacyPolicy() {
               </ul>
             </li>
             <li>
-              <strong> Données collectées automatiquement :</strong>
+              Données collectées automatiquement :
               <ul>
                 <li>Adresse IP</li>
                 <li>
@@ -63,7 +59,7 @@ export default function PrivacyPolicy() {
           </ul>
           <p className="legalMentions-text">
             {" "}
-            <strong>Finalités du traitement des données</strong>
+            Finalités du traitement des données
             <p>
               Vos données sont collectées pour :
               <ol>
@@ -90,23 +86,21 @@ export default function PrivacyPolicy() {
           </p>
         </p>
         <p className="legalMentions-text">
-          <strong>L’analyse et l’amélioration du Site :</strong>{" "}
+          L’analyse et l’amélioration du Site :{" "}
           <p>
             Analyse des comportements pour améliorer nos services et détecter
             d’éventuelles anomalies techniques.
           </p>
         </p>
         <p className="legalMentions-text">
-          <strong>4. Partage des données</strong>
+          4. Partage des données
           <p>
             Nous ne partageons vos données personnelles qu’avec des tiers de
             confiance et uniquement lorsque cela est nécessaire :
             <ul>
               <li>
                 <ul>
-                  <li>
-                    <strong>Fournisseurs de services tiers :</strong>
-                  </li>
+                  <li>Fournisseurs de services tiers :</li>
                   <li>
                     Prestataires logistiques et de livraison (ex. :
                     transporteurs).
@@ -115,15 +109,14 @@ export default function PrivacyPolicy() {
                 </ul>
               </li>
               <li>
-                <strong> Obligations légales : </strong>Nous pouvons divulguer
-                vos données si la loi l'exige (ex. : fraude, demande
-                judiciaire).
+                Obligations légales : Nous pouvons divulguer vos données si la
+                loi l'exige (ex. : fraude, demande judiciaire).
               </li>
             </ul>
           </p>
         </p>
         <p className="legalMentions-text">
-          <strong>5. Conservation des données</strong>
+          5. Conservation des données
           <p>Vos données personnelles sont conservées :</p>
           <ul>
             <li>
@@ -139,44 +132,41 @@ export default function PrivacyPolicy() {
           </ul>
         </p>
         <p className="legalMentions-text">
-          <strong>6. Vos droits</strong>
+          6. Vos droits
           <p>Conformément au RGPD, vous disposez des droits suivants :</p>
           <ul>
             <li>
-              <strong>Droit d’accès</strong> : Consulter les données
-              personnelles que nous détenons sur vous.
+              Droit d’accès : Consulter les données personnelles que nous
+              détenons sur vous.
             </li>
             <li>
-              <strong>Droit de rectification</strong> : Modifier ou mettre à
-              jour vos données.
+              Droit de rectification : Modifier ou mettre à jour vos données.
             </li>
             <li>
-              <strong>Droit à l’effacement</strong> : Demander la suppression de
-              vos données, sauf si leur conservation est requise par la loi.
+              Droit à l’effacement : Demander la suppression de vos données,
+              sauf si leur conservation est requise par la loi.
             </li>
             <li>
-              <strong>Droit d’opposition</strong> : Refuser le traitement de vos
-              données pour des finalités spécifiques (marketing, etc.).
+              Droit d’opposition : Refuser le traitement de vos données pour des
+              finalités spécifiques (marketing, etc.).
             </li>
             <li>
-              <strong>Droit à la portabilité</strong> : Recevoir vos données
-              dans un format structuré et lisible, ou demander leur transmission
-              à un tiers.
+              Droit à la portabilité : Recevoir vos données dans un format
+              structuré et lisible, ou demander leur transmission à un tiers.
             </li>
             <li>
-              <strong>Droit de retirer votre consentement</strong> : À tout
-              moment, pour les traitements nécessitant votre accord (ex. :
-              newsletter).
+              Droit de retirer votre consentement : À tout moment, pour les
+              traitements nécessitant votre accord (ex. : newsletter).
               <p>
                 {" "}
                 Pour exercer vos droits, contactez-nous à l’adresse suivante :{" "}
-                <strong>[votre adresse e-mail dédiée].</strong>
+                [votre adresse e-mail dédiée].
               </p>
             </li>
           </ul>
         </p>
         <p className="legalMentions-text">
-          <strong>7. Sécurité des données</strong>
+          7. Sécurité des données
           <p>
             Nous mettons en œuvre des mesures techniques et organisationnelles
             pour protéger vos données contre tout accès non autorisé, perte ou
@@ -194,16 +184,14 @@ export default function PrivacyPolicy() {
           </ul>
         </p>
         <p className="legalMentions-text">
-          <strong> 8. Modifications de la Politique de Confidentialité</strong>
+          8. Modifications de la Politique de Confidentialité
           <p>
             Nous nous réservons le droit de modifier cette politique à tout
             moment pour rester conformes aux évolutions légales ou techniques.
             Toute modification sera communiquée via une notification sur le
             Site.
           </p>
-          <p>
-            <strong>9. Contact</strong>
-          </p>
+          <p>9. Contact</p>
           <p>
             Pour toute question ou préoccupation concernant cette Politique de
             Confidentialité, vous pouvez nous contacter via le site internet

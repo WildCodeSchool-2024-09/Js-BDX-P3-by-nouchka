@@ -81,8 +81,6 @@ const like: RequestHandler = async (req, res, next) => {
   try {
     const clientId = Number(req.params.clientId);
     const jewelryId = Number(req.params.jewelryId);
-    console.info("id client", clientId);
-    console.info("id jewelry", jewelryId);
     const { id: likeId } = await clientsRepository.getLikedJewelry(
       clientId,
       jewelryId,
