@@ -7,13 +7,11 @@ import "swiper/css/autoplay";
 interface CarouselProductProps {
   urls: string[];
   name: string;
-  baseUrl: string;
 }
 
 export default function CarouselProduct({
   urls,
   name,
-  baseUrl,
 }: CarouselProductProps) {
   const parsedUrls = typeof urls === "string" ? JSON.parse(urls) : urls;
 
@@ -34,7 +32,7 @@ export default function CarouselProduct({
       {parsedUrls.map((url: string, index: number) => (
         <SwiperSlide key={url} className="swiperImg">
           <img
-            src={`${baseUrl}/assets/images/${url.split("/").pop()}`}
+            src={`${import.meta.env.VITE_API_URL}/assets/images/${url.split("/").pop()}`}
             alt={`${name} - vue ${index + 1}`}
             className="ProductImg"
           />

@@ -26,11 +26,15 @@ export default function Product() {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/jewelry`,
-        );
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type' :'application/json'
+          }
+        });
         const result = await response.json();
         setData(result);
       } catch (error) {
-        console.error("Fetch error:", error);
         setError(String(error));
       } finally {
         setLoading(false);
@@ -69,7 +73,7 @@ export default function Product() {
         <CarouselProduct
           urls={urls}
           name={data[0].name}
-          baseUrl={import.meta.env.VITE_API_URL}
+          
         />
       ) : (
         <ProductDesktop
@@ -77,7 +81,6 @@ export default function Product() {
           name={data[0].name}
           swapImage={swapImage}
           onImageClick={handleClick}
-          baseUrl={import.meta.env.VITE_API_URL}
         />
       )}
       <span className="containerTitleProduct">

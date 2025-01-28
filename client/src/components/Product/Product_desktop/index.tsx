@@ -1,10 +1,10 @@
 import "../style.css";
+
 interface ProductDesktopProps {
   urls: string[];
   name: string;
   swapImage: number;
   onImageClick: (index: number) => void;
-  baseUrl: string;
 }
 
 export default function ProductDesktop({
@@ -12,19 +12,18 @@ export default function ProductDesktop({
   name,
   swapImage,
   onImageClick,
-  baseUrl,
 }: ProductDesktopProps) {
-  const urlArray = typeof urls === "string" ? JSON.parse(urls) : urls;
-  if (!urlArray || !Array.isArray(urlArray)) {
+  if (!urls || !Array.isArray(urls)) {
     return null;
   }
+
   return (
     <article className="containerProductImg">
-      {urlArray.map((url: string, index: number) => (
+      {urls.map((url: string, index: number) => (
         <img
-          key={url}
+          key={`image-${index}`}
           className="ProductImg"
-          src={`${baseUrl}/assets/images/${
+          src={`${import.meta.env.VITE_API_URL}/assets/images/${
             swapImage ? urls[1 - index].split("/").pop() : url.split("/").pop()
           }`}
           alt={name}
