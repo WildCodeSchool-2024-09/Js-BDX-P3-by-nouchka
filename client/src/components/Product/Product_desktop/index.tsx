@@ -14,7 +14,7 @@ export default function ProductDesktop({
   onImageClick,
   baseUrl,
 }: ProductDesktopProps) {
-  const urlArray = typeof urls === 'string' ? JSON.parse(urls) : urls;
+  const urlArray = typeof urls === "string" ? JSON.parse(urls) : urls;
   if (!urlArray || !Array.isArray(urlArray)) {
     return null;
   }
@@ -22,7 +22,7 @@ export default function ProductDesktop({
     <article className="containerProductImg">
       {urlArray.map((url: string, index: number) => (
         <img
-        key={url}
+          key={url}
           className="ProductImg"
           src={`${baseUrl}/assets/images/${
             swapImage ? urls[1 - index].split("/").pop() : url.split("/").pop()
