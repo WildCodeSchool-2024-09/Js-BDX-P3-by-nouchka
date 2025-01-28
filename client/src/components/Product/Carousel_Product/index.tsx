@@ -9,10 +9,7 @@ interface CarouselProductProps {
   name: string;
 }
 
-export default function CarouselProduct({
-  urls,
-  name,
-}: CarouselProductProps) {
+export default function CarouselProduct({ urls, name }: CarouselProductProps) {
   const parsedUrls = typeof urls === "string" ? JSON.parse(urls) : urls;
 
   return (

@@ -21,7 +21,7 @@ export default function ProductDesktop({
     <article className="containerProductImg">
       {urls.map((url: string, index: number) => (
         <img
-          key={`image-${index}`}
+          key={`image-${url}`}
           className="ProductImg"
           src={`${import.meta.env.VITE_API_URL}/assets/images/${
             swapImage ? urls[1 - index].split("/").pop() : url.split("/").pop()

@@ -26,12 +26,13 @@ export default function Product() {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/jewelry`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type' :'application/json'
-          }
-        });
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
         const result = await response.json();
         setData(result);
       } catch (error) {
@@ -70,11 +71,7 @@ export default function Product() {
   return (
     <section className="Product">
       {isMobile ? (
-        <CarouselProduct
-          urls={urls}
-          name={data[0].name}
-          
-        />
+        <CarouselProduct urls={urls} name={data[0].name} />
       ) : (
         <ProductDesktop
           urls={JSON.parse(data[0].URL)}
