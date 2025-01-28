@@ -1,0 +1,28 @@
+.legalMentions-text {
+  font-family: var(--textFont);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+.legalmentions-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.secondary-title {
+  color: var(--primaryColor);
+  font-family: var(--titleFont);
+  text-align: center;
+}
+.secondary-title::after {
+  content: "";
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
