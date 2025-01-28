@@ -75,7 +75,7 @@ class AdminRepository {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT lastname, firstname, mail
+      `SELECT id, lastname, firstname, mail
       FROM users
       INNER JOIN admin
       ON admin.users_id = users.id`,
@@ -104,8 +104,8 @@ class AdminRepository {
 
   async delete(adminId: number) {
     const [result] = await databaseClient.execute<Result>(
-      `DELETE FROM admin 
-      WHERE id = ?`,
+      `DELETE FROM users 
+      WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
       [adminId],
     );
 
