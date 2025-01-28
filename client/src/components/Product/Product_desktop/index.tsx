@@ -14,14 +14,15 @@ export default function ProductDesktop({
   onImageClick,
   baseUrl,
 }: ProductDesktopProps) {
-  if (!urls || !Array.isArray(urls)) {
+  const urlArray = typeof urls === 'string' ? JSON.parse(urls) : urls;
+  if (!urlArray || !Array.isArray(urlArray)) {
     return null;
   }
   return (
     <article className="containerProductImg">
-      {urls.map((url: string, index: number) => (
+      {urlArray.map((url: string, index: number) => (
         <img
-          key={url}
+        key={url}
           className="ProductImg"
           src={`${baseUrl}/assets/images/${
             swapImage ? urls[1 - index].split("/").pop() : url.split("/").pop()
