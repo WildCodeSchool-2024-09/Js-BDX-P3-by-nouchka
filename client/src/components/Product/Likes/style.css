@@ -1,0 +1,15 @@
+@import url("../../../App.css");
+
+.likesButton {
+  background-color: var(--secondaryColor);
+  border: none;
+  padding: 1rem;
+  font-size: x-large;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .likesButton {
+    font-size: xx-large;
+  }
+}

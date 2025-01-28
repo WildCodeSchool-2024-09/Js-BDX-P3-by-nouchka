@@ -117,9 +117,9 @@ class JewelryRepository {
       const [photos] = await connection.query<Result>(
         `UPDATE photos 
           SET URL = ?
-          WHERE id = (SELECT photos_id FROM photos_jewelry
+          WHERE id IN (SELECT photos_id FROM photos_jewelry
           WHERE jewelry_id = ?)`,
-        [jewelry.url, jewelry.id],
+        [JSON.stringify(jewelry.url), jewelry.id],
       );
       if (!photos.affectedRows) {
         throw new Error("Failed to update photos");
