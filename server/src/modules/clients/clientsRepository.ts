@@ -16,7 +16,7 @@ class ClientsRepository {
     try {
       await connection.beginTransaction();
 
-      const [users] = await connection.query<Result>(
+      const [users] = await connection.execute<Result>(
         `INSERT INTO users
             (lastname, firstname, mail, password)
             VALUES (?, ?, ?, ?)`,
@@ -27,7 +27,7 @@ class ClientsRepository {
       if (!users_id) {
         throw new Error("Failed to insert into users table.");
       }
-      const [results] = await connection.query<Result>(
+      const [results] = await connection.execute<Result>(
         `INSERT INTO clients
             (users_id)
             VALUES (?)`,
@@ -46,7 +46,7 @@ class ClientsRepository {
     }
   }
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT lastname, firstname, mail
         FROM  users
         Inner Join clients
@@ -76,7 +76,7 @@ class ClientsRepository {
   }
 
   async update(clients: Clients) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `UPDATE users
          SET lastname = ?, firstname = ?, mail = ?, password = ?
          WHERE id = (SELECT users_id FROM clients WHERE id = ?)`,
@@ -93,7 +93,7 @@ class ClientsRepository {
 
   async delete(clientsID: number) {
     try {
-      const [rows] = await databaseClient.query<Result>(
+      const [rows] = await databaseClient.execute<Result>(
         `DELETE FROM users
             WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
         [clientsID],
@@ -101,7 +101,7 @@ class ClientsRepository {
 
       return rows.affectedRows;
     } catch (error) {
-      throw new Error("You've got an error:", error as Error);
+      throw new Error("You've got an error.");
     }
   }
 }

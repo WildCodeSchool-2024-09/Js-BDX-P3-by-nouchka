@@ -69,7 +69,7 @@ class AdminRepository {
   }
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT lastname, firstname, mail
+      `SELECT id, lastname, firstname, mail
       FROM users
       INNER JOIN admin
       ON admin.users_id = users.id`,
@@ -78,7 +78,7 @@ class AdminRepository {
     return rows as Admin[];
   }
   async update(admin: Admin) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `UPDATE users 
       SET lastname = ?, firstname = ?, mail = ?, password = ? 
       WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
@@ -88,15 +88,13 @@ class AdminRepository {
     return rows.affectedRows > 0;
   }
   async delete(adminId: number) {
-    const [result] = await databaseClient.query<Result>(
-      `DELETE users, admin
-       FROM users
-       INNER JOIN admin ON users.id = admin.users_id
-       WHERE admin.id = ?`,
+    const [result] = await databaseClient.execute<Result>(
+      `DELETE FROM users 
+      WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
       [adminId],
     );
 
-    return result.affectedRows > 0;
+    return result.affectedRows;
   }
 }
 
