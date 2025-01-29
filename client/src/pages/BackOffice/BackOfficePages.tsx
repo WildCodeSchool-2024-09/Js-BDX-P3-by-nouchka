@@ -1,4 +1,5 @@
 import { Box, Tab, Tabs } from "@mui/material";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 
@@ -13,6 +14,12 @@ export default function BackOfficePages() {
 
   const currentTab = tabRoutes.indexOf(location.pathname);
 
+  useEffect(() => {
+    if (currentTab === -1) {
+      navigate("/backoffice/pages/home", { replace: true });
+    }
+  }, [currentTab, navigate]);
+
   return (
     <Box component="main" className="main-content">
       <Tabs
@@ -24,8 +31,6 @@ export default function BackOfficePages() {
         <Tab label="Page upcycling" />
         <Tab label="Page à propos" />
       </Tabs>
-
-      {/* Affichage du contenu selon la route */}
       <Outlet />
     </Box>
   );

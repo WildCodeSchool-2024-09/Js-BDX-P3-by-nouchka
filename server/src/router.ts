@@ -41,11 +41,18 @@ router.post("/api/admins", adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
+import upload from "./Middleware/upload";
 import pagesActions from "./modules/pages/pagesActions";
 
 router.get("/api/pages", pagesActions.browse);
 router.get("/api/pages/:name", pagesActions.read);
 router.put("/api/pages/:name", pagesActions.edit);
+router.post(
+  "/api/pages/upload",
+  upload.single("image"),
+  pagesActions.uploadImage,
+);
+router.delete("/api/pages/delete-image", pagesActions.deleteImage);
 
 import eventActions from "./modules/event/eventActions";
 

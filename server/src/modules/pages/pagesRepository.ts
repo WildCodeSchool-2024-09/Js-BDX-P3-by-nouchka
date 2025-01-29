@@ -33,7 +33,7 @@ class PagesRepository {
       `UPDATE pages 
       SET title = ?, description = ?, url_illustration = ? 
       WHERE name = ?`,
-      [page.description, page.url_illustration, page.name],
+      [page.title, page.description, page.url_illustration, page.name],
     );
 
     return rows.affectedRows > 0;
