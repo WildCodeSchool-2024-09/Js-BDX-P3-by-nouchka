@@ -21,8 +21,8 @@ interface SwiperCarouselProps {
 }
 
 export default function SwiperCaroussel({
-  itemsToShow = 4,
-  type = "boucle d'oreille",
+  itemsToShow,
+  type,
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
