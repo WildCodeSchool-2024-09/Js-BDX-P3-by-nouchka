@@ -16,7 +16,6 @@ class AdminRepository {
 
     try {
       await connection.beginTransaction();
-
       const [users] = await connection.execute<Result>(
         `INSERT INTO users 
           (lastname, firstname, mail, password)
@@ -28,7 +27,6 @@ class AdminRepository {
         await connection.rollback();
         throw new Error("Failed to insert into users table.");
       }
-
       const [result] = await connection.execute<Result>(
         `INSERT INTO admin 
           (users_id) 
@@ -49,7 +47,6 @@ class AdminRepository {
     }
   }
   async read(id: number) {
-    // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.execute<Rows>(
       `SELECT users.lastname, users.firstname, users.mail
      FROM admin

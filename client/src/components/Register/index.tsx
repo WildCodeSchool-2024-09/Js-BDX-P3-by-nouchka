@@ -10,7 +10,7 @@ export default function RegisteurBlock() {
     <>
       <h2 className="titleForm">Créer un compte</h2>
       <form className="registerForm" onSubmit={handleSubmit}>
-        <label htmlFor="register" className="registerName">
+        <label htmlFor="lastname" className="registerName">
           <input
             id="lastname"
             className="registerBlockName"
@@ -22,7 +22,7 @@ export default function RegisteurBlock() {
             placeholder="Nom..."
           />
         </label>
-        <label htmlFor="registerFirstName" className="registerFirstName">
+        <label htmlFor="firstname" className="registerFirstName">
           <input
             id="firstname"
             className="registerBlockFirstName"

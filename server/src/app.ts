@@ -79,7 +79,6 @@ import path from "node:path";
 const publicFolderPath = path.join(__dirname, "../../server/public");
 
 if (fs.existsSync(publicFolderPath)) {
-  console.info(publicFolderPath);
   app.use(express.static(publicFolderPath));
 }
 

@@ -33,7 +33,6 @@ const add: RequestHandler = async (req, res, next) => {
       mail: req.body.mail,
       password: req.body.password,
     };
-    console.info(newClient.password);
     const insertId = await clientsRepository.create(newClient);
     res.status(201).json({ insertId });
   } catch (err) {
