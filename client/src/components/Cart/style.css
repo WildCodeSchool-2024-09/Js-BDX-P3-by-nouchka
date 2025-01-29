@@ -4,3 +4,9 @@
   background-color: var(--secondaryColor);
   border: none;
 }
+
+.title-cart {
+  font-family: var(--titleFont);
+  color: var(--primaryColor);
+  text-align: center;
+}

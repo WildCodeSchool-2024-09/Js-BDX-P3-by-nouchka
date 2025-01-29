@@ -16,7 +16,8 @@ class AdminRepository {
 
     try {
       await connection.beginTransaction();
-      const [users] = await connection.query<Result>(
+
+      const [users] = await connection.execute<Result>(
         `INSERT INTO users 
           (lastname, firstname, mail, password)
         VALUES (?, ?, ?, ?) `,
@@ -27,7 +28,8 @@ class AdminRepository {
         await connection.rollback();
         throw new Error("Failed to insert into users table.");
       }
-      const [result] = await connection.query<Result>(
+
+      const [result] = await connection.execute<Result>(
         `INSERT INTO admin 
           (users_id) 
          VALUES (?)`,
@@ -47,7 +49,8 @@ class AdminRepository {
     }
   }
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    // Execute the SQL SELECT query to retrieve a specific item by its ID
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT users.lastname, users.firstname, users.mail
      FROM admin
      INNER JOIN users
@@ -69,7 +72,7 @@ class AdminRepository {
   }
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT lastname, firstname, mail
+      `SELECT id, lastname, firstname, mail
       FROM users
       INNER JOIN admin
       ON admin.users_id = users.id`,
@@ -78,7 +81,7 @@ class AdminRepository {
     return rows as Admin[];
   }
   async update(admin: Admin) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `UPDATE users 
       SET lastname = ?, firstname = ?, mail = ?, password = ? 
       WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
@@ -88,15 +91,13 @@ class AdminRepository {
     return rows.affectedRows > 0;
   }
   async delete(adminId: number) {
-    const [result] = await databaseClient.query<Result>(
-      `DELETE users, admin
-       FROM users
-       INNER JOIN admin ON users.id = admin.users_id
-       WHERE admin.id = ?`,
+    const [result] = await databaseClient.execute<Result>(
+      `DELETE FROM users 
+      WHERE id = (SELECT users_id FROM admin WHERE id = ?)`,
       [adminId],
     );
 
-    return result.affectedRows > 0;
+    return result.affectedRows;
   }
 }
 
