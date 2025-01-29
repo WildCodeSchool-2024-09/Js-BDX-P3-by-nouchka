@@ -68,6 +68,7 @@ export default function Product() {
   if (error) return <p>{error}</p>;
   if (!data.length) return <p>Aucun bijou trouvé.</p>;
   const urls = JSON.parse(data[0].URL);
+
   return (
     <section className="Product">
       {isMobile ? (
