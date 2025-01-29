@@ -15,7 +15,7 @@ const read: RequestHandler = async (req, res, next) => {
     const pageName = req.params.name;
     const page = await pagesRepository.read(pageName);
 
-    if (!page) {
+    if (page == null) {
       res.sendStatus(404);
     } else {
       res.json(page);
