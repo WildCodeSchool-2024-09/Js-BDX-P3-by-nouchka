@@ -47,7 +47,6 @@ class OrderRepository {
       );
 
       const billing_addressId = billing_address.insertId;
-      console.info(billing_addressId);
       if (!billing_addressId) {
         throw new Error("Failed insertion into billing_address");
       }
