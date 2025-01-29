@@ -16,7 +16,7 @@ class AdminRepository {
 
     try {
       await connection.beginTransaction();
-      const [users] = await connection.query<Result>(
+      const [users] = await connection.execute<Result>(
         `INSERT INTO users 
           (lastname, firstname, mail, password)
         VALUES (?, ?, ?, ?) `,
@@ -27,7 +27,7 @@ class AdminRepository {
         await connection.rollback();
         throw new Error("Failed to insert into users table.");
       }
-      const [result] = await connection.query<Result>(
+      const [result] = await connection.execute<Result>(
         `INSERT INTO admin 
           (users_id) 
          VALUES (?)`,
@@ -47,7 +47,7 @@ class AdminRepository {
     }
   }
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT users.lastname, users.firstname, users.mail
      FROM admin
      INNER JOIN users
