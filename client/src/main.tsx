@@ -13,6 +13,7 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import RegisterBlock from "./components/Register";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/inscription",
+        element: <RegisterBlock />,
       },
       {
         path: "/contact-block",
