@@ -19,7 +19,7 @@ class JewelryRepository {
     try {
       await connection.beginTransaction();
 
-      const [photos] = await connection.query<Result>(
+      const [photos] = await connection.execute<Result>(
         `INSERT INTO photos
           (URL)
         VALUES (?) `,
@@ -31,7 +31,7 @@ class JewelryRepository {
         throw new Error("Failed insertion into photos");
       }
 
-      const [jewelryResult] = await connection.query<Result>(
+      const [jewelryResult] = await connection.execute<Result>(
         `INSERT INTO jewelry 
           (type, stock, description, name, price) 
          VALUES (?, ?, ?, ?, ?)`,
@@ -48,7 +48,7 @@ class JewelryRepository {
         throw new Error("Failed to insert into jewelry table.");
       }
 
-      const [photos_jewelry] = await connection.query<Result>(
+      const [photos_jewelry] = await connection.execute<Result>(
         `INSERT INTO photos_jewelry
         (jewelry_id, photos_id)
         VALUES (?, ?)`,
@@ -71,7 +71,7 @@ class JewelryRepository {
   }
 
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT * 
         FROM jewelry 
         INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
@@ -98,7 +98,7 @@ class JewelryRepository {
     const connection = await databaseClient.getConnection();
     try {
       await connection.beginTransaction();
-      const [rows] = await connection.query<Result>(
+      const [rows] = await connection.execute<Result>(
         `UPDATE jewelry
         SET type=?, stock=?, description=?, name=?, price=?
         WHERE id = ?`,
@@ -114,7 +114,7 @@ class JewelryRepository {
       if (!rows.affectedRows) {
         throw new Error("Failed update jewelry");
       }
-      const [photos] = await connection.query<Result>(
+      const [photos] = await connection.execute<Result>(
         `UPDATE photos 
           SET URL = ?
           WHERE id = (SELECT photos_id FROM photos_jewelry
@@ -135,7 +135,7 @@ class JewelryRepository {
     }
   }
   async delete(jewelryId: number) {
-    const [result] = await databaseClient.query<Result>(
+    const [result] = await databaseClient.execute<Result>(
       `DELETE jewelry, photos, photos_jewelry
        FROM jewelry
        INNER JOIN photos_jewelry ON photos_jewelry.jewelry_id = jewelry.id

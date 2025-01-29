@@ -1,3 +1,5 @@
+import SwiperCaroussel from "../../components/Carousel/swiper";
+
 export default function Home() {
-  return <h1>by.Nouchka</h1>;
+  return <SwiperCaroussel itemsToShow={3} />;
 }

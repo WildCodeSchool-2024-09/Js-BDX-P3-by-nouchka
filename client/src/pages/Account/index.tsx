@@ -8,4 +8,5 @@ export default function Account() {
       <Link to="/inscription">Inscription</Link>
     </>
   );
+  return <h2>Mon Compte</h2>;
 }
