@@ -82,7 +82,7 @@ class ClientsRepository {
   }
 
   async getLikedJewelry(clientId: number, jewelryId: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT id FROM likes 
       WHERE jewelry_id = ? AND clients_id = ?`,
       [jewelryId, clientId],
@@ -107,7 +107,7 @@ class ClientsRepository {
   }
 
   async delete(clientsID: number) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `DELETE FROM users
             WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
       [clientsID],
