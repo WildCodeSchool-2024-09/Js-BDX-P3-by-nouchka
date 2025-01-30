@@ -7,3 +7,6 @@ export interface Jewelry {
   quantity: number;
   URL: string;
 }
+export interface JewelryProps {
+  jewelryId: string | undefined;
+}

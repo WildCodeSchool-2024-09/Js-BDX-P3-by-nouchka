@@ -3,11 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
-interface CarouselProductProps {
-  urls: string[];
-  name: string;
-}
+import CarouselProductProps from "../../../types/Product_shop/carousel";
 
 export default function CarouselProduct({ urls, name }: CarouselProductProps) {
   const parsedUrls = typeof urls === "string" ? JSON.parse(urls) : urls;

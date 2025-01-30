@@ -97,7 +97,7 @@ const router = createBrowserRouter([
         element: <ContactBlock />,
       },
       {
-        path: "/product",
+        path: "/jewelry/:id",
         element: <ProductPage />,
       },
     ],

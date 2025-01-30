@@ -1,14 +1,15 @@
 import "../Product/style.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import type { Jewelry } from "../../types/Product_shop";
+import { useParams } from "react-router-dom";
+import type { Jewelry, JewelryProps } from "../../types/Product_shop";
+import AddCart from "../Cart/AddCart";
 import CarouselProduct from "../Product/Carousel_Product";
 import LikesButton from "../Product/Likes/likes";
 import ProductDesktop from "./Product_desktop";
 
-export default function Product() {
-  const navigate = useNavigate();
-  const [data, setData] = useState<Jewelry[]>([]);
+export default function Product({ jewelryId }: JewelryProps) {
+  const { id } = useParams();
+  const [data, setData] = useState<Jewelry | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [swapImage, setSwapImage] = useState<number>(0);
@@ -25,7 +26,7 @@ export default function Product() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/jewelry`,
+          `${import.meta.env.VITE_API_URL}/api/jewelry/${id}`,
           {
             method: "GET",
             headers: {
@@ -34,6 +35,7 @@ export default function Product() {
           },
         );
         const result = await response.json();
+
         setData(result);
       } catch (error) {
         setError(String(error));
@@ -42,56 +44,59 @@ export default function Product() {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
-  if (!data.length) return <p>Aucun bijou trouvé.</p>;
+  if (!data) return <p>Aucun bijou trouvé.</p>;
 
-  function handleAddToCart(): void {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const existingProduct: Jewelry | undefined = cart.find(
-      (item: Jewelry) => item.id === data[0].id,
-    );
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cart.push({ ...data[0], quantity: 1 });
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    navigate("/shop");
-  }
   const handleClick = () => {
     setSwapImage((prev) => (prev === 0 ? 1 : 0));
   };
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
-  if (!data.length) return <p>Aucun bijou trouvé.</p>;
-  const urls = JSON.parse(data[0].URL);
+  if (!data) return <p>Aucun bijou trouvé.</p>;
+  let urls: string | string[];
+  if (typeof data.URL === "string") {
+    try {
+      urls = JSON.parse(data.URL);
+
+      if (!Array.isArray(urls)) {
+        urls = [urls];
+      }
+    } catch (error) {
+      urls = [data.URL];
+    }
+  } else if (Array.isArray(data.URL)) {
+    urls = data.URL;
+  } else {
+    urls = [];
+  }
+  urls = Array.isArray(urls) ? urls : [urls];
 
   return (
     <section className="Product">
       {isMobile ? (
-        <CarouselProduct urls={urls} name={data[0].name} />
+        <CarouselProduct urls={urls} name={data.name} />
       ) : (
         <ProductDesktop
-          urls={JSON.parse(data[0].URL)}
-          name={data[0].name}
+          key={jewelryId}
+          urls={urls}
+          name={data.name}
           swapImage={swapImage}
           onImageClick={handleClick}
         />
       )}
       <span className="containerTitleProduct">
-        <LikesButton className="likesProduct" />
-        <h2 className="titleProduct">{data[0].name}</h2>
+        <figure className="likes">
+          <LikesButton className="likesProduct" />
+        </figure>
+        <h2 className="titleProduct">{data.name}</h2>
       </span>
-      <p className="typeProduct">{data[0].type}</p>
-      <p className="descriptionProduct">{data[0].description}</p>
-      <p className="priceProduct">{data[0].price} €</p>
-
-      <button type="button" className="buttonProduct" onClick={handleAddToCart}>
-        Ajouter au panier
-      </button>
+      <p className="typeProduct">{data.type}</p>
+      <p className="descriptionProduct">{data.description}</p>
+      <p className="priceProduct">{data.price} €</p>
+      <AddCart data={data} />
     </section>
   );
 }

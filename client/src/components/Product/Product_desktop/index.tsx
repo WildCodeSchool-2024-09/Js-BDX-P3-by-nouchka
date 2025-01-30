@@ -1,18 +1,12 @@
 import "../style.css";
-
-interface ProductDesktopProps {
-  urls: string[];
-  name: string;
-  swapImage: number;
-  onImageClick: (index: number) => void;
-}
+import ProductProps from "../../../types/Product_shop/product";
 
 export default function ProductDesktop({
   urls,
   name,
   swapImage,
   onImageClick,
-}: ProductDesktopProps) {
+}: ProductProps) {
   if (!urls || !Array.isArray(urls)) {
     return null;
   }
