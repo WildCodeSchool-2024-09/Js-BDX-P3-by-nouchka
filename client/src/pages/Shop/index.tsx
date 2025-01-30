@@ -24,7 +24,7 @@ const jewelryItems: JewelryItem[] = [
     id: 3,
     name: "Castellbajac",
     price: 14.99,
-    imageUrl: "/api/placeholder/200/200",
+    imageUrl: "${process.env.PUBLIC_URL}/assets/images/IMG_3262.png",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const jewelryItems: JewelryItem[] = [
     id: 5,
     name: "Mbappe",
     price: 19.99,
-    imageUrl: "/api/placeholder/200/200",
+    imageUrl: "serverpublicassetsimages\bergen.jpg",
   },
   {
     id: 6,
