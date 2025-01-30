@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Jewelry } from "../../../types/Product_shop";
+import type { Jewelry } from "../../../types/Product_shop";
 import "../../Product/style.css";
 
 export default function AddCart({ data }: { data: Jewelry }) {

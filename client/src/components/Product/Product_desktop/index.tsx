@@ -1,5 +1,5 @@
 import "../style.css";
-import ProductProps from "../../../types/Product_shop/product";
+import type ProductProps from "../../../types/Product_shop/product";
 
 export default function ProductDesktop({
   urls,
