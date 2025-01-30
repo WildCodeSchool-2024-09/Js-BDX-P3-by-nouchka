@@ -15,18 +15,19 @@ export default function PrivacyPolicy() {
       <h3 className="legalMentions-text">
         1. Responsable du traitement des données
       </h3>
-      <address className="legalMentions-text">
-        <p>Le responsable du traitement des données est :</p>
-        <ul>
-          <li>Nom de l’entreprise : by.Nouchka</li>
-          <li>Adresse : 3 cours de l’intendance, 33000 Bordeaux</li>
-          <li>
-            E-mail :{" "}
-            <a href="mailto:nina.rch16@gmail.com">nina.rch16@gmail.com</a>
-          </li>
-          <li>Numéro SIRET : 93801667200017</li>
-        </ul>
-      </address>
+
+      <p className="legalMentions-text">
+        Le responsable du traitement des données est :
+      </p>
+      <ul className="legalMentions-text">
+        <li>Nom de l’entreprise : by.Nouchka</li>
+        <li>Adresse : 3 cours de l’intendance, 33000 Bordeaux</li>
+        <li>
+          E-mail :{" "}
+          <a href="mailto:nina.rch16@gmail.com">nina.rch16@gmail.com</a>
+        </li>
+        <li>Numéro SIRET : 93801667200017</li>
+      </ul>
 
       <h3 className="legalMentions-text">2. Données collectées</h3>
       <p className="legalMentions-text">

@@ -81,15 +81,15 @@ const like: RequestHandler = async (req, res, next) => {
   try {
     const clientId = Number(req.params.clientId);
     const jewelryId = Number(req.params.jewelryId);
-    const { id: likeId } = await clientsRepository.getLikedJewelry(
+    const jewelry = await clientsRepository.getLikedJewelry(
       clientId,
       jewelryId,
     );
 
     let result: number | boolean;
 
-    if (likeId) {
-      result = await clientsRepository.unlikeJewelry(likeId);
+    if (jewelry) {
+      result = await clientsRepository.unlikeJewelry(jewelry.id);
     } else {
       result = await clientsRepository.likeJewelry(clientId, jewelryId);
     }
