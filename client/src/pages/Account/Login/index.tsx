@@ -1,8 +1,6 @@
-import "../../../App.css"
+import "../../../App.css";
 import ClientLogin from "../../../components/Login/index";
 
 export default function Login() {
-  return (
-      <ClientLogin />
-  );
+  return <ClientLogin />;
 }

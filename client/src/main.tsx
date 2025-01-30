@@ -2,14 +2,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ClientLogin from "../src/components/Login/index";
 import Cart from "./components/Cart";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
+import Login from "./pages/Account/Login";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
-import Login from "./pages/Account/Login";
-import ClientLogin from "../src/components/Login/index";
 /* ************************************************************************* */
 
 // Import the main app component
@@ -21,7 +21,6 @@ import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
-
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
