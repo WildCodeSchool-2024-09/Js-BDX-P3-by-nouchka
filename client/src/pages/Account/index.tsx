@@ -6,6 +6,7 @@ export default function Account() {
     <>
       <h2>Mon Compte</h2>
       <Link to="/inscription">Inscription</Link>
+      <Link to="/login">Me connecter</Link>
     </>
   );
 }

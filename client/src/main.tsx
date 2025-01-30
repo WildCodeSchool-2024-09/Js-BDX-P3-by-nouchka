@@ -8,7 +8,8 @@ import About from "./pages/About";
 import Account from "./pages/Account";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
-
+import Login from "./pages/Account/Login";
+import ClientLogin from "../src/components/Login/index";
 /* ************************************************************************* */
 
 // Import the main app component
@@ -20,6 +21,7 @@ import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
+
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -86,6 +88,14 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/clientLog",
+        element: <ClientLogin />,
       },
       {
         path: "/inscription",
