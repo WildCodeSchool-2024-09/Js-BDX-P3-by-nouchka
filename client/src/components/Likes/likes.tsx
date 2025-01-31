@@ -7,13 +7,13 @@ interface LikesButtonProps {
 }
 export default function LikesButton({ className }: LikesButtonProps) {
   const [likes, setLikes] = useState(false);
-
+    const ariaLabel = likes ? "Ajouter un like" : "supprimer un likes";
   return (
     <button
       type="button"
       className={`likesButton ${className}`}
       onClick={() => setLikes(!likes)}
-      aria-label="Ajouter ou supprimer le like"
+      aria-label={ariaLabel}
     >
       {likes ? "🩷" : "🖤"}
     </button>

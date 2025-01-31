@@ -75,7 +75,7 @@ export default function Product({ jewelryId }: JewelryProps) {
   urls = Array.isArray(urls) ? urls : [urls];
 
   return (
-    <section className="Product">
+    <section className="product">
       {isMobile ? (
         <CarouselProduct urls={urls} name={data.name} />
       ) : (
@@ -88,9 +88,7 @@ export default function Product({ jewelryId }: JewelryProps) {
         />
       )}
       <section className="containerTitleProduct">
-        <article className="likes">
           <LikesButton className="likesProduct" />
-        </article>
         <h2 className="titleProduct">{data.name}</h2>
       </section>
       <p className="typeProduct">{data.type}</p>

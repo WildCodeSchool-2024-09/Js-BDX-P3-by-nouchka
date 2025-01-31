@@ -6,7 +6,7 @@ import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
-import { Link } from "react-router-dom";
+
 import Card from "./card.tsx";
 interface JewelryItem {
   id: number;
@@ -76,14 +76,15 @@ export default function SwiperCaroussel({
           >
             {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <Link className="productLink" to={`/jewelry/${item.id}`}>
+                
                   <Card
                     figureClass="crlImgContainer"
                     caption="caption"
                     url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                     name={item.name}
+                    item={{ id: item.id }}
                   />
-                </Link>
+             
               </SwiperSlide>
             ))}
           </Swiper>
@@ -91,15 +92,14 @@ export default function SwiperCaroussel({
       ) : (
         <>
           {jewelry.slice(0, itemsToShow).map((item) => (
-            <Link key={item.id} to={`/jewelry/${item.id}`}>
               <Card
                 key={item.id}
                 figureClass="cardDesktop"
                 imgClass="imgDesktop"
                 url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                 name={item.name}
+                item={{ id: item.id}}
               />
-            </Link>
           ))}
         </>
       )}

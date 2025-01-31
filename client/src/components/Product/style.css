@@ -1,18 +1,18 @@
 @import url("../../App.css");
 
-.ProductImg {
+.productImg {
   width: 260px;
   height: 260px;
   object-fit: cover;
   border-radius: var(--borderRadius);
   border: var(--border-solid);
 }
-.ProductImg:nth-child(2) {
+.productImg:nth-child(2) {
   object-fit: cover;
   border-radius: var(--borderRadius);
   border: var(--border-solid);
 }
-.Product {
+.product {
   color: var(--textColor);
   font-family: var(--textFont);
   display: flex;
@@ -24,10 +24,6 @@
   color: var(--primaryColor);
   font-size: larger;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-}
-.likes {
   display: flex;
   justify-content: center;
 }
@@ -54,8 +50,12 @@
   object-fit: cover;
   border-radius: var(--borderRadius);
 }
+.likesProduct {
+  display: block;
+  margin: auto;
+}
 @media screen and (min-width: 768px) {
-  .Product {
+  .product {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);
@@ -80,16 +80,16 @@
     align-items: center;
     gap: .5rem;
   }
-  .ProductImg {
+  .productImg {
     width: 300px;
     height: 300px;
   }
-  .ProductImg:nth-child(2) {
+  .productImg:nth-child(2) {
     width: 150px;
     height: 150px;
     cursor: pointer;
   }
-  .ProductImg:nth-child(2):hover {
+  .productImg:nth-child(2):hover {
     transform: scale(1.1);
     box-shadow: var(--mediumBoxShadow);
   }
