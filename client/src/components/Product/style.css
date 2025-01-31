@@ -1,8 +1,8 @@
 @import url("../../App.css");
 
 .productImg {
-  width: 260px;
-  height: 260px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: var(--borderRadius);
   border: var(--border-solid);
@@ -125,5 +125,8 @@
   .buttonProduct:hover {
     transform: scale(1.1);
     box-shadow: var(--mediumBoxShadow);
+  }
+  .likesProduct {
+    margin: 0;
   }
 }
