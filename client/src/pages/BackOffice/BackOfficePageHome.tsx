@@ -37,6 +37,15 @@ export default function BackOfficePageHome() {
       })
       .catch((error) => console.error("Erreur lors du fetch :", error));
 
+    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home/jewelry`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedJewelry(data.selectedJewelry || []);
+      })
+      .catch((error) =>
+        console.error("Erreur lors du fetch des bijoux sélectionnés :", error),
+      );
+
     fetch(`${import.meta.env.VITE_API_URL}/api/jewelry`)
       .then((response) => response.json())
       .then((data) => {

@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
 import CardDesktop from "./cardDesktop";
+
 interface JewelryItem {
   id: number;
   name: string;
@@ -18,7 +19,7 @@ interface JewelryItem {
 interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
-  selectedJewelry: number[]; // Accepter les bijoux sélectionnés
+  selectedJewelry: number[];
 }
 
 export default function SwiperCaroussel({
@@ -31,17 +32,10 @@ export default function SwiperCaroussel({
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchJewelry = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/jewelry`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          },
         );
         const data: JewelryItem[] = await response.json();
         const filteredData = type
@@ -49,17 +43,17 @@ export default function SwiperCaroussel({
           : data;
         setJewelry(filteredData);
       } catch (err) {
-        console.error("Erreur lors de la récupération des événements :", err);
+        console.error("Erreur lors de la récupération des bijoux :", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchEvents();
+
+    fetchJewelry();
   }, [type]);
 
   if (loading) return <p>Chargement...</p>;
 
-  // Filtrer les bijoux sélectionnés
   const filteredJewelry = jewelry.filter((item) =>
     selectedJewelry.includes(item.id),
   );
@@ -67,40 +61,38 @@ export default function SwiperCaroussel({
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
-        <>
-          <Swiper
-            className="mySwiper"
-            modules={[Autoplay, Pagination]}
-            pagination={{
-              clickable: true,
-              type: "bullets",
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: true,
-            }}
-            loop={true}
-          >
-            {filteredJewelry.slice(0, itemsToShow).map((item) => (
-              <SwiperSlide key={item.id} className="swiperImg">
-                <CardCarousel
-                  url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
-                  name={item.name}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </>
-      ) : (
-        <>
+        <Swiper
+          className="mySwiper"
+          modules={[Autoplay, Pagination]}
+          pagination={{
+            clickable: true,
+            type: "bullets",
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: true,
+          }}
+          loop={true}
+        >
           {filteredJewelry.slice(0, itemsToShow).map((item) => (
+            <SwiperSlide key={item.id} className="swiperImg">
+              <CardCarousel
+                url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                name={item.name}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        filteredJewelry
+          .slice(0, itemsToShow)
+          .map((item) => (
             <CardDesktop
               key={item.id}
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
             />
-          ))}
-        </>
+          ))
       )}
     </article>
   );
