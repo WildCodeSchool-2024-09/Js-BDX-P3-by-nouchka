@@ -6,7 +6,7 @@ import Cart from "./components/Cart";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
-import Shop from "./pages/Shop";
+//import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 
 /* ************************************************************************* */
@@ -63,8 +63,8 @@ const router = createBrowserRouter([
         element: <PrivacyPolicy />,
       },
       {
-        path: "/shop",
-        element: <Shop />,
+        // path: "/shop",
+        // element: <Shop />,
       },
 
       {
