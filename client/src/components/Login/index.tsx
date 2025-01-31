@@ -19,25 +19,26 @@ export default function ClientLogin() {
           method: "post",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ajout du Bearer token
           },
           body: JSON.stringify(formData),
         },
       );
-      response.json();
+
+      const data = await response.json(); // Stockage de la réponse
+
       if (!response.ok) {
-        const errorData = await response.json();
-        if (
-          errorData.includes("Duplicate entry") ||
-          errorData.includes("mail")
-        ) {
+        if (data.includes("Duplicate entry") || data.includes("mail")) {
           setEmailError("Erreur lors de l'inscription");
           throw new Error("Erreur lors de l'inscription");
         }
+        throw new Error("Erreur de connexion");
       }
 
-      setError("");
+      localStorage.setItem("token", data.token);
 
-      navigate("/account");
+      setError("");
+      navigate("/");
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Erreur lors de l'inscription",
@@ -54,7 +55,7 @@ export default function ClientLogin() {
   }
 
   return (
-    <div>
+    <>
       <h1 className="titleLogin">Me Connecter</h1>
       <form className="loginBlock" onSubmit={handleSubmit}>
         <label htmlFor="email" className="loginEmail">
@@ -83,7 +84,10 @@ export default function ClientLogin() {
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}
+        <button type="submit" className="btnLogin">
+          Se connecter
+        </button>
       </form>
-    </div>
+    </>
   );
 }
