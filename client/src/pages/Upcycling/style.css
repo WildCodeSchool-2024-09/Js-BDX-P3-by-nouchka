@@ -1,0 +1,57 @@
+.title-upcycling {
+  font-family: var(--titleFont);
+  padding: calc(var(--spacing) * 1.5);
+  color: var(--primaryColor);
+  font-size: calc(var(--spacing) * 2);
+  text-align: center;
+}
+.title-upcycling::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+.upcycling-story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--spacing);
+  border-radius: var(--borderRadius);
+}
+.upcycling-story section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upcycling-story section p {
+  font-family: var(--textFont);
+  padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+  color: var(--textColor);
+  width: clamp(30ch, 50%, 65ch);
+}
+.upcycling-story img {
+  width: 18rem;
+  padding: var(--spacing);
+  border-radius: calc(var(--borderRadius) * 1.5);
+}
+@media screen and (min-width: 768px) {
+  .upcycling-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing);
+    justify-items: center;
+  }
+  .upcycling-story section p {
+    font-size: calc(var(--spacing) * 1.15);
+    width: 90%;
+  }
+  .title-upcycling {
+    font-size: calc(var(--spacing) * 2.5);
+  }
+  .upcycling-story img {
+    width: 25rem;
+  }
+}
