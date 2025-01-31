@@ -56,12 +56,12 @@ export default function ClientLogin() {
 
   return (
     <>
-      <h1 className="titleLogin">Me Connecter</h1>
-      <form className="loginBlock" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="loginEmail">
+      <h1 className="titleForm">Me Connecter</h1>
+      <form className="registerForm" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="registerEmail">
           <input
             id="email"
-            className="loginBlockEmail"
+            className="registerBlockEmail"
             required
             type="email"
             name="mail"
@@ -71,7 +71,7 @@ export default function ClientLogin() {
           />
         </label>
         {emailError && <p className="errorEmail">{emailError}</p>}
-        <label htmlFor="password" className="loginPassword">
+        <label htmlFor="password" className="registerPassword">
           <input
             id="password"
             className="password"
@@ -84,8 +84,8 @@ export default function ClientLogin() {
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}
-        <button type="submit" className="btnLogin">
-          Se connecter
+        <button className="registerSend" type="submit">
+          Me Connecter
         </button>
       </form>
     </>
