@@ -1,10 +1,11 @@
+import "./style.css";
 export default function PrivacyPolicy() {
   return (
-    <section className="legalMentions-container">
+    <section className="privacy-policy-container">
       <h2 className="secondary-title">
         Politique de Confidentialité de by.Nouchka
       </h2>
-      <p className="legalMentions-text">
+      <p className="legalMentions-text-privacy-p">
         Dernière mise à jour : 19/01/2025. by.Nouchka accorde une grande
         importance à la protection des données personnelles de ses clients.
         Cette politique explique comment nous collectons, utilisons, stockons et
@@ -12,14 +13,14 @@ export default function PrivacyPolicy() {
         site internet (ci-après "le Site").
       </p>
 
-      <h3 className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">
         1. Responsable du traitement des données
       </h3>
 
-      <p className="legalMentions-text">
+      <p className="legalMentions-text-privacy-p">
         Le responsable du traitement des données est :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
         <li>Nom de l’entreprise : by.Nouchka</li>
         <li>Adresse : 3 cours de l’intendance, 33000 Bordeaux</li>
         <li>
@@ -29,40 +30,41 @@ export default function PrivacyPolicy() {
         <li>Numéro SIRET : 93801667200017</li>
       </ul>
 
-      <h3 className="legalMentions-text">2. Données collectées</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">2. Données collectées</h3>
+      <p className="legalMentions-text-privacy-p">
         Nous collectons uniquement les données nécessaires pour traiter vos
         commandes et améliorer votre expérience sur le Site. Ces données
         incluent :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
+        <li>Données personnelles fournies directement par vous :</li>
+      </ul>
+      <ul className="legalMentions-text-privacy-p">
+        <li>Nom et prénom</li>
+        <li>Adresse e-mail</li>
+        <li>Adresse postale</li>
+        <li>Numéro de téléphone</li>
         <li>
-          Données personnelles fournies directement par vous :
-          <ul>
-            <li>Nom et prénom</li>
-            <li>Adresse e-mail</li>
-            <li>Adresse postale</li>
-            <li>Numéro de téléphone</li>
-            <li>
-              Informations de paiement (via une passerelle sécurisée, sans
-              conservation par nos soins)
-            </li>
-          </ul>
-        </li>
-        <li>
-          Données collectées automatiquement :
-          <ul>
-            <li>Adresse IP</li>
-            <li>Données de navigation (pages visitées, temps passé, etc.)</li>
-          </ul>
+          Informations de paiement (via une passerelle sécurisée, sans
+          conservation par nos soins)
         </li>
       </ul>
 
-      <h3 className="legalMentions-text">
+      <p className="legalMentions-text-privacy-p">
+        Données collectées automatiquement :
+      </p>
+      <ul className="legalMentions-text-privacy-p">
+        <li>Adresse IP</li>
+        <li>Données de navigation (pages visitées, temps passé, etc.)</li>
+      </ul>
+
+      <h3 className="legalMentions-text-privacy-p">
         3. Finalités du traitement des données
       </h3>
-      <p className="legalMentions-text">Vos données sont collectées pour :</p>
-      <ol className="legalMentions-text">
+      <p className="legalMentions-text-privacy-p">
+        Vos données sont collectées pour :
+      </p>
+      <ol className="legalMentions-text-privacy-p">
         <li>
           La gestion des commandes : Traitement, expédition, facturation et
           suivi des commandes.
@@ -87,12 +89,12 @@ export default function PrivacyPolicy() {
         </li>
       </ol>
 
-      <h3 className="legalMentions-text">4. Partage des données</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">4. Partage des données</h3>
+      <p className="legalMentions-text-privacy-p">
         Nous ne partageons vos données personnelles qu’avec des tiers de
         confiance et uniquement lorsque cela est nécessaire :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
         <li>
           Fournisseurs de services tiers :
           <ul>
@@ -108,11 +110,13 @@ export default function PrivacyPolicy() {
         </li>
       </ul>
 
-      <h3 className="legalMentions-text">5. Conservation des données</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">
+        5. Conservation des données
+      </h3>
+      <p className="legalMentions-text-privacy-p">
         Vos données personnelles sont conservées :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
         <li>
           Pour les commandes : Pendant toute la durée de la relation
           commerciale, puis archivées pour la durée légale (ex. : 5 ans pour les
@@ -125,11 +129,11 @@ export default function PrivacyPolicy() {
         <li>Pour les données de navigation : Jusqu’à 13 mois maximum.</li>
       </ul>
 
-      <h3 className="legalMentions-text">6. Vos droits</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">6. Vos droits</h3>
+      <p className="legalMentions-text-privacy-p">
         Conformément au RGPD, vous disposez des droits suivants :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
         <li>
           Droit d’accès : Consulter les données personnelles que nous détenons
           sur vous.
@@ -150,7 +154,7 @@ export default function PrivacyPolicy() {
         <li>
           Droit de retirer votre consentement : À tout moment, pour les
           traitements nécessitant votre accord (ex. : newsletter).
-          <p className="legalMentions-text">
+          <p className="legalMentions-text-privacy-p">
             Pour exercer vos droits, contactez-nous à l’adresse suivante :{" "}
             <a href="mailto:[votre adresse e-mail dédiée]">
               [votre adresse e-mail dédiée]
@@ -160,13 +164,13 @@ export default function PrivacyPolicy() {
         </li>
       </ul>
 
-      <h3 className="legalMentions-text">7. Sécurité des données</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">7. Sécurité des données</h3>
+      <p className="legalMentions-text-privacy-p">
         Nous mettons en œuvre des mesures techniques et organisationnelles pour
         protéger vos données contre tout accès non autorisé, perte ou altération
         :
       </p>
-      <ul className="legalMentions-text">
+      <ul className="legalMentions-text-privacy-p">
         <li>Hébergement sécurisé du Site.</li>
         <li>
           Cryptage des données de paiement via des passerelles sécurisées (ex. :
@@ -177,17 +181,17 @@ export default function PrivacyPolicy() {
         </li>
       </ul>
 
-      <h3 className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">
         8. Modifications de la Politique de Confidentialité
       </h3>
-      <p className="legalMentions-text">
+      <p className="legalMentions-text-privacy-p">
         Nous nous réservons le droit de modifier cette politique à tout moment
         pour rester conformes aux évolutions légales ou techniques. Toute
         modification sera communiquée via une notification sur le Site.
       </p>
 
-      <h3 className="legalMentions-text">9. Contact</h3>
-      <p className="legalMentions-text">
+      <h3 className="legalMentions-text-privacy-p">9. Contact</h3>
+      <p className="legalMentions-text-privacy-p">
         Pour toute question ou préoccupation concernant cette Politique de
         Confidentialité, vous pouvez nous contacter via le site internet
         directement.

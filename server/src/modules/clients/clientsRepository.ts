@@ -87,7 +87,6 @@ class ClientsRepository {
       WHERE jewelry_id = ? AND clients_id = ?`,
       [jewelryId, clientId],
     );
-    console.info(rows[0]);
     return rows[0];
   }
   async likeJewelry(clientId: number, jewelryId: number) {
