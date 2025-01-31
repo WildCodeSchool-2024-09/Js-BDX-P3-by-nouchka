@@ -56,6 +56,16 @@ class ClientsRepository {
     );
     return rows[0] as Clients;
   }
+  async checkIsClient(id: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT lastname, firstname, mail, clients.id
+    FROM users 
+    INNER JOIN clients ON clients.users_id = users.id
+    WHERE users.id = ?`,
+      [id],
+    );
+    return rows[0] as Clients;
+  }
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT lastname, firstname, mail
