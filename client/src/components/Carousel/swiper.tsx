@@ -6,6 +6,7 @@ import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
+
 import Card from "./card.tsx";
 interface JewelryItem {
   id: number;
@@ -75,12 +76,15 @@ export default function SwiperCaroussel({
           >
             {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <Card
-                  figureClass="crlImgContainer"
-                  caption="caption"
-                  url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
-                  name={item.name}
-                />
+                
+                  <Card
+                    figureClass="crlImgContainer"
+                    caption="caption"
+                    url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                    name={item.name}
+                    item={{ id: item.id }}
+                  />
+             
               </SwiperSlide>
             ))}
           </Swiper>
@@ -88,13 +92,14 @@ export default function SwiperCaroussel({
       ) : (
         <>
           {jewelry.slice(0, itemsToShow).map((item) => (
-            <Card
-              key={item.id}
-              figureClass="cardDesktop"
-              imgClass="imgDesktop"
-              url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
-              name={item.name}
-            />
+              <Card
+                key={item.id}
+                figureClass="cardDesktop"
+                imgClass="imgDesktop"
+                url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                name={item.name}
+                item={{ id: item.id}}
+              />
           ))}
         </>
       )}

@@ -54,7 +54,9 @@
   background-color: var(--primaryColor);
   opacity: 1;
 }
-
+.productLink {
+  text-decoration: none;
+}
 @media screen and (min-width: 768px) {
   .imageContainer {
     display: flex;
