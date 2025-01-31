@@ -119,7 +119,7 @@ class JewelryRepository {
           SET URL = ?
           WHERE id IN (SELECT photos_id FROM photos_jewelry
           WHERE jewelry_id = ?)`,
-        [JSON.stringify(jewelry.url), jewelry.id],
+        [jewelry.url, jewelry.id],
       );
       if (!photos.affectedRows) {
         throw new Error("Failed to update photos");

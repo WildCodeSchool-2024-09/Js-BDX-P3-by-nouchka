@@ -76,7 +76,7 @@ export default function SwiperCaroussel({
           >
             {jewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
-                <Link to={`/jewelry/${item.id}`}>
+                <Link className="productLink" to={`/jewelry/${item.id}`}>
                   <Card
                     figureClass="crlImgContainer"
                     caption="caption"

@@ -2,7 +2,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Cart from "./components/Cart";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -77,11 +76,6 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
-      },
-
-      {
-        path: "/cart",
-        element: <Cart />,
       },
 
       {

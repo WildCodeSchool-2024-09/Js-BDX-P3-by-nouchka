@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Jewelry, JewelryProps } from "../../types/Product_shop";
 import AddCart from "../Cart/AddCart";
+import LikesButton from "../Likes/likes";
 import CarouselProduct from "../Product/Carousel_Product";
-import LikesButton from "../Product/Likes/likes";
 import ProductDesktop from "./Product_desktop";
 
 export default function Product({ jewelryId }: JewelryProps) {
@@ -87,12 +87,12 @@ export default function Product({ jewelryId }: JewelryProps) {
           onImageClick={handleClick}
         />
       )}
-      <span className="containerTitleProduct">
-        <figure className="likes">
+      <section className="containerTitleProduct">
+        <article className="likes">
           <LikesButton className="likesProduct" />
-        </figure>
+        </article>
         <h2 className="titleProduct">{data.name}</h2>
-      </span>
+      </section>
       <p className="typeProduct">{data.type}</p>
       <p className="descriptionProduct">{data.description}</p>
       <p className="priceProduct">{data.price} €</p>

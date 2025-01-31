@@ -106,7 +106,7 @@
   .typeProduct,
   .titleProduct,
   .descriptionProduct {
-    text-align: left;
+    text-align: start;
     justify-self: start;
   }
   .descriptionProduct {

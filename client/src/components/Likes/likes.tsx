@@ -13,6 +13,7 @@ export default function LikesButton({ className }: LikesButtonProps) {
       type="button"
       className={`likesButton ${className}`}
       onClick={() => setLikes(!likes)}
+      aria-label="Ajouter ou supprimer le like"
     >
       {likes ? "🩷" : "🖤"}
     </button>
