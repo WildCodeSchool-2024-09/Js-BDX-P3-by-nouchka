@@ -1,12 +1,12 @@
 export default function Description({ text }: { text: string }) {
   return (
-    <section>
+    <article>
       {text
         .trim()
         .split("\n\n")
         .map((paragraph) => (
           <p key={Date.now()}>{paragraph}</p>
         ))}
-    </section>
+    </article>
   );
 }
