@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginClientCheck } from "../../types/LoginClients";
-
+import "../Login/style.css";
 export default function ClientLogin() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | undefined>(undefined);

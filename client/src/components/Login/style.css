@@ -1,0 +1,7 @@
+@import url("../../App.css");
+
+.titleLogin {
+  color: var(--primaryColor);
+  text-align: center;
+  font-family: var(--titleFont);
+}
