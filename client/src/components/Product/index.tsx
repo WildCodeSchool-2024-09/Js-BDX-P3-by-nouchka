@@ -11,7 +11,6 @@ export default function Product({ jewelryId }: JewelryProps) {
   const { id } = useParams();
   const [data, setData] = useState<Jewelry | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [swapImage, setSwapImage] = useState<number>(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   useEffect(() => {
@@ -38,23 +37,20 @@ export default function Product({ jewelryId }: JewelryProps) {
 
         setData(result);
       } catch (error) {
-        setError(String(error));
+        setData(null);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, [id]);
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
-  if (!data) return <p>Aucun bijou trouvé.</p>;
 
   const handleClick = () => {
     setSwapImage((prev) => (prev === 0 ? 1 : 0));
   };
-
   if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
+  if (!data) return <p>Aucun bijou trouvé.</p>;
+
   let urls: string | string[];
   if (typeof data.URL === "string") {
     try {
