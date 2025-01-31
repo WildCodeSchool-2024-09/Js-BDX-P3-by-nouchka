@@ -28,6 +28,21 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+const readWithJewelry: RequestHandler = async (req, res, next) => {
+  try {
+    const pageName = req.params.name;
+    const pageWithJewelry = await pagesRepository.readWithJewelry(pageName);
+
+    if (!pageWithJewelry) {
+      res.sendStatus(404);
+    } else {
+      res.json(pageWithJewelry);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const pageName = req.params.name;
@@ -38,14 +53,55 @@ const edit: RequestHandler = async (req, res, next) => {
       url_illustration: req.body.url_illustration,
     };
 
+    const selectedJewelry = req.body.selectedJewelry || [];
+
     const result = await pagesRepository.update(updatePages);
+
+    if (!result) {
+      res.status(404).send("Page non trouvée.");
+      return;
+    }
+
+    const jewelryUpdateResult = await pagesRepository.updateWithJewelry(
+      updatePages,
+      selectedJewelry,
+    );
+
+    if (jewelryUpdateResult) {
+      res.status(204).send();
+    } else {
+      res.status(500).send("Erreur lors de la mise à jour des bijoux.");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateWithJewelry: RequestHandler = async (req, res, next) => {
+  try {
+    const pageName = req.params.name;
+
+    const updatePage = {
+      name: pageName,
+      title: req.body.title,
+      description: req.body.description,
+      url_illustration: req.body.url_illustration,
+    };
+
+    const selectedJewelry = req.body.selectedJewelry || [];
+
+    const result = await pagesRepository.updateWithJewelry(
+      updatePage,
+      selectedJewelry,
+    );
 
     if (result) {
       res.status(204).send();
     } else {
-      res.status(404).send();
+      res.status(500).send("Erreur lors de la mise à jour des bijoux.");
     }
   } catch (err) {
+    console.error("Erreur dans updateWithJewelry :", err);
     next(err);
   }
 };
@@ -137,4 +193,12 @@ const deleteImage = async (
   }
 };
 
-export default { browse, read, edit, uploadImage, deleteImage };
+export default {
+  browse,
+  read,
+  edit,
+  uploadImage,
+  deleteImage,
+  readWithJewelry,
+  updateWithJewelry,
+};

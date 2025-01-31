@@ -165,3 +165,11 @@ CREATE TABLE likes_jewelry (
     FOREIGN KEY (likes_id) REFERENCES likes(id)
     ON DELETE CASCADE
 );
+
+CREATE TABLE pages_jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (page_name) REFERENCES pages(name) ON DELETE CASCADE,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id) ON DELETE CASCADE
+);

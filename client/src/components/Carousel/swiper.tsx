@@ -18,11 +18,13 @@ interface JewelryItem {
 interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
+  selectedJewelry: number[]; // Accepter les bijoux sélectionnés
 }
 
 export default function SwiperCaroussel({
   itemsToShow,
   type,
+  selectedJewelry,
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
@@ -57,6 +59,11 @@ export default function SwiperCaroussel({
 
   if (loading) return <p>Chargement...</p>;
 
+  // Filtrer les bijoux sélectionnés
+  const filteredJewelry = jewelry.filter((item) =>
+    selectedJewelry.includes(item.id),
+  );
+
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
@@ -74,7 +81,7 @@ export default function SwiperCaroussel({
             }}
             loop={true}
           >
-            {jewelry.slice(0, itemsToShow).map((item) => (
+            {filteredJewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
                 <CardCarousel
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
@@ -86,7 +93,7 @@ export default function SwiperCaroussel({
         </>
       ) : (
         <>
-          {jewelry.slice(0, itemsToShow).map((item) => (
+          {filteredJewelry.slice(0, itemsToShow).map((item) => (
             <CardDesktop
               key={item.id}
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}

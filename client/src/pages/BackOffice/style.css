@@ -72,7 +72,8 @@
   margin-bottom: 3rem;
 }
 
-.image-preview img {
+.image-preview img,
+.selected-jewelry-img {
   width: 8rem;
 }
 

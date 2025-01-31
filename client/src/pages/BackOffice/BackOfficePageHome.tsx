@@ -6,6 +6,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -18,6 +22,10 @@ export default function BackOfficePageHome() {
   const [urlIllustration, setUrlIllustration] = useState<string>("");
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
+  const [jewelry, setJewelry] = useState<
+    { id: string; name: string; URL: string }[]
+  >([]);
+  const [selectedJewelry, setSelectedJewelry] = useState<number[]>([]);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/pages/home`)
@@ -28,28 +36,54 @@ export default function BackOfficePageHome() {
         setUrlIllustration(data.url_illustration || "");
       })
       .catch((error) => console.error("Erreur lors du fetch :", error));
+
+    fetch(`${import.meta.env.VITE_API_URL}/api/jewelry`)
+      .then((response) => response.json())
+      .then((data) => {
+        setJewelry(data);
+      })
+      .catch((error) =>
+        console.error("Erreur lors du fetch des bijoux :", error),
+      );
   }, []);
 
-  const handleSave = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title,
-        description,
-        url_illustration: urlIllustration,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Modifications enregistrées !");
-        } else {
-          alert("Erreur lors de la sauvegarde.");
-        }
-      })
-      .catch((error) => console.error("Erreur lors de la sauvegarde :", error));
+  const handleSave = async () => {
+    try {
+      const jewelryResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/pages/home/jewelry`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            selectedJewelry,
+            title,
+            description,
+            url_illustration: urlIllustration,
+          }),
+        },
+      );
+
+      if (!jewelryResponse.ok) {
+        throw new Error(
+          "Erreur lors de la sauvegarde des bijoux sélectionnés.",
+        );
+      }
+
+      alert("Modifications enregistrées avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde :", error);
+    }
 
     setOpenDialog(false);
+  };
+
+  const handleSelectJewelry = (value: number) => {
+    if (selectedJewelry.includes(value)) {
+      alert("Ce bijou est déjà sélectionné !");
+      return;
+    }
+
+    setSelectedJewelry([...selectedJewelry, value]);
   };
 
   const handleFileUpload = async () => {
@@ -58,6 +92,7 @@ export default function BackOfficePageHome() {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("name", "home");
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/pages/upload`,
@@ -118,6 +153,7 @@ export default function BackOfficePageHome() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <TextField
         label="Chapeau"
         variant="outlined"
@@ -130,10 +166,10 @@ export default function BackOfficePageHome() {
       />
 
       <TextField
-        label="URL de l'illustration"
+        label="URL Illustration"
         variant="outlined"
         fullWidth
-        className="url-input"
+        className="url-illustration-input"
         value={urlIllustration}
         onChange={(e) => setUrlIllustration(e.target.value)}
       />
@@ -163,24 +199,35 @@ export default function BackOfficePageHome() {
         </Box>
       )}
 
-      <TextField
-        label="URL de l'image produit n°1"
-        variant="outlined"
-        fullWidth
-        className="url-input"
-      />
-      <TextField
-        label="URL de l'image produit n°2"
-        variant="outlined"
-        fullWidth
-        className="url-input"
-      />
-      <TextField
-        label="URL de l'image produit n°3"
-        variant="outlined"
-        fullWidth
-        className="url-input"
-      />
+      {[0, 1, 2].map((index) => (
+        <FormControl key={index} fullWidth className="jewelry-select">
+          <InputLabel>Bijou n°{index + 1}</InputLabel>
+          <Select
+            value={selectedJewelry[index] || ""}
+            onChange={(e) => handleSelectJewelry(+e.target.value)}
+          >
+            <MenuItem value="">Sélectionner un bijou</MenuItem>
+            {jewelry.map((jewel) => (
+              <MenuItem key={jewel.id} value={jewel.id}>
+                {jewel.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ))}
+
+      {jewelry
+        .filter((jewel) => selectedJewelry.includes(+jewel.id))
+        .map((j) => (
+          <Box key={j.id} className="selected-jewelry">
+            <img
+              src={`${import.meta.env.VITE_API_URL}/${j.URL}`}
+              alt={j.name}
+              className="selected-jewelry-img"
+            />
+            <p>{j.name}</p>
+          </Box>
+        ))}
 
       <Button
         variant="contained"

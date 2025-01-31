@@ -53,6 +53,8 @@ router.post(
   pagesActions.uploadImage,
 );
 router.delete("/api/pages/delete-image", pagesActions.deleteImage);
+router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
+router.put("/api/pages/:name/jewelry", pagesActions.updateWithJewelry);
 
 import eventActions from "./modules/event/eventActions";
 
