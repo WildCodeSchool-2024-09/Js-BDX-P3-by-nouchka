@@ -55,7 +55,6 @@ export default function Product({ jewelryId }: JewelryProps) {
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
-  if (!data) return <p>Aucun bijou trouvé.</p>;
   let urls: string | string[];
   if (typeof data.URL === "string") {
     try {
@@ -88,7 +87,7 @@ export default function Product({ jewelryId }: JewelryProps) {
         />
       )}
       <section className="containerTitleProduct">
-          <LikesButton className="likesProduct" />
+        <LikesButton className="likesProduct" />
         <h2 className="titleProduct">{data.name}</h2>
       </section>
       <p className="typeProduct">{data.type}</p>
