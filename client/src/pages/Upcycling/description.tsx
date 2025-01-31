@@ -5,7 +5,7 @@ export default function Description({ text }: { text: string }) {
         .trim()
         .split("\n\n")
         .map((paragraph) => (
-          <p key={Date.now()}>{paragraph}</p>
+          <p key={paragraph}>{paragraph}</p>
         ))}
     </article>
   );

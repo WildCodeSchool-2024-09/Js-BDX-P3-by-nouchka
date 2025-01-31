@@ -21,12 +21,12 @@
   margin: var(--spacing);
   border-radius: var(--borderRadius);
 }
-.upcycling-story section {
+.upcycling-story article {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.upcycling-story section p {
+.upcycling-story article p {
   font-family: var(--textFont);
   padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
   color: var(--textColor);
@@ -44,7 +44,7 @@
     gap: var(--spacing);
     justify-items: center;
   }
-  .upcycling-story section p {
+  .upcycling-story article p {
     font-size: calc(var(--spacing) * 1.15);
     width: 90%;
   }
