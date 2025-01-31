@@ -6,6 +6,7 @@ import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
+
 import Card from "./card.tsx";
 interface JewelryItem {
   id: number;
@@ -80,6 +81,7 @@ export default function SwiperCaroussel({
                   caption="caption"
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                   name={item.name}
+                  item={{ id: item.id }}
                 />
               </SwiperSlide>
             ))}
@@ -94,6 +96,7 @@ export default function SwiperCaroussel({
               imgClass="imgDesktop"
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
+              item={{ id: item.id }}
             />
           ))}
         </>
