@@ -6,7 +6,6 @@ import ClientLogin from "../src/components/Login/index";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
-import Login from "./pages/Account/Login";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 /* ************************************************************************* */
@@ -82,10 +81,6 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
       },
       {
         path: "/clientLog",

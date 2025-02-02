@@ -50,12 +50,12 @@
 }
 
 .registerSend {
-  width: 20%;
   background-color: var(--textColor);
   border: none;
   padding: 1rem;
   border-radius: 1rem;
   color: var(--secondaryColor);
+  cursor: pointer;
 }
 
 .registerSend:hover {

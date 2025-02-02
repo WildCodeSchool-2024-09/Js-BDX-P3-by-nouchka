@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginClientCheck } from "../../types/LoginClients";
-import "../Login/style.css";
+import { useEffect } from "react";
+import { useAuth } from "../Login/login_persistance/persistance";
+
 export default function ClientLogin() {
+  const { isLogged, setIsLogged, setUserFirstName } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | undefined>(undefined);
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
@@ -10,6 +13,12 @@ export default function ClientLogin() {
     mail: "",
     password: "",
   });
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/");
+    }
+  }, [isLogged, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -19,14 +28,14 @@ export default function ClientLogin() {
           method: "post",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ajout du Bearer token
           },
           body: JSON.stringify(formData),
         },
       );
 
-      const data = await response.json(); // Stockage de la réponse
-
+      const data = await response.json();
+      console.log("==== RÉPONSE API ====");
+      console.log("Data complète:", data);
       if (!response.ok) {
         if (data.includes("Duplicate entry") || data.includes("mail")) {
           setEmailError("Erreur lors de l'inscription");
@@ -34,11 +43,15 @@ export default function ClientLogin() {
         }
         throw new Error("Erreur de connexion");
       }
-
+      
       localStorage.setItem("token", data.token);
-
+        localStorage.setItem("userFirstName", data.user.firstname);
+       
+        setIsLogged(true);
+        setUserFirstName(data.user.firstname);
+      
       setError("");
-      navigate("/");
+      navigate("/account");
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Erreur lors de l'inscription",
