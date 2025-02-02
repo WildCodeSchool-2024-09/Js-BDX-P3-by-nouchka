@@ -1,31 +1,30 @@
 @import url("../../App.css");
 
-
 .hello {
-    font-family: var(--titleFont);
-    color: var(--primaryColor);
-    font-size:xx-large;
+  font-family: var(--titleFont);
+  color: var(--primaryColor);
+  font-size: xx-large;
 }
 .hello::after {
-    content: "";
-    display: block;
-    margin-top: 0.5rem;
-    width: 10%;
-    border-top: 3px solid var(--primaryColor);
-    margin-left: auto;
-    margin-right: auto;
-  }
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
 .onceConnected {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing);
 }
 .myOrders .myLikes {
-    font-family: var(--textFont);
-    color: var(--textColor);
-} 
+  font-family: var(--textFont);
+  color: var(--textColor);
+}
 .btnDisconnection {
   background-color: var(--textColor);
   border: none;
@@ -35,39 +34,39 @@
   cursor: pointer;
 }
 .btnDisconnection:hover {
-    background-color: var(--primaryColor);
+  background-color: var(--primaryColor);
 }
-  
+
 .btnDisconnection:active {
-    background-color: var(--primaryColor);
+  background-color: var(--primaryColor);
 }
 .firstPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing);
 }
 .titleAccount {
-    font-family: var(--titleFont);
-    color: var(--primaryColor);
-    font-size:xx-large;
+  font-family: var(--titleFont);
+  color: var(--primaryColor);
+  font-size: xx-large;
 }
 .titleAccount::after {
-    content: "";
-    display: block;
-    margin-top: 0.5rem;
-    width: 10%;
-    border-top: 3px solid var(--primaryColor);
-    margin-left: auto;
-    margin-right: auto;
-  }
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
 .inscription {
-    font-family: var(--textFont);
-    color: var(--textColor);
-    text-decoration: none;
+  font-family: var(--textFont);
+  color: var(--textColor);
+  text-decoration: none;
 }
 .inscription:hover {
-    color: var(--primaryColor);
-    text-decoration: underline;
-    text-decoration-color: var(--primaryColor);
-  }
+  color: var(--primaryColor);
+  text-decoration: underline;
+  text-decoration-color: var(--primaryColor);
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginClientCheck } from "../../types/LoginClients";
-import { useEffect } from "react";
 import { useAuth } from "../Login/login_persistance/persistance";
 
 export default function ClientLogin() {
@@ -34,8 +34,7 @@ export default function ClientLogin() {
       );
 
       const data = await response.json();
-      console.log("==== RÉPONSE API ====");
-      console.log("Data complète:", data);
+
       if (!response.ok) {
         if (data.includes("Duplicate entry") || data.includes("mail")) {
           setEmailError("Erreur lors de l'inscription");
@@ -43,13 +42,13 @@ export default function ClientLogin() {
         }
         throw new Error("Erreur de connexion");
       }
-      
+
       localStorage.setItem("token", data.token);
-        localStorage.setItem("userFirstName", data.user.firstname);
-       
-        setIsLogged(true);
-        setUserFirstName(data.user.firstname);
-      
+      localStorage.setItem("userFirstName", data.user.firstname);
+
+      setIsLogged(true);
+      setUserFirstName(data.user.firstname);
+
       setError("");
       navigate("/account");
     } catch (error) {
