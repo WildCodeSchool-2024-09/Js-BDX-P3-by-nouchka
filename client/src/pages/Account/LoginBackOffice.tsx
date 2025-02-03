@@ -7,16 +7,15 @@ const LoginBackoffice = (): JSX.Element => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  // Mot de passe temporaire (à remplacer par une API ou un stockage sécurisé)
+  // Mot de passe temporaire
   const ADMIN_PASSWORD = "admin123";
 
-  // Gestion de la soumission du formulaire
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (password === ADMIN_PASSWORD) {
-      localStorage.setItem("isAdmin", "true"); // Stocke l'authentification
-      navigate("/backoffice"); // Redirige vers le backoffice
+      localStorage.setItem("isAdmin", "true");
+      navigate("/backoffice");
     } else {
       setError("Mot de passe incorrect !");
     }
