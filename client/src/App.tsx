@@ -1,20 +1,16 @@
 import { Outlet } from "react-router-dom";
 import "./App.css";
-import heroImage from "./assets/images/hero.jpg";
+import ContactBlock from "../src/components/contact-block/index";
 import Header from "./components/Header";
-import ImageHero from "./components/ImageHero/ImageHero";
+import Footer from "./components/footer";
 
 function App() {
   return (
     <>
       <Header />
-      <ImageHero
-        imageUrl={heroImage}
-        altText="Heroimge"
-        title="BY Nouchka "
-        subtitle="Fait main avec beaucoup d’amour ❤️"
-      />
       <Outlet />
+      <ContactBlock />
+      <Footer />
     </>
   );
 }
