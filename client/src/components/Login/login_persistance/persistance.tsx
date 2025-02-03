@@ -5,7 +5,7 @@ interface AuthContextType {
   setIsLogged: (value: boolean) => void;
   logout: () => void;
   userFirstName: string | null;
-  setUserFirstName: (value: string | null) => void;
+  setUserFirstName: (value: string) => void;
   login: (token: string, firstName: string) => void;
 }
 
