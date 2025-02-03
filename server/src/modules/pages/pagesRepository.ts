@@ -65,7 +65,7 @@ class PagesRepository {
       [page.title, page.description, page.url_illustration, page.name],
     );
 
-    return rows.affectedRows > 0;
+    return rows.affectedRows;
   }
 
   async updateWithJewelry(page: Pages, selectedJewelry: number[]) {

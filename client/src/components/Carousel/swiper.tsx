@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "../../services/caroussel/caroussel";
-import CardCarousel from "../Carousel/cardCarousel";
 import "../Carousel/style.css";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
-import CardDesktop from "./cardDesktop";
+
+import Card from "./card.tsx";
 
 interface JewelryItem {
   id: number;
@@ -61,38 +61,46 @@ export default function SwiperCaroussel({
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
-        <Swiper
-          className="mySwiper"
-          modules={[Autoplay, Pagination]}
-          pagination={{
-            clickable: true,
-            type: "bullets",
-          }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: true,
-          }}
-          loop={true}
-        >
-          {filteredJewelry.slice(0, itemsToShow).map((item) => (
-            <SwiperSlide key={item.id} className="swiperImg">
-              <CardCarousel
-                url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
-                name={item.name}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <>
+          <Swiper
+            className="mySwiper"
+            modules={[Autoplay, Pagination]}
+            pagination={{
+              clickable: true,
+              type: "bullets",
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: true,
+            }}
+            loop={true}
+          >
+            {filteredJewelry.slice(0, itemsToShow).map((item) => (
+              <SwiperSlide key={item.id} className="swiperImg">
+                <Card
+                  figureClass="crlImgContainer"
+                  caption="caption"
+                  url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                  name={item.name}
+                  item={{ id: item.id }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </>
       ) : (
-        filteredJewelry
-          .slice(0, itemsToShow)
-          .map((item) => (
-            <CardDesktop
+        <>
+          {filteredJewelry.slice(0, itemsToShow).map((item) => (
+            <Card
               key={item.id}
+              figureClass="cardDesktop"
+              imgClass="imgDesktop"
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
+              item={{ id: item.id }}
             />
-          ))
+          ))}
+        </>
       )}
     </article>
   );

@@ -3,7 +3,7 @@ CREATE TABLE users (
     lastname VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     mail VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE pages (
