@@ -2,10 +2,11 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FormData } from "../../types/Registeur_type/index";
+import { useAuth } from "../Login/login_persistance/persistance";
 import { validateEmail, validatePassword } from "../Register/Validation";
-
 export const useRegisterForm = () => {
   const navigate = useNavigate();
+  const { setIsLogged, setUserFirstName } = useAuth();
   const [formData, setFormData] = useState<FormData>({
     lastname: "",
     firstname: "",
@@ -58,6 +59,29 @@ export const useRegisterForm = () => {
         }
         throw new Error("Erreur lors de l'inscription");
       }
+
+      const loginResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            mail: formData.mail,
+            password: formData.password,
+          }),
+        },
+      );
+      const loginData = await loginResponse.json();
+      if (!loginResponse.ok) {
+        throw new Error("Erruer de connexion automatique");
+      }
+      localStorage.setItem("token", loginData.token);
+      localStorage.setItem("userFirstName", loginData.user.firstName);
+
+      setIsLogged(true);
+      setUserFirstName(loginData.user.firstname);
 
       setError("");
 

@@ -2,6 +2,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ClientLogin from "../src/components/Login/index";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -9,7 +10,6 @@ import LoginBackoffice from "./pages/Account/LoginBackOffice";
 import BackofficeHome from "./pages/BackOffice/BackOfficeHome";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
-
 /* ************************************************************************* */
 
 // Import the main app component
@@ -91,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/clientLog",
+        element: <ClientLogin />,
       },
       {
         path: "/inscription",
