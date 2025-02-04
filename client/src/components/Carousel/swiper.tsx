@@ -18,28 +18,23 @@ interface JewelryItem {
 interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
+  selectedJewelry: number[];
 }
 
 export default function SwiperCaroussel({
   itemsToShow,
   type,
+  selectedJewelry,
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchJewelry = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/jewelry`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          },
         );
         const data: JewelryItem[] = await response.json();
         const filteredData = type
@@ -47,15 +42,20 @@ export default function SwiperCaroussel({
           : data;
         setJewelry(filteredData);
       } catch (err) {
-        console.error("Erreur lors de la récupération des événements :", err);
+        console.error("Erreur lors de la récupération des bijoux :", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchEvents();
+
+    fetchJewelry();
   }, [type]);
 
   if (loading) return <p>Chargement...</p>;
+
+  const filteredJewelry = jewelry.filter((item) =>
+    selectedJewelry.includes(item.id),
+  );
 
   return (
     <article className="imageContainer">
@@ -74,7 +74,7 @@ export default function SwiperCaroussel({
             }}
             loop={true}
           >
-            {jewelry.slice(0, itemsToShow).map((item) => (
+            {filteredJewelry.slice(0, itemsToShow).map((item) => (
               <SwiperSlide key={item.id} className="swiperImg">
                 <Card
                   figureClass="crlImgContainer"
@@ -89,7 +89,7 @@ export default function SwiperCaroussel({
         </>
       ) : (
         <>
-          {jewelry.slice(0, itemsToShow).map((item) => (
+          {filteredJewelry.slice(0, itemsToShow).map((item) => (
             <Card
               key={item.id}
               figureClass="cardDesktop"
