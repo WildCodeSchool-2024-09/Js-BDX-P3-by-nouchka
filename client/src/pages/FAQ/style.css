@@ -1,0 +1,41 @@
+.faq-title {
+  font-family: var(--titleFont);
+  padding: calc(var(--spacing) * 1.5);
+  color: var(--primaryColor);
+  text-align: center;
+}
+.faq-title::after {
+  content: "";
+  display: block;
+  margin-top: calc(var(--spacing) * 0.5);
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq-question {
+  border: solid var(--primaryColor);
+  font-family: var(--textFont);
+  font-weight: bold;
+  cursor: pointer;
+  margin: calc(var(--spacing) * 0.5);
+  border-radius: var(--borderRadius);
+  padding: calc(var(--spacing) * 0.5);
+}
+.faq-answer {
+  border: solid var(--successColor);
+  font-family: var(--textFont);
+  cursor: pointer;
+  margin: calc(var(--spacing) * 0.5);
+  border-radius: var(--borderRadius);
+  padding: calc(var(--spacing) * 0.5);
+}
+.faq-section {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  border-radius: var(--borderRadius);
+  padding: calc(var(--spacing) * 0.5);
+  margin-bottom: calc(var(--spacing) * 2);
+}

@@ -1,0 +1,96 @@
+.imageContainer {
+  width: 100%;
+}
+.cardCarousel {
+  overflow: hidden;
+}
+.mySwiper {
+  width: 100%;
+  cursor: pointer;
+}
+.caption {
+  font-size: 1.5rem;
+  color: var(--primaryColor);
+  font-family: var(--titleFont);
+  padding-top: calc(var(--spacing) * 0.5);
+  margin: calc(var(--spacing) * 0.5);
+}
+.mySwiper .swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.swiperImg img {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  border-top-left-radius: var(--borderRadius);
+  border-top-right-radius: var(--borderRadius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.mySwiper .crlImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: var(--border-solid);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--lightBowShadow);
+}
+.mySwiper .swiper-pagination {
+  position: relative;
+  bottom: var(--spacing);
+  left: 50%;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  padding-top: var(--spacing);
+}
+
+.mySwiper .swiper-pagination-bullet {
+  background-color: var(--successColor);
+  opacity: 1;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background-color: var(--primaryColor);
+  opacity: 1;
+}
+.productLink {
+  text-decoration: none;
+}
+@media screen and (min-width: 768px) {
+  .imageContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    cursor: pointer;
+  }
+  .cardDesktop {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    border: var(--border-solid);
+    border-radius: var(--borderRadius);
+    box-shadow: var(--lightBowShadow);
+    margin: 10px;
+    width: 260px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .imgDesktop {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-top-left-radius: var(--borderRadius);
+    border-top-right-radius: var(--borderRadius);
+  }
+  .cardDesktop:hover {
+    transform: scale(1.1);
+    box-shadow: var(--mediumBoxShadow);
+  }
+  .cardDesktop figcaption {
+    font-size: 1.5rem;
+    color: var(--primaryColor);
+    margin-top: calc(var(--spacing) * 0.5);
+    font-family: var(--titleFont);
+    padding-bottom: calc(var(--spacing) * 0.5);
+  }
+}
