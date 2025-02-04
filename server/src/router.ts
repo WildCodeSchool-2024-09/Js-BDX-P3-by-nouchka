@@ -39,9 +39,14 @@ import eventActions from "./modules/event/eventActions";
 
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
+
+import orderActions from "./modules/order/orderActions";
+
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
 router.post("/api/orders", orderActions.add);
+
+
 import authMiddleware from "../src/Middleware/authMiddleware";
 
 router.post("/api/auth/login", authMiddleware.login);
@@ -61,10 +66,6 @@ router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
 router.delete("/api/events/:id", eventActions.destroy);
 
-import orderActions from "./modules/order/orderActions";
-
-router.put("/api/orders/:id", orderActions.edit);
-router.delete("/api/orders/:id", orderActions.destroy);
 router.post("/api/jewelry", jewelryActions.add);
 router.put("/api/jewelry/:id", jewelryActions.edit);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
@@ -78,7 +79,9 @@ router.delete("/api/admins/:id", adminActions.destroy);
 router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
-
 router.delete("/api/clients/:id", clientsActions.destroy);
+
+router.put("/api/orders/:id", orderActions.edit);
+router.delete("/api/orders/:id", orderActions.destroy);
 
 export default router;

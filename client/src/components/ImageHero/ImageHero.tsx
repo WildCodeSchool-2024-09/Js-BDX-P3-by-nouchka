@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./ImageHero.css";
 
+
 interface ImageHeroProps {
   mobileImageUrl?: string;
   desktopImageUrl?: string;
@@ -8,6 +9,7 @@ interface ImageHeroProps {
   title?: string;
   subtitle?: string;
 }
+
 
 function ImageHero({
   mobileImageUrl = "/herom.jpg",
