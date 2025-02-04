@@ -1,13 +1,13 @@
 import type { RequestHandler } from "express";
 
 // Import access to data
-import OrderRepository from "./OrderRepository";
+import orderRepository from "./orderRepository";
 
 // The B of BREAD - Browse (Read All) operation
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const orders = await OrderRepository.readAll();
+    const orders = await orderRepository.readAll();
 
     // Respond with the items in JSON format
     res.json(orders);
@@ -22,7 +22,7 @@ const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
     const orderId = Number(req.params.id);
-    const order = await OrderRepository.read(orderId);
+    const order = await orderRepository.read(orderId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
@@ -49,7 +49,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     // Create the item
-    const insertId = await OrderRepository.create(newOrder);
+    const insertId = await orderRepository.create(newOrder);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
@@ -66,7 +66,7 @@ const edit: RequestHandler = async (req, res, next) => {
       status: req.body.status,
     };
 
-    const updatedId = await OrderRepository.update(updateOrder);
+    const updatedId = await orderRepository.update(updateOrder);
 
     if (updatedId) {
       res.sendStatus(204);
@@ -82,7 +82,7 @@ const destroy: RequestHandler = async (req, res, next) => {
   try {
     const orderId = +req.params.id;
 
-    const destroyedId = await OrderRepository.delete(orderId);
+    const destroyedId = await orderRepository.delete(orderId);
 
     if (destroyedId) {
       res.sendStatus(204);
