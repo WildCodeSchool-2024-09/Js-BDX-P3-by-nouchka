@@ -2,7 +2,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Cart from "./components/Cart";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -13,10 +12,13 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import RegisterBlock from "./components/Register";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
 
@@ -63,8 +65,8 @@ const router = createBrowserRouter([
         element: <PrivacyPolicy />,
       },
       {
-        // path: "/shop",
-        // element: <Shop />,
+        path: "/shop",
+        element: <Shop />,
       },
 
       {
@@ -78,17 +80,20 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/cart",
-        element: <Cart />,
-      },
-
-      {
         path: "/account",
         element: <Account />,
       },
       {
+        path: "/inscription",
+        element: <RegisterBlock />,
+      },
+      {
         path: "/contact-block",
         element: <ContactBlock />,
+      },
+      {
+        path: "/jewelry/:id",
+        element: <ProductPage />,
       },
     ],
   },

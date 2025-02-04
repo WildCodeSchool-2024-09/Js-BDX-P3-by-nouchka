@@ -61,7 +61,7 @@
 
 //   useEffect(() => {
 //     const fetchData = async () => {
-//       const response = await fetch("http://localhost:3310/api/jewelry");
+//       const response = await fetch("http:localhost:3310/api/jewelry");
 //       if (response.ok) {
 //         const result: AboutData = await response.json();
 //         setData(result);
@@ -95,7 +95,7 @@
 //         {data.map((_jewelry) => (
 //           <li key={_jewelry.id} className="product-card">
 //             <img
-//               src={_jewelry.imageUrl}
+//               src={_jewelry.image_url}
 //               alt={item.name}
 //               className="product-image"
 //             />
@@ -109,3 +109,15 @@
 //     </section>
 //   );
 // }
+import SwiperCaroussel from "../../components/Carousel/swiper";
+export default function Shop() {
+  return (
+    <>
+      <h2>Shop by.Nouchka</h2>
+      <SwiperCaroussel type="boucle d'oreille" itemsToShow={5} />
+      <SwiperCaroussel type="collier" itemsToShow={5} />
+      <SwiperCaroussel type="bracelet" itemsToShow={5} />
+      <SwiperCaroussel type="bague" itemsToShow={5} />
+    </>
+  );
+}

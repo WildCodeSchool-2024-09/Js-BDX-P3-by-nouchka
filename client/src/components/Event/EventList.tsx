@@ -11,7 +11,9 @@ export default function EventList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/events");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/events`,
+        );
         const data: EventData[] = await response.json();
         setEvents(data);
       } catch (err) {
@@ -29,7 +31,7 @@ export default function EventList() {
 
   return (
     <section className="event-section">
-      <h2 className="title-event-section">À venir</h2>
+      <h2 className="title-event-section">Où me trouver ?</h2>
       {events.map((event, index) => (
         <EventItem
           event={event}
