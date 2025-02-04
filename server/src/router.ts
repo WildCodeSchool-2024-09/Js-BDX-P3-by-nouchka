@@ -46,7 +46,6 @@ router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
 router.post("/api/orders", orderActions.add);
 
-
 import authMiddleware from "../src/Middleware/authMiddleware";
 
 router.post("/api/auth/login", authMiddleware.login);
