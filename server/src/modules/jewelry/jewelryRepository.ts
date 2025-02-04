@@ -117,7 +117,7 @@ class JewelryRepository {
       const [photos] = await connection.execute<Result>(
         `UPDATE photos 
           SET URL = ?
-          WHERE id = (SELECT photos_id FROM photos_jewelry
+          WHERE id IN (SELECT photos_id FROM photos_jewelry
           WHERE jewelry_id = ?)`,
         [jewelry.url, jewelry.id],
       );

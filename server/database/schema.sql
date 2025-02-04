@@ -43,11 +43,6 @@ CREATE TABLE events (
     ON DELETE CASCADE
 );
 
-
-CREATE TABLE likes (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL
-);
-
 CREATE TABLE address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     street_number TEXT NOT NULL,
@@ -63,6 +58,16 @@ CREATE TABLE jewelry (
     description TEXT NOT NULL,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
+);
+CREATE TABLE likes (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (clients_id) REFERENCES clients(id)
+    ON DELETE CASCADE
+
 );
 
 CREATE TABLE orders (

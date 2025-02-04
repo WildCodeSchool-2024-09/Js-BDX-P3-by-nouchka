@@ -23,13 +23,13 @@ export default function ContactBlock() {
       <h2 className="contact">Me Contacter</h2>
       <form action="sumbit" className="contactForm">
         <p className="contactDescription">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque harum
-          necessitatibus reprehenderit molestias officiis amet culpa tempora
-          asperiores cupiditate debitis, quia vero, alias dignissimos
-          consectetur ducimus, doloribus fugiat maxime fugit?
+          Vous avez une question ou un projet de bijou personnalisé ? Je suis à
+          votre écoute pour donner vie à vos envies. Contactez-moi pour discuter
+          de vos idées !
         </p>
         <label htmlFor="fullName" className="Name">
           <input
+            id="fullName"
             className="blockName"
             required
             type="text"
@@ -39,6 +39,7 @@ export default function ContactBlock() {
         </label>
         <label htmlFor="email" className="Email">
           <input
+            id="email"
             className="blockEmail"
             required
             type="email"
@@ -51,6 +52,7 @@ export default function ContactBlock() {
         {emailError && <p className="errorEmail">{emailError}</p>}
         <label htmlFor="message" className="Message">
           <textarea
+            id="message"
             className="blockMessage"
             name="message"
             placeholder="Votre message..."

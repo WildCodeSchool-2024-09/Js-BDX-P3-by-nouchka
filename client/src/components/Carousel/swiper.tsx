@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import Card from "./card.tsx";
-
 interface JewelryItem {
   id: number;
   name: string;
