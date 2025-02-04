@@ -1,4 +1,4 @@
-// import "../Shop/index.css";
+import "../Shop/index.css";
 // import { useEffect, useState } from "react";
 
 // type JewelryItem = {
@@ -113,8 +113,8 @@ import SwiperCaroussel from "../../components/Carousel/swiper";
 export default function Shop() {
   return (
     <>
-      <h2>Shop by.Nouchka</h2>
-      <SwiperCaroussel type="boucle d'oreille" itemsToShow={5} />
+      <h2 className="shop-title">Shop by.Nouchka</h2>
+      <SwiperCaroussel type="boucles d'oreilles" itemsToShow={3} />
       <SwiperCaroussel type="collier" itemsToShow={5} />
       <SwiperCaroussel type="bracelet" itemsToShow={5} />
       <SwiperCaroussel type="bague" itemsToShow={5} />

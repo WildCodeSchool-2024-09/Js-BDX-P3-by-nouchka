@@ -1,3 +1,21 @@
+.shop-title {
+  font-family: var(--titleFont);
+  padding: calc(var(--spacing) * 1.5);
+  color: var(--primaryColor);
+  font-size: calc(var(--spacing) * 2);
+  text-align: center;
+}
+.shop-title::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 .shop-container {
   padding: 20px;
   max-width: 1200px;
