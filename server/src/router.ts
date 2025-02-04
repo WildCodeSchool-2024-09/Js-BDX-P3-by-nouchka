@@ -34,7 +34,6 @@ router.get("/api/events/:id", eventActions.read);
 
 import authMiddleware from "../src/Middleware/authMiddleware";
 
-
 router.put("/api/pages/:name", pagesActions.edit);
 
 router.post("/api/events", eventActions.add);
