@@ -3,11 +3,12 @@ CREATE TABLE users (
     lastname VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     mail VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE pages (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     url_illustration TEXT NOT NULL
 );
@@ -42,11 +43,6 @@ CREATE TABLE events (
     ON DELETE CASCADE
 );
 
-
-CREATE TABLE likes (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL
-);
-
 CREATE TABLE address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     street_number TEXT NOT NULL,
@@ -62,6 +58,16 @@ CREATE TABLE jewelry (
     description TEXT NOT NULL,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
+);
+CREATE TABLE likes (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (clients_id) REFERENCES clients(id)
+    ON DELETE CASCADE
+
 );
 
 
@@ -166,4 +172,12 @@ CREATE TABLE likes_jewelry (
     likes_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (likes_id) REFERENCES likes(id)
     ON DELETE CASCADE
+);
+
+CREATE TABLE pages_jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (page_name) REFERENCES pages(name) ON DELETE CASCADE,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id) ON DELETE CASCADE
 );
