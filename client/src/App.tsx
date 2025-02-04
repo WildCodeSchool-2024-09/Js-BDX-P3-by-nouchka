@@ -3,6 +3,7 @@ import "./App.css";
 import ContactBlock from "../src/components/contact-block/index";
 import Header from "./components/Header";
 import AuthProvider from "./components/Login/login_persistance/persistance";
+import ImageHero from "./components/ImageHero/ImageHero";
 import Footer from "./components/footer";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <>
       <AuthProvider>
         <Header />
+        <ImageHero subtitle="fait main avec beaucoup d'amour ❤️" />
         <Outlet />
         <ContactBlock />
         <Footer />
