@@ -22,10 +22,18 @@ router.get("/api/jewelry/:id", jewelryActions.read);
 
 import adminActions from "./modules/admin/adminActions";
 
+router.get("/api/admins", adminActions.browse);
+router.get("/api/admins/:id", adminActions.read);
+router.post("/api/admins", adminActions.add);
+router.put("/api/admins/:id", adminActions.edit);
+router.delete("/api/admins/:id", adminActions.destroy);
+
+import upload from "./Middleware/upload";
 import pagesActions from "./modules/pages/pagesActions";
 
 router.get("/api/pages", pagesActions.browse);
 router.get("/api/pages/:name", pagesActions.read);
+router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 
 import eventActions from "./modules/event/eventActions";
 
@@ -39,6 +47,13 @@ router.post("/api/auth/login", authMiddleware.login);
 router.use(authMiddleware.verifyToken);
 
 router.put("/api/pages/:name", pagesActions.edit);
+router.post(
+  "/api/pages/upload",
+  upload.single("image"),
+  pagesActions.uploadImage,
+);
+router.delete("/api/pages/delete-image", pagesActions.deleteImage);
+router.put("/api/pages/:name/jewelry", pagesActions.updateWithJewelry);
 
 router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);

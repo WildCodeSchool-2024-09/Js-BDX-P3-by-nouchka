@@ -8,6 +8,7 @@ CREATE TABLE users (
 
 CREATE TABLE pages (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     url_illustration TEXT NOT NULL
 );
@@ -150,4 +151,30 @@ CREATE TABLE jewelry_clients (
     clients_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (clients_id) REFERENCES clients(id)
     ON DELETE CASCADE
+);
+
+CREATE TABLE likes_clients (
+  clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (clients_id) REFERENCES clients(id)
+    ON DELETE CASCADE,
+    likes_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (likes_id) REFERENCES likes(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE likes_jewelry (
+  jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+    ON DELETE CASCADE,
+    likes_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (likes_id) REFERENCES likes(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE pages_jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (page_name) REFERENCES pages(name) ON DELETE CASCADE,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id) ON DELETE CASCADE
 );
