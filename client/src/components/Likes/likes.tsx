@@ -7,7 +7,7 @@ interface LikesButtonProps {
 }
 export default function LikesButton({ className }: LikesButtonProps) {
   const [likes, setLikes] = useState(false);
-    const ariaLabel = likes ? "Ajouter un like" : "supprimer un likes";
+  const ariaLabel = likes ? "Ajouter un like" : "supprimer un likes";
   return (
     <button
       type="button"
