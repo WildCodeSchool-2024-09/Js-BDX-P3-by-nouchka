@@ -11,7 +11,7 @@ interface ImageHeroProps {
 
 function ImageHero({
   mobileImageUrl = "/herom.jpg",
-  desktopImageUrl = "/hero.jpg",
+  desktopImageUrl,
   title,
   subtitle,
 }: ImageHeroProps) {
@@ -19,22 +19,21 @@ function ImageHero({
     const updateHeroImage = () => {
       const root = document.documentElement;
       const isMobile = window.innerWidth < 768;
-      const imageUrl = isMobile ? mobileImageUrl : desktopImageUrl;
+      const imageUrl = isMobile ? mobileImageUrl : desktopImageUrl || "";
 
-      // Vérification que l'image existe avant de l'appliquer
       const img = new Image();
       img.src = imageUrl;
       img.onload = () => {
         root.style.setProperty("--hero-image", `url('${imageUrl}')`);
       };
       img.onerror = () => {
-        console.error("Erreur de chargement de l'image:", imageUrl); // Pour le débogage
+        console.error("Erreur de chargement de l'image:", imageUrl);
       };
     };
 
     updateHeroImage();
-
     window.addEventListener("resize", updateHeroImage);
+
     return () => window.removeEventListener("resize", updateHeroImage);
   }, [mobileImageUrl, desktopImageUrl]);
 
