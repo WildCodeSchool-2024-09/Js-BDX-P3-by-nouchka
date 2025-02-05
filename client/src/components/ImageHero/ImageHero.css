@@ -23,12 +23,12 @@
 }
 
 .image-hero-subtitle {
-  color: white;
+  font-family: var(--titleFont);
+  color: var(--secondaryColor);
   font-size: 1.5rem;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  padding: 0 1rem;
-  margin: 0;
+  margin-top: 2.5rem;
 }
 
 @media (min-width: 768px) {
