@@ -6,7 +6,6 @@ import ClientLogin from "../src/components/Login/index";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
-import LoginBackoffice from "./pages/Account/LoginBackOffice";
 import BackofficeHome from "./pages/BackOffice/BackOfficeHome";
 import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
@@ -30,6 +29,7 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
+import ProtectedRoute from "../src/components/ProtectedRoute"; // Add this line to import ProtectedRoute
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -108,10 +108,13 @@ const router = createBrowserRouter([
         path: "/jewelry/:id",
         element: <ProductPage />,
       },
-      { path: "/login-backoffice", element: <LoginBackoffice /> },
       {
         path: "/backoffice",
-        element: <BackofficeHome />,
+        element: (
+        <ProtectedRoute requireAdmin>
+          <BackofficeHome />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "pages",
