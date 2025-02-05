@@ -3,11 +3,12 @@ CREATE TABLE users (
     lastname VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     mail VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE pages (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     url_illustration TEXT NOT NULL
 );
@@ -42,11 +43,6 @@ CREATE TABLE events (
     ON DELETE CASCADE
 );
 
-
-CREATE TABLE likes (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL
-);
-
 CREATE TABLE address (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     street_number TEXT NOT NULL,
@@ -63,12 +59,18 @@ CREATE TABLE jewelry (
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
-
-CREATE TABLE orders (
+CREATE TABLE likes (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    status BOOLEAN NOT NULL DEFAULT 0,
-    date TIMESTAMP DEFAULT NOW() NOT NULL 
+    jewelry_id INT UNSIGNED NOT NULL,
+    clients_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (clients_id) REFERENCES clients(id)
+    ON DELETE CASCADE
+
 );
+
+
 
 CREATE TABLE photos_events (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -103,12 +105,25 @@ CREATE TABLE shipping_address (
     ON DELETE CASCADE
 );
 
+CREATE TABLE orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT 0,
+    date TIMESTAMP DEFAULT NOW() NOT NULL,
+    billing_address_id INT UNSIGNED NOT NULL,
+     FOREIGN KEY (billing_address_id) REFERENCES billing_address(id),
+    shipping_address_id INT UNSIGNED NOT NULL, 
+    FOREIGN KEY (shipping_address_id) REFERENCES shipping_address(id)
+
+);
+
 CREATE TABLE photos_pages (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     photos_id INT UNSIGNED NOT NULL,
 
     FOREIGN KEY(photos_id) REFERENCES photos(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+    pages_name VARCHAR(255) NOT NULL, 
+    FOREIGN KEY (pages_name) REFERENCES pages(name)
 );
 CREATE TABLE clients_orders (
   clients_id INT UNSIGNED NOT NULL,
@@ -119,16 +134,10 @@ CREATE TABLE clients_orders (
     ON DELETE CASCADE
 );
 
-CREATE TABLE orders_address (
-  orders_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (orders_id) REFERENCES orders(id)
-    ON DELETE CASCADE,
-    address_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES address(id)
-    ON DELETE CASCADE
-);
+
 
 CREATE TABLE jewelry_orders (
+  id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   jewelry_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (jewelry_id) REFERENCES jewelry(id)
     ON DELETE CASCADE,
@@ -163,4 +172,12 @@ CREATE TABLE likes_jewelry (
     likes_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (likes_id) REFERENCES likes(id)
     ON DELETE CASCADE
+);
+
+CREATE TABLE pages_jewelry (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    jewelry_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (page_name) REFERENCES pages(name) ON DELETE CASCADE,
+    FOREIGN KEY (jewelry_id) REFERENCES jewelry(id) ON DELETE CASCADE
 );
