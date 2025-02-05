@@ -3,6 +3,7 @@
 import express from "express";
 
 const app = express();
+
 app.use(express.json());
 
 // Configure it
@@ -120,5 +121,10 @@ const logErrors: ErrorRequestHandler = (err, req, res, next) => {
 app.use(logErrors);
 
 /* ************************************************************************* */
+
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "../../server/uploads")),
+);
 
 export default app;

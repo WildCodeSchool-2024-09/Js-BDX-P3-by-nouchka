@@ -1,17 +1,32 @@
+import { Link } from "react-router-dom";
 interface CardProps {
   url: string;
   name: string;
   figureClass: string;
   imgClass?: string;
   caption?: string;
+  item: { id: number };
   price?: string;
 }
-
-function Card({ url, name, figureClass, imgClass, caption, price }: CardProps) {
+function Card({
+  url,
+  name,
+  figureClass,
+  imgClass,
+  caption,
+  item,
+  price,
+}: CardProps) {
   return (
     <>
       <figure className={figureClass}>
-        <img className={imgClass} src={url} alt="" />
+        <Link className="productLink" to={`/jewelry/${item.id}`}>
+          <img
+            className={imgClass}
+            src={url}
+            alt={`Lien vers le bijoux ${name}`}
+          />
+        </Link>
         <figcaption className={caption}>{name}</figcaption>
       </figure>
       {price && <p className="price">{price} €</p>}
