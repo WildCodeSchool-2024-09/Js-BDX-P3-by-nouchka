@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import Card from "./card.tsx";
+
 interface JewelryItem {
   id: number;
   name: string;
@@ -18,13 +19,15 @@ interface JewelryItem {
 interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
-  selectedJewelry: number[];
+  selectedJewelry?: number[];
+  useFilteredJewelry?: boolean; // Ajout de cette prop
 }
 
 export default function SwiperCaroussel({
   itemsToShow,
   type,
-  selectedJewelry,
+  selectedJewelry = [],
+  useFilteredJewelry = false, // Valeur par défaut
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
   const [jewelry, setJewelry] = useState<JewelryItem[]>([]);
@@ -53,43 +56,37 @@ export default function SwiperCaroussel({
 
   if (loading) return <p>Chargement...</p>;
 
-  const filteredJewelry = jewelry.filter((item) =>
-    selectedJewelry.includes(item.id),
-  );
+  // Condition pour filtrer ou non les bijoux
+  const displayedJewelry = useFilteredJewelry
+    ? jewelry.filter((item) => selectedJewelry.includes(item.id))
+    : jewelry;
 
   return (
     <article className="imageContainer">
       {isSwiperActive ? (
-        <>
-          <Swiper
-            className="mySwiper"
-            modules={[Autoplay, Pagination]}
-            pagination={{
-              clickable: true,
-              type: "bullets",
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: true,
-            }}
-            loop={true}
-          >
-            {filteredJewelry.slice(0, itemsToShow).map((item) => (
-              <SwiperSlide key={item.id} className="swiperImg">
-                <Card
-                  figureClass="crlImgContainer"
-                  caption="caption"
-                  url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
-                  name={item.name}
-                  item={{ id: item.id }}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </>
+        <Swiper
+          className="mySwiper"
+          modules={[Autoplay, Pagination]}
+          pagination={{ clickable: true, type: "bullets" }}
+          autoplay={{ delay: 3000, disableOnInteraction: true }}
+          loop={true}
+        >
+          {displayedJewelry.slice(0, itemsToShow).map((item) => (
+            <SwiperSlide key={item.id} className="swiperImg">
+              <Card
+                figureClass="crlImgContainer"
+                caption="caption"
+                url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
+                name={item.name}
+                item={{ id: item.id }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       ) : (
-        <>
-          {filteredJewelry.slice(0, itemsToShow).map((item) => (
+        displayedJewelry
+          .slice(0, itemsToShow)
+          .map((item) => (
             <Card
               key={item.id}
               figureClass="cardDesktop"
@@ -98,8 +95,7 @@ export default function SwiperCaroussel({
               name={item.name}
               item={{ id: item.id }}
             />
-          ))}
-        </>
+          ))
       )}
     </article>
   );
