@@ -44,9 +44,25 @@ import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
-router.post("/api/orders", orderActions.add);
+router.post(
+  "/api/orders",
+  orderVerify.verifyJewelryQuantity,
+  orderActions.add,
+  orderVerify.verifyOrderInsertion,
+);
+
+router.post(
+  "/api/payment/create-checkout-session",
+  paymentActions.createCheckoutSession,
+);
+router.get(
+  "/api/payment/verify-payment/:sessionId",
+  paymentActions.verifyPayment,
+);
 
 import authMiddleware from "../src/Middleware/authMiddleware";
+import paymentActions from "./Middleware/StripePaymentSession";
+import orderVerify from "./Middleware/orderCheckoutSession";
 
 router.post("/api/auth/login", authMiddleware.login);
 
