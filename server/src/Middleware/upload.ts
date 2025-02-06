@@ -8,7 +8,7 @@ export interface MulterRequest extends Request {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.resolve(__dirname, "../../uploads");
+    const uploadPath = path.resolve(__dirname, "../../public/uploads");
     cb(null, uploadPath);
   },
 

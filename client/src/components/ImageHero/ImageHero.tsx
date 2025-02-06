@@ -30,7 +30,6 @@ function ImageHero({
         console.error("Erreur de chargement de l'image:", imageUrl);
       };
     };
-
     updateHeroImage();
     window.addEventListener("resize", updateHeroImage);
 
