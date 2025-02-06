@@ -34,8 +34,6 @@ export default function Product({ jewelryId }: JewelryProps) {
           },
         );
         const result = await response.json();
-        console.log("Result from API:", result);
-        console.log("URLs from API:", result.URL);
         setData(result);
       } catch (error) {
         setData(null);
@@ -54,7 +52,7 @@ export default function Product({ jewelryId }: JewelryProps) {
 
   let urls: string[];
 if (typeof data.URL === "string") {
-  // Si l'URL contient une virgule, la diviser en tableau
+
   if (data.URL.includes(',')) {
     urls = data.URL.split(',').map(url => url.trim());
   } else {
@@ -66,7 +64,7 @@ if (typeof data.URL === "string") {
   urls = [];
 }
 
-console.log("URLs après traitement:", urls);
+
 
   return (
     <section className="product">

@@ -10,8 +10,7 @@ export default function ProductDesktop({
   if (!urls || !Array.isArray(urls)) {
     return null;
   }
-  console.log("URLs reçues:", urls);
-  console.log("Premier URL split:", urls[0].split("/"));
+
   return (
     <article className="containerProductImg">
       {urls.map((url: string, index: number) => (
