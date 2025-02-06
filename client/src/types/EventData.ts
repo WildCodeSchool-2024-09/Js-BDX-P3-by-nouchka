@@ -4,5 +4,5 @@ export interface EventData {
   location: string;
   date: string;
   description: string;
-  url: string;
+  URL: string;
 }

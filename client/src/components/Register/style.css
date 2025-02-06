@@ -1,0 +1,89 @@
+@import url("../../App.css");
+
+.registerForm {
+  background: var(--secondaryColor);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem;
+  gap: 2rem;
+}
+
+.titleForm {
+  text-align: center;
+  font-family: var(--titleFont);
+  color: var(--primaryColor);
+  margin: 2rem;
+}
+
+.titleForm::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.registerName,
+.registerFirstName,
+.registerEmail,
+.registerName,
+.registerPassword {
+  background-color: var(--secondaryColor);
+  font-family: var(--textFont);
+  width: 100%;
+}
+
+.registerBlockName,
+.registerBlockFirstName,
+.registerBlockEmail,
+.password {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--secondaryColor);
+  border-width: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: var(--textColor);
+}
+
+.registerSend {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+}
+
+.registerSend:hover {
+  background-color: var(--primaryColor);
+}
+
+.registerSend:active {
+  background-color: var(--primaryColor);
+}
+
+.linkShop {
+  text-decoration: none;
+  color: var(--textFont);
+  font-family: var(--textFont);
+}
+
+.linkShop:hover {
+  color: var(--primaryColor);
+  text-decoration: underline;
+  text-decoration-color: var(--primaryColor);
+}
+
+@media screen and (min-width: 768px) {
+  .registerName,
+  .registerFirstName,
+  .registerEmail,
+  .registerName,
+  .registerPassword {
+    width: 35%;
+  }
+}

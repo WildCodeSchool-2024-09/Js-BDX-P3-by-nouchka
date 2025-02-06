@@ -18,7 +18,7 @@ class EventsRepository {
     try {
       await connection.beginTransaction();
 
-      const [photos] = await connection.query<Result>(
+      const [photos] = await connection.execute<Result>(
         `INSERT INTO photos
           (URL)
         VALUES (?) `,
@@ -30,7 +30,7 @@ class EventsRepository {
         throw new Error("Failed insertion into photos");
       }
 
-      const [eventsResult] = await connection.query<Result>(
+      const [eventsResult] = await connection.execute<Result>(
         `INSERT INTO events 
           (name, date, location, description) 
          VALUES (?, ?, ?, ?)`,
@@ -41,7 +41,7 @@ class EventsRepository {
         throw new Error("Failed to insert into events table.");
       }
 
-      const [photos_events] = await connection.query<Result>(
+      const [photos_events] = await connection.execute<Result>(
         `INSERT INTO photos_events
         (events_id, photos_id)
         VALUES (?, ?)`,
@@ -64,7 +64,7 @@ class EventsRepository {
   }
 
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT * 
         FROM events 
         INNER JOIN photos_events ON events.id = photos_events.events_id
@@ -91,7 +91,7 @@ class EventsRepository {
     const connection = await databaseClient.getConnection();
     try {
       await connection.beginTransaction();
-      const [rows] = await connection.query<Result>(
+      const [rows] = await connection.execute<Result>(
         `UPDATE events
         SET name=?, date=?, location=?, description=?
         WHERE id = ?`,
@@ -106,7 +106,7 @@ class EventsRepository {
       if (!rows.affectedRows) {
         throw new Error("Failed update events");
       }
-      const [photos] = await connection.query<Result>(
+      const [photos] = await connection.execute<Result>(
         `UPDATE photos 
           SET URL = ?
           WHERE id = (SELECT photos_id FROM photos_events
@@ -127,7 +127,7 @@ class EventsRepository {
     }
   }
   async delete(eventsId: number) {
-    const [result] = await databaseClient.query<Result>(
+    const [result] = await databaseClient.execute<Result>(
       `DELETE events, photos, photos_events
        FROM events
        INNER JOIN photos_events ON photos_events.events_id = events.id

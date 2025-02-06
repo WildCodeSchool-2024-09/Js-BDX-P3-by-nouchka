@@ -16,7 +16,7 @@ class ClientsRepository {
     try {
       await connection.beginTransaction();
 
-      const [users] = await connection.query<Result>(
+      const [users] = await connection.execute<Result>(
         `INSERT INTO users
             (lastname, firstname, mail, password)
             VALUES (?, ?, ?, ?)`,
@@ -27,7 +27,7 @@ class ClientsRepository {
       if (!users_id) {
         throw new Error("Failed to insert into users table.");
       }
-      const [results] = await connection.query<Result>(
+      const [results] = await connection.execute<Result>(
         `INSERT INTO clients
             (users_id)
             VALUES (?)`,
@@ -46,12 +46,22 @@ class ClientsRepository {
     }
   }
   async read(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
+    const [rows] = await databaseClient.execute<Rows>(
       `SELECT lastname, firstname, mail
         FROM  users
         Inner Join clients
         ON clients.users_id = users.id
         WHERE clients.id = ?`,
+      [id],
+    );
+    return rows[0] as Clients;
+  }
+  async checkIsClient(id: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT lastname, firstname, mail, clients.id
+    FROM users 
+    INNER JOIN clients ON clients.users_id = users.id
+    WHERE users.id = ?`,
       [id],
     );
     return rows[0] as Clients;
@@ -66,7 +76,7 @@ class ClientsRepository {
   }
 
   async update(clients: Clients) {
-    const [rows] = await databaseClient.query<Result>(
+    const [rows] = await databaseClient.execute<Result>(
       `UPDATE users
          SET lastname = ?, firstname = ?, mail = ?, password = ?
          WHERE id = (SELECT users_id FROM clients WHERE id = ?)`,
@@ -81,18 +91,39 @@ class ClientsRepository {
     return rows.affectedRows;
   }
 
-  async delete(clientsID: number) {
-    try {
-      const [rows] = await databaseClient.query<Result>(
-        `DELETE FROM users
-            WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
-        [clientsID],
-      );
+  async getLikedJewelry(clientId: number, jewelryId: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT id FROM likes 
+      WHERE jewelry_id = ? AND clients_id = ?`,
+      [jewelryId, clientId],
+    );
+    return rows[0];
+  }
+  async likeJewelry(clientId: number, jewelryId: number) {
+    const [result] = await databaseClient.execute<Result>(
+      `INSERT INTO likes ( jewelry_id, clients_id) 
+          VALUES (?, ?)`,
+      [jewelryId, clientId],
+    );
+    return result.insertId;
+  }
+  async unlikeJewelry(likeId: number) {
+    const [result] = await databaseClient.execute<Result>(
+      `DELETE FROM likes 
+      WHERE id = ?`,
+      [likeId],
+    );
+    return result.affectedRows;
+  }
 
-      return rows.affectedRows;
-    } catch (error) {
-      throw new Error("You've got an error:", error as Error);
-    }
+  async delete(clientsID: number) {
+    const [rows] = await databaseClient.execute<Result>(
+      `DELETE FROM users
+            WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
+      [clientsID],
+    );
+
+    return rows.affectedRows;
   }
 }
 

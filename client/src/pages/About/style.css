@@ -1,6 +1,8 @@
 .title-about-section {
   font-family: var(--titleFont);
+  font-size: 2.8rem;
   padding: 1.5rem;
+  margin-top: 1.5rem;
   color: var(--primaryColor);
   text-align: center;
 }
@@ -16,10 +18,13 @@
 
 .title-concept {
   font-family: var(--titleFont);
-  color: var(--primaryColor);
+  color: var(--textColor);
+  font-size: 2.5rem;
   text-align: center;
   margin: 2rem;
+  grid-area: 1 / 1 / 2 / 3;
 }
+
 .about-section {
   font-family: var(--textFont);
   font-size: 0.9rem;
@@ -33,6 +38,7 @@
 .img-about {
   width: 8rem;
   margin: 1rem;
+  border-radius: calc(var(--borderRadius) * 0.5);
 }
 
 @media screen and (min-width: 768px) {
