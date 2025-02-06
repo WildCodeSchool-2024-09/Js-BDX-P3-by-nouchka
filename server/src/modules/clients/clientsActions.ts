@@ -77,5 +77,37 @@ const destroy: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+const like: RequestHandler = async (req, res, next) => {
+  try {
+    const clientId = Number(req.params.clientId);
+    const jewelryId = Number(req.params.jewelryId);
+    const jewelry = await clientsRepository.getLikedJewelry(
+      clientId,
+      jewelryId,
+    );
 
-export default { browse, read, edit, add, destroy };
+    let result: number | boolean;
+
+    if (jewelry) {
+      result = await clientsRepository.unlikeJewelry(jewelry.id);
+    } else {
+      result = await clientsRepository.likeJewelry(clientId, jewelryId);
+    }
+
+    if (result) {
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+export default {
+  browse,
+  read,
+  edit,
+  add,
+  destroy,
+  like,
+};

@@ -1,0 +1,53 @@
+:root {
+  --hero-image: none;
+}
+
+.image-hero {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-image: var(--hero-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtitle-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-hero-subtitle {
+  font-family: var(--titleFont);
+  color: var(--secondaryColor);
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .image-hero {
+    height: 250px;
+    background-size: cover;
+  }
+
+  .image-hero-subtitle {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .image-hero {
+    height: 300px;
+  }
+
+  .image-hero-subtitle {
+    font-size: 2rem;
+  }
+}

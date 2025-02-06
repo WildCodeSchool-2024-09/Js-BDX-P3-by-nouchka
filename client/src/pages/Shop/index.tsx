@@ -15,4 +15,6 @@ export default function Shop() {
       <SwiperCaroussel type="Bagues" itemsToShow={5} showDetails={true} />
     </>
   );
+
+
 }
