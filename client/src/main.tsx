@@ -31,6 +31,9 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
+import OrderForm from "./pages/Order-Form/orderForm";
+import Success from "./pages/Payment-Redirections/SuccessPayment";
+import Cancel from "./pages/Payment-Redirections/CancelPayment";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -81,6 +84,18 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/checkout",
+        element: <OrderForm />,
+      },
+      {
+        path: "/paymentSuccess",
+        element: <Success />,
+      },
+      {
+        path: "cancelPayment",
+        element: <Cancel />,
       },
       {
         path: "/upcycling",

@@ -2,9 +2,8 @@ import "./style.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Success() {
+export default function Cancel() {
   const navigate = useNavigate();
-
   const queryParams = new URLSearchParams(window.location.search);
   const sessionId = queryParams.get("session_id");
 
@@ -16,11 +15,19 @@ export default function Success() {
 
   return (
     <section>
-      <h4 className="successTitle">Merci pour votre commande !</h4>
+      <h3 className="successTitle">Commande annulée</h3>
+      <p className="successText">Le paiement n'a pas pu être effectué ❌.</p>
       <p className="successText">
-        Votre paiement a été effectué avec succès ✅.
+        Vous pouvez essayer à nouveau ou revenir au panier pour modifier votre
+        commande.
       </p>
-      <p className="successText">Nous vous remercions pour votre achat.</p>
+      <button
+        className="button-back-toCart"
+        type="button"
+        onClick={() => navigate("/cart")}
+      >
+        Retour au panier
+      </button>
       <button
         className="button-backHome"
         type="button"

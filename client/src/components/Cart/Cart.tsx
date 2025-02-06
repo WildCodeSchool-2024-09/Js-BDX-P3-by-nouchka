@@ -34,8 +34,8 @@ export default function Cart() {
   };
 
   return (
-    <div>
-      <h1>Votre Panier</h1>
+    <section>
+      <h2>Votre Panier</h2>
 
       {cartItems.map((item) => (
         <div key={item.id}>
@@ -60,19 +60,24 @@ export default function Cart() {
             </button>
           </div>
 
-          <button type="button" onClick={() => removeJewelry(item.id)}>
+          <button
+            className="delete-item"
+            type="button"
+            onClick={() => removeJewelry(item.id)}
+          >
             Supprimer
           </button>
         </div>
       ))}
 
       <button
+        className="validate-cart"
         type="button"
         onClick={() => navigate("/checkout")}
         disabled={cartItems.length === 0}
       >
         Valider mon panier
       </button>
-    </div>
+    </section>
   );
 }
