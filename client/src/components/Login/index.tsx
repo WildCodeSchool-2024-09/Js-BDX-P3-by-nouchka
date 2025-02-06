@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { LoginClientCheck } from "../../types/LoginClients";
 import { useAuth } from "../Login/login_persistance/persistance";
-import { useNavigate } from "react-router-dom";
 
 interface ClientLoginProps {
   isAdmin?: boolean;
   onLoginSuccess?: () => void;
 }
 
-export default function ClientLogin({isAdmin = false, onLoginSuccess}: ClientLoginProps) {
+export default function ClientLogin({
+  isAdmin = false,
+  onLoginSuccess,
+}: ClientLoginProps) {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | undefined>(undefined);
@@ -22,7 +25,7 @@ export default function ClientLogin({isAdmin = false, onLoginSuccess}: ClientLog
     e.preventDefault();
     try {
       const loginURL = `${import.meta.env.VITE_API_URL}/api/auth/login`;
-      
+
       const response = await fetch(loginURL, {
         method: "post",
         headers: {
@@ -37,8 +40,7 @@ export default function ClientLogin({isAdmin = false, onLoginSuccess}: ClientLog
         throw new Error("Erreur de connexion");
       }
 
-      
-      const [, payload] = data.token.split('.');
+      const [, payload] = data.token.split(".");
       const decodedPayload = JSON.parse(atob(payload));
       const isUserAdmin = decodedPayload.isAdmin;
 
@@ -47,9 +49,8 @@ export default function ClientLogin({isAdmin = false, onLoginSuccess}: ClientLog
         return;
       }
 
-   
       const role = isUserAdmin ? "admin" : "client";
-      
+
       login(data.token, data.user.firstname, role);
       setError("");
       setEmailError(undefined);
@@ -60,15 +61,13 @@ export default function ClientLogin({isAdmin = false, onLoginSuccess}: ClientLog
         navigate("/account");
       }
 
-
       if (onLoginSuccess) {
         onLoginSuccess();
       }
-
     } catch (error) {
       console.error("Erreur de connexion:", error);
       setError(
-        error instanceof Error ? error.message : "Erreur lors de la connexion"
+        error instanceof Error ? error.message : "Erreur lors de la connexion",
       );
     }
   };

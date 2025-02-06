@@ -36,17 +36,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
-    
     localStorage.removeItem("token");
     localStorage.removeItem("userFirstName");
     localStorage.removeItem("userRole");
     localStorage.removeItem("isAdmin");
 
- 
     setIsLogged(false);
     setUserFirstName(null);
     setUserRole("client");
-
 
     navigate("/");
   };

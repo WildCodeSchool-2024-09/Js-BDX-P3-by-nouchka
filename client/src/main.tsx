@@ -11,6 +11,7 @@ import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 /* ************************************************************************* */
 
+import ProtectedRoute from "../src/components/ProtectedRoute"; // Add this line to import ProtectedRoute
 // Import the main app component
 import App from "./App";
 import RegisterBlock from "./components/Register";
@@ -29,7 +30,6 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
-import ProtectedRoute from "../src/components/ProtectedRoute"; // Add this line to import ProtectedRoute
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -111,8 +111,8 @@ const router = createBrowserRouter([
       {
         path: "/backoffice",
         element: (
-        <ProtectedRoute requireAdmin>
-          <BackofficeHome />
+          <ProtectedRoute requireAdmin>
+            <BackofficeHome />
           </ProtectedRoute>
         ),
         children: [

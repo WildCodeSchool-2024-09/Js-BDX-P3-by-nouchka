@@ -25,12 +25,12 @@ router.get("/api/pages/:name", pagesActions.read);
 router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
-/*router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);*/
+router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.post("/api/orders", orderActions.add);
 
-/*router.post("/api/auth/login", authMiddleware.login);*/
+router.post("/api/auth/login", authMiddleware.login);
 
-/*router.use(authMiddleware.verifyToken);*/
+router.use(authMiddleware.verifyToken);
 
 router.put("/api/pages/:name", pagesActions.edit);
 router.post(
@@ -60,7 +60,7 @@ router.get("/api/orders/:id", orderActions.read);
 
 router.get("/api/admins", adminActions.browse);
 router.get("/api/admins/:id", adminActions.read);
-/*router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);*/
+router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 

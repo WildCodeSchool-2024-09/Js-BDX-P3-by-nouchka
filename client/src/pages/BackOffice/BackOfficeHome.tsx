@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -13,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ClientLogin from "../../components/Login";
 
@@ -24,14 +24,12 @@ export default function BackOfficeHome() {
   const isMobile = useMediaQuery("(max-width:738px)");
 
   useEffect(() => {
-    // Vérifier l'authentification au chargement
     if (localStorage.getItem("isAdmin") !== "true") {
-      navigate("/backoffice")
+      navigate("/backoffice");
     }
-  }, []);
+  }, [navigate]);
 
   const handleLoginSuccess = () => {
-    // Après connexion réussie
     setShowLogin(false);
     localStorage.setItem("isAdmin", "true");
   };
@@ -42,7 +40,6 @@ export default function BackOfficeHome() {
     navigate("/");
   };
 
-  // Afficher le composant de connexion si non authentifié
   if (showLogin) {
     return <ClientLogin isAdmin={true} onLoginSuccess={handleLoginSuccess} />;
   }
@@ -52,8 +49,8 @@ export default function BackOfficeHome() {
       {isMobile && (
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton 
-              edge="start" 
+            <IconButton
+              edge="start"
               onClick={() => setMobileOpen(true)}
               className="text-white"
             >
@@ -71,15 +68,15 @@ export default function BackOfficeHome() {
         className="sidebar"
       >
         <Box className="sidebar-header">
-          <Typography 
-            variant="h6" 
+          <Typography
+            variant="h6"
             onClick={() => navigate("/backoffice")}
             className="cursor-pointer"
           >
             Backoffice by.Nouchka
           </Typography>
         </Box>
-        
+
         <List className="sidebar-list">
           <ListItemButton
             className="sidebar-item"
