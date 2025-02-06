@@ -27,7 +27,6 @@ router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.post("/api/orders", orderActions.add);
-
 router.post("/api/auth/login", authMiddleware.login);
 
 router.use(authMiddleware.verifyToken);
@@ -68,6 +67,9 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+router.post("/api/auth/login", authMiddleware.login);
+
+
 
 router.put("/api/orders/:id", orderActions.edit);
 router.delete("/api/orders/:id", orderActions.destroy);

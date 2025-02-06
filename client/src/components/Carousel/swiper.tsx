@@ -13,17 +13,20 @@ interface JewelryItem {
   name: string;
   URL: string;
   type: string;
+  price: string;
 }
 
 interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
+  showDetails?: boolean;
   selectedJewelry: number[];
 }
 
 export default function SwiperCaroussel({
   itemsToShow,
   type,
+  showDetails = false,
   selectedJewelry,
 }: SwiperCarouselProps) {
   const isSwiperActive = useSwiper();
@@ -82,6 +85,7 @@ export default function SwiperCaroussel({
                   url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
                   name={item.name}
                   item={{ id: item.id }}
+                  price={showDetails ? `${item.price}` : undefined}
                 />
               </SwiperSlide>
             ))}
@@ -97,6 +101,7 @@ export default function SwiperCaroussel({
               url={`${import.meta.env.VITE_API_URL}/${item.URL}`}
               name={item.name}
               item={{ id: item.id }}
+              price={showDetails ? `${item.price}` : undefined}
             />
           ))}
         </>
