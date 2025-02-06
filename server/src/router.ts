@@ -22,7 +22,7 @@ router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
 router.post("/api/auth/login", authMiddleware.login); 
 router.post("api/orders", orderActions.add);
-router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);// Pas d'auth pour login
+router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 
 /* ************************************************************************* */
 // Middleware de protection par token
