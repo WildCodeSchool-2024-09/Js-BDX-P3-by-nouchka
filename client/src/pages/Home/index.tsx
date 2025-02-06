@@ -47,7 +47,11 @@ export default function Home() {
       <article className="home-text">
         <p className="lead">{description}</p>
       </article>
-      <SwiperCaroussel selectedJewelry={selectedJewelry} itemsToShow={3} />
+      <SwiperCaroussel
+        selectedJewelry={selectedJewelry}
+        itemsToShow={3}
+        useFilteredJewelry={true}
+      />
     </>
   );
 }
