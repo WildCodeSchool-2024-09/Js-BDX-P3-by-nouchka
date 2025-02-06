@@ -20,7 +20,7 @@ router.get("/api/pages/:name", pagesActions.read);
 router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
-router.post("/api/auth/login", authMiddleware.login); 
+router.post("/api/auth/login", authMiddleware.login);
 router.post("api/orders", orderActions.add);
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 
