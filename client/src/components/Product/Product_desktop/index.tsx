@@ -17,7 +17,7 @@ export default function ProductDesktop({
         <img
           key={`image-${url}`}
           className="productImg"
-          src={`${import.meta.env.VITE_API_URL}/assets/images/${
+          src={`${import.meta.env.VITE_API_URL}/uploads/${
             swapImage ? urls[1 - index].split("/").pop() : url.split("/").pop()
           }`}
           alt={name}
