@@ -48,10 +48,6 @@ router.post("/api/orders", orderActions.add);
 
 import authMiddleware from "../src/Middleware/authMiddleware";
 
-router.post("/api/auth/login", authMiddleware.login);
-
-router.use(authMiddleware.verifyToken);
-
 router.put("/api/pages/:name", pagesActions.edit);
 router.post(
   "/api/pages/upload",
@@ -79,6 +75,9 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+router.post("/api/auth/login", authMiddleware.login);
+
+router.use(authMiddleware.verifyToken);
 
 router.put("/api/orders/:id", orderActions.edit);
 router.delete("/api/orders/:id", orderActions.destroy);
