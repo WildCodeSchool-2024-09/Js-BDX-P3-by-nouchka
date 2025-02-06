@@ -33,8 +33,10 @@ export const useAddressForm = () => {
   const handleSubmitAddressInfos = async (e: FormEvent) => {
     e.preventDefault();
 
-    const addressData = { shippingAddress, billingAddress };
-
+    const addressData = {
+      billingAddress: billingAddress,
+      shippingAddress: shippingAddress,
+    };
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/orders`,
@@ -46,7 +48,7 @@ export const useAddressForm = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const { errorData } = await response.json();
         throw new Error(
           errorData.includes("Duplicate entry")
             ? "Cette adresse est déjà utilisée"

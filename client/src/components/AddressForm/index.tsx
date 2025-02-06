@@ -7,7 +7,7 @@ export default function AddressRegister() {
   const {
     shippingAddress,
     billingAddress,
-    setBillingAddress,
+    setShippingAddress,
     error,
     handleChangeShipping,
     handleChangeBilling,
@@ -17,16 +17,17 @@ export default function AddressRegister() {
   const handleCheckboxChange = () => {
     setSameAsShipping(!sameAsShipping);
     if (!sameAsShipping) {
-      setBillingAddress({ ...shippingAddress });
+      setShippingAddress({ ...billingAddress });
     }
   };
+
   return (
     <>
-      <h2 className="titleForm">Infomations de livraison</h2>
+      <h2 className="titleForm">Adresse de livraison</h2>
       <form className="registerForm" onSubmit={handleSubmitAddressInfos}>
-        <label htmlFor="address-street-number" className="registerPassword">
+        <label htmlFor="shipping-street-number" className="registerPassword">
           <input
-            id="shippingaddress"
+            id="shipping-street-number"
             className="registerAddress"
             required
             type="text"
@@ -36,9 +37,9 @@ export default function AddressRegister() {
             placeholder="Numéro de voie..."
           />
         </label>
-        <label htmlFor="address-street-name" className="registerPassword">
+        <label htmlFor="shipping-street-name" className="registerPassword">
           <input
-            id="shippingaddress"
+            id="shipping-street-name"
             className="registerAddress"
             required
             type="text"
@@ -48,9 +49,9 @@ export default function AddressRegister() {
             placeholder="Nom de voie..."
           />
         </label>
-        <label htmlFor="address-postalCode" className="registerPassword">
+        <label htmlFor="shipping-postalCode" className="registerPassword">
           <input
-            id="shippingaddress"
+            id="shipping-postalCode"
             className="registerAddress"
             required
             type="text"
@@ -60,10 +61,10 @@ export default function AddressRegister() {
             placeholder="Code postal..."
           />
         </label>
-        <label htmlFor="address-city" className="registerPassword">
+        <label htmlFor="shipping-city" className="registerPassword">
           <input
             type="text"
-            id="shippingaddress"
+            id="shipping-city"
             className="registerAddress"
             required
             name="city"
@@ -84,7 +85,7 @@ export default function AddressRegister() {
 
         {!sameAsShipping && (
           <>
-            <h2 className="titleForm">Adresse de facturation</h2>
+            <h2 className="titleForm">Informations de facturation</h2>
             <label htmlFor="billing-street-number" className="registerPassword">
               <input
                 id="billing-street-number"
@@ -123,10 +124,10 @@ export default function AddressRegister() {
             </label>
             <label htmlFor="billing-city" className="registerPassword">
               <input
+                type="text"
                 id="billing-city"
                 className="registerAddress"
                 required
-                type="text"
                 name="city"
                 value={billingAddress.city}
                 onChange={handleChangeBilling}
