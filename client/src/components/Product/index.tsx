@@ -51,20 +51,17 @@ export default function Product({ jewelryId }: JewelryProps) {
   if (!data) return <p>Aucun bijou trouvé.</p>;
 
   let urls: string[];
-if (typeof data.URL === "string") {
-
-  if (data.URL.includes(',')) {
-    urls = data.URL.split(',').map(url => url.trim());
+  if (typeof data.URL === "string") {
+    if (data.URL.includes(",")) {
+      urls = data.URL.split(",").map((url) => url.trim());
+    } else {
+      urls = [data.URL];
+    }
+  } else if (Array.isArray(data.URL)) {
+    urls = data.URL;
   } else {
-    urls = [data.URL];
+    urls = [];
   }
-} else if (Array.isArray(data.URL)) {
-  urls = data.URL;
-} else {
-  urls = [];
-}
-
-
 
   return (
     <section className="product">

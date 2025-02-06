@@ -78,8 +78,8 @@ class JewelryRepository {
       LEFT JOIN photos ON photos_jewelry.photos_id = photos.id
       WHERE jewelry.id = ?
       GROUP BY jewelry.id`,
-     [id]
-   );
+      [id],
+    );
 
     return rows[0] as Jewelry;
   }

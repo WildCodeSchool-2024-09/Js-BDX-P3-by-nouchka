@@ -31,7 +31,6 @@ import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 
-
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
 

@@ -24,7 +24,10 @@ export default function ContactBlock() {
       <form action="sumbit" className="contactForm">
         <section className="contactDescription">
           <h3>Une question, une demande spéciale ? ✨</h3>
-          <p>Que ce soit pour une commande personnalisée, une question, ou simplement un petit mot doux, n’hésitez pas à nous écrire. 💌</p>
+          <p>
+            Que ce soit pour une commande personnalisée, une question, ou
+            simplement un petit mot doux, n’hésitez pas à nous écrire. 💌
+          </p>
           <p>📩 Réponse rapide et bienveillante garantie !</p>
         </section>
         <label htmlFor="fullName" className="Name">
