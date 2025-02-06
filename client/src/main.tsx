@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ContactBlock from "./components/contact-block";
 import About from "./pages/About";
 import Account from "./pages/Account";
-//import Shop from "./pages/Shop";
+import Shop from "./pages/Shop";
 import Upcycling from "./pages/Upcycling";
 
 /* ************************************************************************* */
@@ -17,7 +17,6 @@ import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
-import Shop from "./pages/Shop";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/pravacy-policy/PrivacyPolicy";
