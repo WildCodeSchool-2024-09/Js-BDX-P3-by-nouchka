@@ -14,6 +14,7 @@ import Upcycling from "./pages/Upcycling";
 
 // Import the main app component
 import App from "./App";
+import Cart from "./components/Cart/Cart";
 import RegisterBlock from "./components/Register";
 import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
 import BackOfficeOrders from "./pages/BackOffice/BackOfficeOrders";
@@ -77,7 +78,10 @@ const router = createBrowserRouter([
         path: "/shop",
         element: <Shop />,
       },
-
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
       {
         path: "/upcycling",
         element: <Upcycling />,

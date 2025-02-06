@@ -33,11 +33,6 @@ export default function Cart() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const clearCart = () => {
-    setCartItems([]);
-    localStorage.removeItem("cart");
-  };
-
   return (
     <div>
       <h1>Votre Panier</h1>
