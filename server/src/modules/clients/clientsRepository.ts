@@ -91,18 +91,39 @@ class ClientsRepository {
     return rows.affectedRows;
   }
 
-  async delete(clientsID: number) {
-    try {
-      const [rows] = await databaseClient.execute<Result>(
-        `DELETE FROM users
-            WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
-        [clientsID],
-      );
+  async getLikedJewelry(clientId: number, jewelryId: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT id FROM likes 
+      WHERE jewelry_id = ? AND clients_id = ?`,
+      [jewelryId, clientId],
+    );
+    return rows[0];
+  }
+  async likeJewelry(clientId: number, jewelryId: number) {
+    const [result] = await databaseClient.execute<Result>(
+      `INSERT INTO likes ( jewelry_id, clients_id) 
+          VALUES (?, ?)`,
+      [jewelryId, clientId],
+    );
+    return result.insertId;
+  }
+  async unlikeJewelry(likeId: number) {
+    const [result] = await databaseClient.execute<Result>(
+      `DELETE FROM likes 
+      WHERE id = ?`,
+      [likeId],
+    );
+    return result.affectedRows;
+  }
 
-      return rows.affectedRows;
-    } catch (error) {
-      throw new Error("You've got an error.");
-    }
+  async delete(clientsID: number) {
+    const [rows] = await databaseClient.execute<Result>(
+      `DELETE FROM users
+            WHERE id =(SELECT users_id FROM clients WHERE id = ?)`,
+      [clientsID],
+    );
+
+    return rows.affectedRows;
   }
 }
 
