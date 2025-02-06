@@ -102,6 +102,7 @@ export default function SwiperCaroussel({
               name={item.name}
               item={{ id: item.id }}
               price={showDetails ? `${item.price}` : undefined}
+
             />
           ))}
         </>
