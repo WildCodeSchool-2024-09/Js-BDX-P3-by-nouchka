@@ -18,8 +18,8 @@ function Card({
   price,
 }: CardProps) {
   return (
-    <>
-      <figure className={figureClass}>
+    <article className={figureClass}>
+      <figure>
         <Link className="productLink" to={`/jewelry/${item.id}`}>
           <img
             className={imgClass}
@@ -29,8 +29,8 @@ function Card({
         </Link>
         <figcaption className={caption}>{name}</figcaption>
       </figure>
-      {price && <p className="price">{price} €</p>}
-    </>
+      <footer>{price && <p className="price">{price} €</p>}</footer>
+    </article>
   );
 }
 
