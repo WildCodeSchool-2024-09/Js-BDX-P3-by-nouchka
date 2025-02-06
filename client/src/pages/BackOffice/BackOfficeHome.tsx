@@ -14,33 +14,46 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-
-import "./style.css";
+import ClientLogin from "../../components/Login";
 
 export default function BackOfficeHome() {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const isMobile = useMediaQuery("(max-width:738px)");
 
   useEffect(() => {
     if (localStorage.getItem("isAdmin") !== "true") {
-      navigate("/login-backoffice");
+      navigate("/backoffice");
     }
   }, [navigate]);
 
-  const handleLogout = (): void => {
-    localStorage.removeItem("isAdmin");
-    navigate("/login-backoffice");
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+    localStorage.setItem("isAdmin", "true");
   };
 
-  const isMobile = useMediaQuery("(max-width:738px)");
+  const handleLogout = () => {
+    localStorage.removeItem("isAdmin");
+    setShowLogin(true);
+    navigate("/");
+  };
+
+  if (showLogin) {
+    return <ClientLogin isAdmin={true} onLoginSuccess={handleLoginSuccess} />;
+  }
 
   return (
     <Box className="backoffice-container">
       {isMobile && (
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton edge="start" onClick={() => setMobileOpen(true)}>
+            <IconButton
+              edge="start"
+              onClick={() => setMobileOpen(true)}
+              className="text-white"
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6">Backoffice by.Nouchka</Typography>
@@ -55,10 +68,15 @@ export default function BackOfficeHome() {
         className="sidebar"
       >
         <Box className="sidebar-header">
-          <Typography variant="h6" onClick={() => navigate("/backoffice")}>
+          <Typography
+            variant="h6"
+            onClick={() => navigate("/backoffice")}
+            className="cursor-pointer"
+          >
             Backoffice by.Nouchka
           </Typography>
         </Box>
+
         <List className="sidebar-list">
           <ListItemButton
             className="sidebar-item"
@@ -91,6 +109,7 @@ export default function BackOfficeHome() {
             <ListItemText primary="Statistiques" />
           </ListItemButton>
         </List>
+
         <Box className="sidebar-footer">
           <Button
             variant="contained"
@@ -102,12 +121,14 @@ export default function BackOfficeHome() {
         </Box>
       </Drawer>
 
-      <Outlet />
-      {location.pathname === "/backoffice" && (
-        <Box className="welcome-message">
-          <Typography variant="h4">Bienvenue sur le Backoffice</Typography>
-        </Box>
-      )}
+      <Box className="main-content">
+        <Outlet />
+        {location.pathname === "/backoffice" && (
+          <Box className="welcome-message">
+            <Typography variant="h4">Bienvenue sur le Backoffice</Typography>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 }

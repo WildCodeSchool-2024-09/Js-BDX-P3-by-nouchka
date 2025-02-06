@@ -21,14 +21,14 @@ interface SwiperCarouselProps {
   itemsToShow?: number;
   type?: string;
   selectedJewelry?: number[];
-  useFilteredJewelry?: boolean; // Ajout de cette prop
+  useFilteredJewelry?: boolean;
   showDetails?: boolean;
 }
 
 export default function SwiperCaroussel({
   itemsToShow,
   type,
-  useFilteredJewelry = false, // Valeur par défaut
+  useFilteredJewelry = false,
   showDetails = false,
   selectedJewelry,
 }: SwiperCarouselProps) {
@@ -59,7 +59,6 @@ export default function SwiperCaroussel({
 
   if (loading) return <p>Chargement...</p>;
 
-  // Condition pour filtrer ou non les bijoux
   const displayedJewelry = useFilteredJewelry
     ? jewelry.filter((item) => selectedJewelry?.includes(item.id))
     : jewelry;

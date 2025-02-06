@@ -25,7 +25,7 @@ export default function CarouselProduct({ urls, name }: CarouselProductProps) {
       {parsedUrls.map((url: string, index: number) => (
         <SwiperSlide key={url} className="swiperImg">
           <img
-            src={`${import.meta.env.VITE_API_URL}/assets/images/${url.split("/").pop()}`}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${url.split("/").pop()}`}
             alt={`${name} - vue ${index + 1}`}
             className="productImg"
           />
