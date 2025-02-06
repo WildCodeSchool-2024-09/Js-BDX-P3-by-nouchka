@@ -1,0 +1,132 @@
+@import url("../../App.css");
+
+.productImg {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--borderRadius);
+  border: var(--border-solid);
+}
+.productImg:nth-child(2) {
+  object-fit: cover;
+  border-radius: var(--borderRadius);
+  border: var(--border-solid);
+}
+.product {
+  color: var(--textColor);
+  font-family: var(--textFont);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+.titleProduct {
+  color: var(--primaryColor);
+  font-size: larger;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+.descriptionProduct {
+  text-align: center;
+  margin: 0 1rem;
+}
+.buttonProduct {
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.mobile-images {
+  display: block;
+}
+.mobile-images .swiper {
+  height: 100%;
+}
+.mobile-images .swiper-slide img {
+  object-fit: cover;
+  border-radius: var(--borderRadius);
+}
+.likesProduct {
+  display: block;
+  margin: auto;
+}
+@media screen and (min-width: 768px) {
+  .product {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    place-items: center;
+  }
+  .containerTitleProduct {
+    margin-top: 0;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+  }
+  .desktop-images {
+    display: block;
+  }
+  .containerProductImg {
+    grid-row: 1 / span 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+  }
+  .productImg {
+    width: 300px;
+    height: 300px;
+  }
+  .productImg:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+  }
+  .productImg:nth-child(2):hover {
+    transform: scale(1.1);
+    box-shadow: var(--mediumBoxShadow);
+  }
+  .descriptionProduct {
+    margin: 0;
+    max-width: 45ch;
+    grid-column-start: 2;
+  }
+  .typeProduct {
+    grid-column-start: 2;
+    grid-row-start: 2;
+  }
+  .priceProduct,
+  .typeProduct,
+  .titleProduct,
+  .descriptionProduct {
+    text-align: start;
+    justify-self: start;
+  }
+  .descriptionProduct {
+    grid-column-start: 2;
+    grid-row-start: 3;
+  }
+  .priceProduct {
+    grid-column-start: 2;
+    grid-row-start: 4;
+  }
+  .buttonProduct {
+    grid-column-start: 2;
+    grid-row-start: 5;
+    justify-self: start;
+  }
+  .buttonProduct:hover {
+    transform: scale(1.1);
+    box-shadow: var(--mediumBoxShadow);
+  }
+  .likesProduct {
+    margin: 0;
+  }
+}
