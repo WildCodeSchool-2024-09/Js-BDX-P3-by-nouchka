@@ -72,13 +72,14 @@ class JewelryRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.execute<Rows>(
-      `SELECT * 
-        FROM jewelry 
-        INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
-        INNER JOIN photos ON photos_jewelry.photos_id = photos.id
-        WHERE jewelry.id = ?`,
-      [id],
-    );
+      `SELECT jewelry.*, GROUP_CONCAT(photos.URL) as URL
+      FROM jewelry
+      LEFT JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
+      LEFT JOIN photos ON photos_jewelry.photos_id = photos.id
+      WHERE jewelry.id = ?
+      GROUP BY jewelry.id`,
+     [id]
+   );
 
     return rows[0] as Jewelry;
   }

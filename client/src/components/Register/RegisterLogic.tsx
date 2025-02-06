@@ -48,7 +48,9 @@ export const useRegisterForm = () => {
           body: JSON.stringify(formData),
         },
       );
+      console.log('Status de la réponse :', response.status);
       response.json();
+      console.log('Données reçues :');
       if (!response.ok) {
         const errorData = await response.json();
         if (

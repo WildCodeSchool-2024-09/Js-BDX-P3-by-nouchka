@@ -22,11 +22,11 @@ export default function ContactBlock() {
     <>
       <h2 className="contact">Me Contacter</h2>
       <form action="sumbit" className="contactForm">
-        <p className="contactDescription">
-          Vous avez une question ou un projet de bijou personnalisé ? Je suis à
-          votre écoute pour donner vie à vos envies. Contactez-moi pour discuter
-          de vos idées !
-        </p>
+        <section className="contactDescription">
+          <h3>Une question, une demande spéciale ? ✨</h3>
+          <p>Que ce soit pour une commande personnalisée, une question, ou simplement un petit mot doux, n’hésitez pas à nous écrire. 💌</p>
+          <p>📩 Réponse rapide et bienveillante garantie !</p>
+        </section>
         <label htmlFor="fullName" className="Name">
           <input
             id="fullName"

@@ -34,7 +34,8 @@ export default function Product({ jewelryId }: JewelryProps) {
           },
         );
         const result = await response.json();
-
+        console.log("Result from API:", result);
+        console.log("URLs from API:", result.URL);
         setData(result);
       } catch (error) {
         setData(null);
@@ -51,23 +52,21 @@ export default function Product({ jewelryId }: JewelryProps) {
   if (loading) return <p>Chargement...</p>;
   if (!data) return <p>Aucun bijou trouvé.</p>;
 
-  let urls: string | string[];
-  if (typeof data.URL === "string") {
-    try {
-      urls = JSON.parse(data.URL);
-
-      if (!Array.isArray(urls)) {
-        urls = [urls];
-      }
-    } catch (error) {
-      urls = [data.URL];
-    }
-  } else if (Array.isArray(data.URL)) {
-    urls = data.URL;
+  let urls: string[];
+if (typeof data.URL === "string") {
+  // Si l'URL contient une virgule, la diviser en tableau
+  if (data.URL.includes(',')) {
+    urls = data.URL.split(',').map(url => url.trim());
   } else {
-    urls = [];
+    urls = [data.URL];
   }
-  urls = Array.isArray(urls) ? urls : [urls];
+} else if (Array.isArray(data.URL)) {
+  urls = data.URL;
+} else {
+  urls = [];
+}
+
+console.log("URLs après traitement:", urls);
 
   return (
     <section className="product">
