@@ -8,7 +8,8 @@
   width: 100%;
   cursor: pointer;
 }
-.caption {
+.caption,
+.price {
   font-size: 1.5rem;
   color: var(--primaryColor);
   font-family: var(--titleFont);
@@ -59,9 +60,10 @@
 }
 @media screen and (min-width: 768px) {
   .imageContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
     cursor: pointer;
   }
   .cardDesktop {

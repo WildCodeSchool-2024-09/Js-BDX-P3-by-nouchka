@@ -11,8 +11,7 @@ export default function Account() {
       {isLogged ? (
         <section className="onceConnected">
           <h2 className="hello">Bonjour {userFirstName} 🩷</h2>
-          <h2 className="myOrders">Mes commandes</h2>
-          <h2 className="myLikes">Mes likes</h2>
+          <h2 className="message-account">ça arrive bientôt 😃</h2>
           <button className="btnDisconnection" type="button" onClick={logout}>
             Déconnexion
           </button>
