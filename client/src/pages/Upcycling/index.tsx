@@ -52,7 +52,7 @@ export default function Upcycling() {
         />
         <Description text={data?.description || ""} />
       </article>
-      <SwiperCaroussel type="upcycling" itemsToShow={3} selectedJewelry={[]} />
+      <SwiperCaroussel type="upcycling" itemsToShow={3} />
     </>
   );
 }

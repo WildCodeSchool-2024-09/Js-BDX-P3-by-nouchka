@@ -9,26 +9,10 @@ export default function Shop() {
         type="Boucles d'oreilles"
         itemsToShow={5}
         showDetails={true}
-        selectedJewelry={[]}
       />
-      <SwiperCaroussel
-        type="Colliers"
-        itemsToShow={5}
-        showDetails={true}
-        selectedJewelry={[]}
-      />
-      <SwiperCaroussel
-        type="Bracelets"
-        itemsToShow={5}
-        showDetails={true}
-        selectedJewelry={[]}
-      />
-      <SwiperCaroussel
-        type="Bagues"
-        itemsToShow={5}
-        showDetails={true}
-        selectedJewelry={[]}
-      />
+      <SwiperCaroussel type="Colliers" itemsToShow={5} showDetails={true} />
+      <SwiperCaroussel type="Bracelets" itemsToShow={5} showDetails={true} />
+      <SwiperCaroussel type="Bagues" itemsToShow={5} showDetails={true} />
     </>
   );
 }
