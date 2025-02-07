@@ -7,23 +7,53 @@ export default function Footer() {
         {" "}
         <img
           src="src/assets/logo/logo_light.svg"
-          alt="retour a la page d'acceuil"
+          alt="retour a la page d'accueil"
           className="logo-footer"
         />
       </Link>
-      <Link to="/cgu" className="blocklink">
+      <Link
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        to="/cgu"
+        className="blocklink"
+      >
         CGU
       </Link>
-      <Link to="/cgv" className="blocklink">
+      <Link
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        to="/cgv"
+        className="blocklink"
+      >
         CGV
       </Link>
-      <Link to="/faq" className="blocklink">
+      <Link
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        to="/faq"
+        className="blocklink"
+      >
         FAQ
       </Link>
-      <Link to="/legal-mentions" className="blocklink">
+      <Link
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        to="/legal-mentions"
+        className="blocklink"
+      >
         Mentions légales
       </Link>
-      <Link to="/privacy-policy" className="blocklink">
+      <Link
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        to="/privacy-policy"
+        className="blocklink"
+      >
         Politique de confidentialité
       </Link>
       <a

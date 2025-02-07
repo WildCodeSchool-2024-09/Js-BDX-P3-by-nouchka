@@ -1,10 +1,11 @@
 export default function LegalMentions() {
   return (
-    <section>
-      <h2>
-        Les mentions légales seront disponible plus tard merci de votre
+    <section className="legalMentions-section">
+      <h2 className="secondary-title">Mentions légales</h2>
+      <p className="legalMentions-text">
+        Les mentions légales seront disponibles plus tard, merci de votre
         compréhension.
-      </h2>
+      </p>
     </section>
   );
 }

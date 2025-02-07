@@ -10,7 +10,6 @@ function App() {
   const hideHeader = location.pathname.includes("/backoffice");
   const hideContactBlock = location.pathname.includes("/backoffice");
   const hideFooter = location.pathname.includes("/backoffice");
-
   return (
     <>
       <AuthProvider>
