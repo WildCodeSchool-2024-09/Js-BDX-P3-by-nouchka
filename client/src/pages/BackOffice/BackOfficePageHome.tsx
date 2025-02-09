@@ -15,6 +15,15 @@ import {
 import { useEffect, useState } from "react";
 import type { Pages } from "../../types/Pages";
 import "./style.css";
+import type { Jewelry } from "../../types/jewelry";
+
+interface HomeJewelryResponse {
+  selected_jewelry: {
+    id: number;
+    name: string;
+    URL: string;
+  }[];
+}
 
 export default function BackOfficePageHome() {
   const [title, setTitle] = useState<string>("");
@@ -22,14 +31,29 @@ export default function BackOfficePageHome() {
   const [urlIllustration, setUrlIllustration] = useState<string>("");
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
-  const [jewelry, setJewelry] = useState<
-    { id: string; name: string; URL: string }[]
-  >([]);
-  const [selectedJewelry, setSelectedJewelry] = useState<number[]>([]);
+  const [jewelry, setJewelry] = useState<Jewelry[]>([]);
+  const [selectedJewelry, setSelectedJewelry] = useState<(number | null)[]>([
+    null,
+    null,
+    null,
+  ]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home`)
-      .then((response) => response.json())
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("No authentification");
+      return;
+    }
+    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unauthorized");
+        return response.json();
+      })
       .then((data: Pages) => {
         setTitle(data.title || "");
         setDescription(data.description || "");
@@ -37,32 +61,58 @@ export default function BackOfficePageHome() {
       })
       .catch((error) => console.error("Erreur lors du fetch :", error));
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home/jewelry`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSelectedJewelry(data.selectedJewelry || []);
+    fetch(`${import.meta.env.VITE_API_URL}/api/pages/home/jewelry`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unauthorized");
+        return response.json();
+      })
+      .then((data: HomeJewelryResponse) => {
+        const selectedJewelIds = data.selected_jewelry?.map((j) => j.id) || [];
+        const filledArray = [...selectedJewelIds, null, null, null].slice(0, 3);
+        setSelectedJewelry(filledArray);
       })
       .catch((error) =>
         console.error("Erreur lors du fetch des bijoux sélectionnés :", error),
       );
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/jewelry`)
-      .then((response) => response.json())
+    fetch(`${import.meta.env.VITE_API_URL}/api/jewelry`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unauthorized");
+        return response.json();
+      })
       .then((data) => {
-        setJewelry(data);
+        if (Array.isArray(data)) {
+          setJewelry(data);
+        }
       })
       .catch((error) =>
-        console.error("Erreur lors du fetch des bijoux :", error),
+        console.error("Erreur lors du fetch de tous les bijoux :", error),
       );
   }, []);
-
   const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
     try {
       const jewelryResponse = await fetch(
         `${import.meta.env.VITE_API_URL}/api/pages/home/jewelry`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({
             selectedJewelry,
             title,
@@ -71,7 +121,6 @@ export default function BackOfficePageHome() {
           }),
         },
       );
-
       if (!jewelryResponse.ok) {
         throw new Error(
           "Erreur lors de la sauvegarde des bijoux sélectionnés.",
@@ -86,16 +135,19 @@ export default function BackOfficePageHome() {
     setOpenDialog(false);
   };
 
-  const handleSelectJewelry = (value: number) => {
-    if (selectedJewelry.includes(value)) {
-      alert("Ce bijou est déjà sélectionné !");
-      return;
-    }
-
-    setSelectedJewelry([...selectedJewelry, value]);
+  const handleSelectJewelry = (value: string, position: number) => {
+    const newSelectedJewelry = [...selectedJewelry];
+    newSelectedJewelry[position] = value === "" ? null : Number(value);
+    setSelectedJewelry(newSelectedJewelry);
   };
 
   const handleFileUpload = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
     if (!file) return;
 
     const formData = new FormData();
@@ -107,11 +159,15 @@ export default function BackOfficePageHome() {
         `${import.meta.env.VITE_API_URL}/api/pages/upload`,
         {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           body: formData,
         },
       );
 
       const data = await response.json();
+
       if (response.ok) {
         setUrlIllustration(data.fileUrl);
         setFile(null);
@@ -124,6 +180,12 @@ export default function BackOfficePageHome() {
   };
 
   const handleDeleteImage = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
     if (!urlIllustration) return;
 
     try {
@@ -131,7 +193,10 @@ export default function BackOfficePageHome() {
         `${import.meta.env.VITE_API_URL}/api/pages/delete-image`,
         {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({ filePath: urlIllustration, name: "home" }),
         },
       );
@@ -201,23 +266,33 @@ export default function BackOfficePageHome() {
       {urlIllustration && (
         <Box className="image-preview">
           <img
-            src={`${import.meta.env.VITE_API_URL}${urlIllustration}`}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${urlIllustration.split("/").pop()}`}
             alt=""
             className="image-preview-img"
+            onError={(e) => {
+              console.error("Erreur de chargement:", e);
+            }}
           />
         </Box>
       )}
 
-      {[0, 1, 2].map((index) => (
-        <FormControl key={index} fullWidth className="jewelry-select">
-          <InputLabel>Bijou n°{index + 1}</InputLabel>
+      {[0, 1, 2].map((position) => (
+        <FormControl key={position} fullWidth className="jewelry-select">
+          <InputLabel>Bijou n°{position + 1}</InputLabel>
           <Select
-            value={selectedJewelry[index] || ""}
-            onChange={(e) => handleSelectJewelry(+e.target.value)}
+            value={selectedJewelry[position]?.toString() || ""}
+            onChange={(e) => handleSelectJewelry(e.target.value, position)}
           >
             <MenuItem value="">Sélectionner un bijou</MenuItem>
             {jewelry.map((jewel) => (
-              <MenuItem key={jewel.id} value={jewel.id}>
+              <MenuItem
+                key={jewel.id}
+                value={jewel.id.toString()}
+                disabled={
+                  selectedJewelry.includes(jewel.id) &&
+                  selectedJewelry[position] !== jewel.id
+                }
+              >
                 {jewel.name}
               </MenuItem>
             ))}
@@ -225,18 +300,22 @@ export default function BackOfficePageHome() {
         </FormControl>
       ))}
 
-      {jewelry
-        .filter((jewel) => selectedJewelry.includes(+jewel.id))
-        .map((j) => (
-          <Box key={j.id} className="selected-jewelry">
-            <img
-              src={`${import.meta.env.VITE_API_URL}/${j.URL}`}
-              alt={j.name}
-              className="selected-jewelry-img"
-            />
-            <p>{j.name}</p>
-          </Box>
-        ))}
+      {selectedJewelry
+        .filter((id): id is number => id !== null)
+        .map((id) => {
+          const jewel = jewelry.find((j) => j.id === id);
+          if (!jewel) return null;
+          return (
+            <Box key={jewel.id} className="selected-jewelry">
+              <img
+                src={`${import.meta.env.VITE_API_URL}/${jewel.URL}`}
+                alt={jewel.name}
+                className="selected-jewelry-img"
+              />
+              <p>{jewel.name}</p>
+            </Box>
+          );
+        })}
 
       <Button
         variant="contained"

@@ -34,7 +34,6 @@ export default function Product({ jewelryId }: JewelryProps) {
           },
         );
         const result = await response.json();
-
         setData(result);
       } catch (error) {
         setData(null);
@@ -51,15 +50,11 @@ export default function Product({ jewelryId }: JewelryProps) {
   if (loading) return <p>Chargement...</p>;
   if (!data) return <p>Aucun bijou trouvé.</p>;
 
-  let urls: string | string[];
+  let urls: string[];
   if (typeof data.URL === "string") {
-    try {
-      urls = JSON.parse(data.URL);
-
-      if (!Array.isArray(urls)) {
-        urls = [urls];
-      }
-    } catch (error) {
+    if (data.URL.includes(",")) {
+      urls = data.URL.split(",").map((url) => url.trim());
+    } else {
       urls = [data.URL];
     }
   } else if (Array.isArray(data.URL)) {
@@ -67,7 +62,6 @@ export default function Product({ jewelryId }: JewelryProps) {
   } else {
     urls = [];
   }
-  urls = Array.isArray(urls) ? urls : [urls];
 
   return (
     <section className="product">

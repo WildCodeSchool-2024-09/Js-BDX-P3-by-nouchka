@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginClientCheck } from "../../types/LoginClients";
 import { useAuth } from "../Login/login_persistance/persistance";
 
-export default function ClientLogin() {
-  const { isLogged, setIsLogged, setUserFirstName } = useAuth();
+interface ClientLoginProps {
+  isAdmin?: boolean;
+  onLoginSuccess?: () => void;
+}
+
+export default function ClientLogin({
+  isAdmin = false,
+  onLoginSuccess,
+}: ClientLoginProps) {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | undefined>(undefined);
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
@@ -13,47 +20,54 @@ export default function ClientLogin() {
     mail: "",
     password: "",
   });
-  useEffect(() => {
-    if (isLogged) {
-      navigate("/");
-    }
-  }, [isLogged, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/login`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const loginURL = `${import.meta.env.VITE_API_URL}/api/auth/login`;
+
+      const response = await fetch(loginURL, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        if (data.includes("Duplicate entry") || data.includes("mail")) {
-          setEmailError("Erreur lors de l'inscription");
-          throw new Error("Erreur lors de l'inscription");
-        }
         throw new Error("Erreur de connexion");
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userFirstName", data.user.firstname);
+      const [, payload] = data.token.split(".");
+      const decodedPayload = JSON.parse(atob(payload));
+      const isUserAdmin = decodedPayload.isAdmin;
 
-      setIsLogged(true);
-      setUserFirstName(data.user.firstname);
+      if (isAdmin && !isUserAdmin) {
+        setError("Vous n'avez pas les droits administrateur");
+        return;
+      }
 
+      const role = isUserAdmin ? "admin" : "client";
+
+      login(data.token, data.user.firstname, role);
       setError("");
-      navigate("/account");
+      setEmailError(undefined);
+
+      if (isUserAdmin) {
+        navigate("/backoffice");
+      } else {
+        navigate("/account");
+      }
+
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
     } catch (error) {
+      console.error("Erreur de connexion:", error);
       setError(
-        error instanceof Error ? error.message : "Erreur lors de l'inscription",
+        error instanceof Error ? error.message : "Erreur lors de la connexion",
       );
     }
   };
@@ -70,12 +84,12 @@ export default function ClientLogin() {
     <>
       <h1 className="titleForm">Me Connecter</h1>
       <form className="registerForm" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="registerEmail">
+        <label htmlFor="loginEmail" className="registerEmail">
           <input
-            id="email"
+            id="LoginEmail"
             className="registerBlockEmail"
             required
-            type="email"
+            type="loginEmail"
             name="mail"
             value={formData.mail}
             onChange={handleChange}
@@ -92,7 +106,7 @@ export default function ClientLogin() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Votre mots de passe..."
+            placeholder="Votre mot de passe..."
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}

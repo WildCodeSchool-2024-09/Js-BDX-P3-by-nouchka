@@ -1,32 +1,51 @@
 import { type ReactNode, createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
   isLogged: boolean;
+  userRole: string;
+  setUserRole: (role: string) => void;
   setIsLogged: (value: boolean) => void;
   logout: () => void;
   userFirstName: string | null;
   setUserFirstName: (value: string) => void;
-  login: (token: string, firstName: string) => void;
+  login: (token: string, firstName: string, role: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
   const [isLogged, setIsLogged] = useState<boolean>(() => {
     return !!localStorage.getItem("token");
   });
   const [userFirstName, setUserFirstName] = useState<string | null>(() => {
-    const storedName = localStorage.getItem("userFirstName");
-    return storedName;
+    return localStorage.getItem("userFirstName");
   });
-  const login = (token: string, firstName: string) => {
+  const [userRole, setUserRole] = useState<string>(() => {
+    return localStorage.getItem("userRole") || "client";
+  });
+
+  const login = (token: string, firstName: string, role: string) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userFirstName", firstName);
+    localStorage.setItem("userRole", role);
     setIsLogged(true);
+    setUserFirstName(firstName);
+    setUserRole(role);
   };
+
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userFirstName");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("isAdmin");
+
     setIsLogged(false);
+    setUserFirstName(null);
+    setUserRole("client");
+
+    navigate("/");
   };
 
   return (
@@ -37,6 +56,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         userFirstName,
         setUserFirstName,
+        userRole,
+        setUserRole,
         login,
       }}
     >
