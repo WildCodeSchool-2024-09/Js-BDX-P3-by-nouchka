@@ -1,30 +1,30 @@
 import { useState } from "react";
-import "../Register/style.css";
-import { useAddressForm } from "../AddressForm/logic.tsx";
+import { useOrderForm } from "./logic";
 
 export default function AddressRegister() {
   const [sameAsShipping, setSameAsShipping] = useState(true);
   const {
     shippingAddress,
     billingAddress,
-    setShippingAddress,
+    setBillingAddress,
     error,
+    isSubmitting,
     handleChangeShipping,
     handleChangeBilling,
-    handleSubmitAddressInfos,
-  } = useAddressForm();
+    handleSubmit,
+  } = useOrderForm();
 
   const handleCheckboxChange = () => {
     setSameAsShipping(!sameAsShipping);
     if (!sameAsShipping) {
-      setShippingAddress({ ...billingAddress });
+      setBillingAddress(shippingAddress);
     }
   };
 
   return (
     <>
       <h2 className="titleForm">Adresse de livraison</h2>
-      <form className="registerForm" onSubmit={handleSubmitAddressInfos}>
+      <form className="registerForm" onSubmit={handleSubmit}>
         <label htmlFor="shipping-street-number" className="registerPassword">
           <input
             id="shipping-street-number"
@@ -49,14 +49,14 @@ export default function AddressRegister() {
             placeholder="Nom de voie..."
           />
         </label>
-        <label htmlFor="shipping-postalCode" className="registerPassword">
+        <label htmlFor="shipping-postal_code" className="registerPassword">
           <input
-            id="shipping-postalCode"
+            id="shipping-postal_code"
             className="registerAddress"
             required
             type="text"
-            name="postalCode"
-            value={shippingAddress.postalCode}
+            name="postal_code"
+            value={shippingAddress.postal_code}
             onChange={handleChangeShipping}
             placeholder="Code postal..."
           />
@@ -110,14 +110,14 @@ export default function AddressRegister() {
                 placeholder="Nom de voie..."
               />
             </label>
-            <label htmlFor="billing-postalCode" className="registerPassword">
+            <label htmlFor="billing-postal_code" className="registerPassword">
               <input
-                id="billing-postalCode"
+                id="billing-postal_code"
                 className="registerAddress"
                 required
                 type="text"
-                name="postalCode"
-                value={billingAddress.postalCode}
+                name="postal_code"
+                value={billingAddress.postal_code}
                 onChange={handleChangeBilling}
                 placeholder="Code postal..."
               />
@@ -136,8 +136,8 @@ export default function AddressRegister() {
             </label>
           </>
         )}
-        <button className="registerSend" type="submit">
-          valider
+        <button className="registerSend" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "En cours..." : "Valider"}
         </button>
       </form>
     </>
