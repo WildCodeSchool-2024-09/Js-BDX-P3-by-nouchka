@@ -87,19 +87,25 @@ const like: RequestHandler = async (req, res, next) => {
     );
 
     let result: number | boolean;
-
+    let liked: boolean;
     if (jewelry) {
       result = await clientsRepository.unlikeJewelry(jewelry.id);
+      liked = false;
     } else {
       result = await clientsRepository.likeJewelry(clientId, jewelryId);
+      liked = true;
     }
 
     if (result) {
-      res.sendStatus(204);
+      res.sendStatus(200).json({
+        liked,
+        message: liked ? 'Bijou liké' : 'Like retiré'
+      });
     } else {
-      res.sendStatus(404);
+      res.sendStatus(404).json({ message: 'Erreur lors de la gestion du like'});
     }
   } catch (err) {
+    console.error ('Errur lors du like:', err)
     next(err);
   }
 };

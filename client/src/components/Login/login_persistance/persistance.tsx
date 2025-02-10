@@ -9,7 +9,7 @@ interface AuthContextType {
   logout: () => void;
   userFirstName: string | null;
   setUserFirstName: (value: string) => void;
-  login: (token: string, firstName: string, role: string) => void;
+  login: (token: string, firstName: string, role: string, userId: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -26,10 +26,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return localStorage.getItem("userRole") || "client";
   });
 
-  const login = (token: string, firstName: string, role: string) => {
+  const login = (token: string, firstName: string, role: string, userId: number) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userFirstName", firstName);
     localStorage.setItem("userRole", role);
+    localStorage.setItem("userId", userId.toString());
     setIsLogged(true);
     setUserFirstName(firstName);
     setUserRole(role);
@@ -40,6 +41,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("userFirstName");
     localStorage.removeItem("userRole");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("userId");
 
     setIsLogged(false);
     setUserFirstName(null);

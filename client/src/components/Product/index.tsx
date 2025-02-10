@@ -7,6 +7,7 @@ import LikesButton from "../Likes/likes";
 import CarouselProduct from "../Product/Carousel_Product";
 import ProductDesktop from "./Product_desktop";
 
+
 export default function Product({ jewelryId }: JewelryProps) {
   const { id } = useParams();
   const [data, setData] = useState<Jewelry | null>(null);
@@ -62,7 +63,8 @@ export default function Product({ jewelryId }: JewelryProps) {
   } else {
     urls = [];
   }
-
+  console.log('data:', data);
+  console.log('data.id:', data.id);
   return (
     <section className="product">
       {isMobile ? (
@@ -77,7 +79,9 @@ export default function Product({ jewelryId }: JewelryProps) {
         />
       )}
       <section className="containerTitleProduct">
-        <LikesButton className="likesProduct" />
+      {data && data.id && (
+          <LikesButton className="likesProduct" jewelryId={Number(data.id)} />
+        )}
         <h2 className="titleProduct">{data.name}</h2>
       </section>
       <p className="typeProduct">{data.type}</p>

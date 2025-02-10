@@ -60,4 +60,8 @@ router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
 
+router.get("/api/clients/likes", clientsActions.like);
+router.post("/api/clients/:clientId/jewelry/:jewelryId/likes", authMiddleware.verifyToken, clientsActions.like);
+router.delete("/api/clients/likes/:id", clientsActions.like);
+
 export default router;
