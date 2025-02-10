@@ -170,7 +170,6 @@ export default function BackOfficePageHome() {
 
       if (response.ok) {
         setUrlIllustration(data.fileUrl);
-        await handleSave();
         setFile(null);
       } else {
         alert(`Erreur lors de l'upload : ${data.error}`);
