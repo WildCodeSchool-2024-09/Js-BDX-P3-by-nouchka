@@ -14,6 +14,7 @@ import Upcycling from "./pages/Upcycling";
 import ProtectedRoute from "../src/components/ProtectedRoute"; // Add this line to import ProtectedRoute
 // Import the main app component
 import App from "./App";
+import AddressRegister from "./components/AddressForm/index";
 import Cart from "./components/Cart/Cart";
 import RegisterBlock from "./components/Register";
 import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
@@ -28,12 +29,11 @@ import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
+import Cancel from "./pages/Payment-Redirections/CancelPayment";
+import Success from "./pages/Payment-Redirections/SuccessPayment";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
-import OrderForm from "./pages/Order-Form/orderForm";
-import Success from "./pages/Payment-Redirections/SuccessPayment";
-import Cancel from "./pages/Payment-Redirections/CancelPayment";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <OrderForm />,
+        element: <AddressRegister />,
       },
       {
         path: "/paymentSuccess",

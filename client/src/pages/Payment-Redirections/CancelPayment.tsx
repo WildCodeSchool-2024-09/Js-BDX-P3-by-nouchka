@@ -1,17 +1,8 @@
 import "./style.css";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Cancel() {
   const navigate = useNavigate();
-  const queryParams = new URLSearchParams(window.location.search);
-  const sessionId = queryParams.get("session_id");
-
-  useEffect(() => {
-    localStorage.removeItem("cart");
-    if (sessionId) {
-    }
-  }, [sessionId]);
 
   return (
     <section>

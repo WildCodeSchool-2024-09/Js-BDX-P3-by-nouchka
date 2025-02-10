@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import databaseClient from "../../database/client";
+import databaseClient, { type Rows } from "../../database/client";
 
 type JewelryOrder = {
   id: number;
@@ -13,36 +13,39 @@ const orderVerify = {
     next: NextFunction,
   ) => {
     if (!req.body.jewelries || !Array.isArray(req.body.jewelries)) {
-      return res.status(400).json("Jewelry items are missing or invalid.");
+      res.status(400).json("Jewelry items are missing or invalid.");
+      return;
     }
 
     const jewelryOrders: JewelryOrder[] = req.body.jewelries;
 
     try {
       for (const order of jewelryOrders) {
-        const [jewelry] = await databaseClient.execute(
+        const [jewelry] = await databaseClient.execute<Rows>(
           `SELECT stock FROM jewelry
            WHERE id = ?`,
           [order.id],
         );
 
         if (!jewelry || !jewelry[0]) {
-          return res.status(400).json(`Jewelry with id ${order.id} not found.`);
+          res.status(400).json(`Jewelry with id ${order.id} not found.`);
+          return;
         }
 
         if (jewelry[0].stock < order.quantity) {
-          return res
+          res
             .status(400)
             .json(
               `Insufficient stock for jewelry id ${order.id}. Available: ${jewelry[0].stock}, Requested: ${order.quantity}`,
             );
+          return;
         }
       }
 
-      return next();
+      next();
     } catch (err) {
       console.error("Error while verifying quantities:", err);
-      return res.status(500).json("Error while verifying order quantities.");
+      res.status(500).json("Error while verifying order quantities.");
     }
   },
 
@@ -54,50 +57,51 @@ const orderVerify = {
     try {
       const orderId = req.body.orderId;
 
-      const [orders] = await databaseClient.execute(
+      const [orders] = await databaseClient.execute<Rows>(
         `SELECT * FROM orders 
         WHERE id = ?`,
         [orderId],
       );
 
       if (!orders || !orders[0]) {
-        return res.status(400).json("Order not found.");
+        res.status(400).json("Order not found.");
+        return;
       }
 
       const order = orders[0];
 
-      const [billingAddress] = await databaseClient.execute(
+      const [billingAddress] = await databaseClient.execute<Rows>(
         `SELECT * FROM billing_address
          WHERE id = ?`,
         [order.billing_address_id],
       );
 
-      const [shippingAddress] = await databaseClient.execute(
+      const [shippingAddress] = await databaseClient.execute<Rows>(
         `SELECT * FROM shipping_address 
         WHERE id = ?`,
         [order.shipping_address_id],
       );
 
       if (!billingAddress[0] || !shippingAddress[0]) {
-        return res
-          .status(400)
-          .json("Order addresses are missing or incomplete.");
+        res.status(400).json("Order addresses are missing or incomplete.");
+        return;
       }
 
-      const [jewelryOrders] = await databaseClient.execute(
+      const [jewelryOrders] = await databaseClient.execute<Rows>(
         `SELECT * FROM jewelry_orders
          WHERE orders_id = ?`,
         [orderId],
       );
 
       if (!jewelryOrders || jewelryOrders.length === 0) {
-        return res.status(400).json("No jewelry items found in the order.");
+        res.status(400).json("No jewelry items found in the order.");
+        return;
       }
 
-      return next();
+      next();
     } catch (err) {
       console.error("Error verifying order:", err);
-      return res.status(500).json("Error while verifying order insertion.");
+      res.status(500).json("Error while verifying order insertion.");
     }
   },
 };

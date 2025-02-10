@@ -1,5 +1,7 @@
 import express from "express";
 import authMiddleware from "../src/Middleware/authMiddleware";
+import paymentActions from "./Middleware/StripePaymentSession";
+import orderVerify from "./Middleware/orderCheckoutSession";
 import upload from "./Middleware/upload";
 import adminActions from "./modules/admin/adminActions";
 import clientsActions from "./modules/clients/clientsActions";
@@ -7,8 +9,6 @@ import eventActions from "./modules/event/eventActions";
 import jewelryActions from "./modules/jewelry/jewelryActions";
 import orderActions from "./modules/order/orderActions";
 import pagesActions from "./modules/pages/pagesActions";
-import paymentActions from "./Middleware/StripePaymentSession";
-import orderVerify from "./Middleware/orderCheckoutSession";
 
 const router = express.Router();
 
@@ -22,9 +22,13 @@ router.get("/api/pages/:name", pagesActions.read);
 router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
-router.post("/api/auth/login", authMiddleware.login); // Pas d'auth pour login
+router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
+router.get("/api/orders/:id", orderActions.read);
+router.get("/api/orders", orderActions.browse);
+router.post("/api/auth/login", authMiddleware.login);
+
 router.post(
-  "api/orders",
+  "/api/orders",
   orderVerify.verifyJewelryQuantity,
   orderActions.add,
   orderVerify.verifyOrderInsertion,
@@ -67,17 +71,9 @@ router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
-router.get("/api/orders", orderActions.browse);
-router.get("/api/orders/:id", orderActions.read);
 router.put("/api/orders/:id", orderActions.edit);
 router.delete("/api/orders/:id", orderActions.destroy);
 
-router.get("/api/orders", orderActions.browse);
-router.get("/api/orders/:id", orderActions.read);
-router.put("/api/orders/:id", orderActions.edit);
-router.delete("/api/orders/:id", orderActions.destroy);
-
-router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);

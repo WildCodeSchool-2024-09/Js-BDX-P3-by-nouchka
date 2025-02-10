@@ -17,14 +17,14 @@ const paymentActions = {
       const cart = req.body.cart;
 
       if (!cart || cart.length === 0) {
-        return res.status(400).json({ error: "Le panier est vide" });
+        res.status(400).json({ error: "Le panier est vide" });
+        return;
       }
 
       for (const item of cart) {
         if (!item.price || !item.quantity || item.quantity <= 0) {
-          return res
-            .status(400)
-            .json({ error: `Invalid item in cart: ${item.name}` });
+          res.status(400).json({ error: `Invalid item in cart: ${item.name}` });
+          return;
         }
       }
 
@@ -41,9 +41,8 @@ const paymentActions = {
       }));
 
       if (!process.env.CLIENT_URL) {
-        return res
-          .status(500)
-          .json({ error: "CLIENT_URL is not defined in .env" });
+        res.status(500).json({ error: "CLIENT_URL is not defined in .env" });
+        return;
       }
 
       const session = await stripe.checkout.sessions.create({
@@ -68,7 +67,8 @@ const paymentActions = {
       );
 
       if (!session) {
-        return res.status(404).json({ error: "Session not found" });
+        res.status(404).json({ error: "Session not found" });
+        return;
       }
 
       res.json({ status: session.payment_status });
