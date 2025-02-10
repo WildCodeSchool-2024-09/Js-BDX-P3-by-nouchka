@@ -56,7 +56,7 @@ export default function RegisteurBlock() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Votre mots de passe..."
+            placeholder="Votre mot de passe..."
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}
