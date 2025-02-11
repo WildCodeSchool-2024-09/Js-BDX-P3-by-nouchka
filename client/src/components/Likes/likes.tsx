@@ -1,13 +1,13 @@
 import useLikes from "../Likes/likesLogic";
 import "./style.css";
 import "../Product/style.css";
-import LikesButtonProps from "../../types/Likes";
+import type LikesButtonProps from "../../types/Likes";
 
 export default function LikesButton({
   className,
   jewelryId,
 }: LikesButtonProps) {
-  if (typeof jewelryId !== "number" || isNaN(jewelryId)) {
+  if (typeof jewelryId !== "number" || !Number.isFinite(jewelryId)) {
     console.error("jewelryId invalide:", jewelryId);
     return null;
   }

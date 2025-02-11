@@ -1,4 +1,4 @@
-import type { Request, Response, RequestHandler } from "express";
+import type { Request, RequestHandler, Response } from "express";
 
 import clientsRepository from "./clientsRepository";
 
@@ -125,11 +125,10 @@ const getClientLikes: RequestHandler = async (req, res, next) => {
 };
 const unlike = async (req: Request, res: Response) => {
   try {
-    const clientId = parseInt(req.params.clientId, 10);
-    const jewelryId = parseInt(req.params.jewelryId, 10);
+    const clientId = Number.parseInt(req.params.clientId, 10);
+    const jewelryId = Number.parseInt(req.params.jewelryId, 10);
 
-    // Vérifiez que les IDs sont valides
-    if (isNaN(clientId) || isNaN(jewelryId)) {
+    if ((clientId) || (jewelryId)) {
       return res.status(400).json({ message: "Invalid client or jewelry ID" });
     }
 
@@ -155,5 +154,5 @@ export default {
   like,
   getLikeStatus,
   getClientLikes,
-  unlike,
+  unlike
 };
