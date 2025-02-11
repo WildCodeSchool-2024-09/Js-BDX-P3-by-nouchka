@@ -1,0 +1,110 @@
+.cartTitle {
+  font-family: var(--titleFont);
+  font-size: large;
+  color: var(--primaryColor);
+  margin-bottom: 1rem;
+}
+.item {
+  font-family: var(--textFont);
+  font-size: medium;
+  text-align: center;
+}
+.delete-item {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-self: center;
+}
+.delete-item:hover {
+  background-color: var(--primaryColor);
+}
+.delete-item:active {
+  background-color: var(--primaryColor);
+}
+.validate-cart {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-self: center;
+}
+.validate-cart:hover {
+  background-color: var(--primaryColor);
+}
+.validate-cart:active {
+  background-color: var(--primaryColor);
+}
+.reduceQuantity {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  margin: 1rem;
+}
+.reduceQuantity:hover {
+  background-color: var(--primaryColor);
+}
+.reduceQuantity:active {
+  background-color: var(--primaryColor);
+}
+
+.addQuantity {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  margin: 1rem;
+}
+.addQuantity:hover {
+  background-color: var(--primaryColor);
+}
+.addQuantity:active {
+  background-color: var(--primaryColor);
+}
+.img-cart {
+  width: 100px;
+  border-radius: 5px;
+  display: flex;
+  justify-self: center;
+}
+.block-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-total {
+  margin: 1rem 0;
+  font-family: var(--textFont);
+  color: var(--primaryColor);
+}
+@media screen and (min-width: 768px) {
+  .cartContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 1rem;
+  }
+  .delete-item {
+    height: min-content;
+    align-self: center;
+    margin-top: 1rem;
+  }
+  .item {
+    align-self: center;
+  }
+  .quantityButtons {
+    align-self: center;
+  }
+}
