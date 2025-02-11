@@ -1,4 +1,3 @@
-import { Delete, Save, Upload } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -7,18 +6,21 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Stack,
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./style.css";
+import EventCard from "./EventCard";
+
+export type Event = {
+  id: number;
+  name: string;
+  location: string;
+  date: string;
+  description: string;
+  url: string;
+};
 
 export default function BackOfficePageAbout() {
   const [title, setTitle] = useState<string>("");
@@ -28,17 +30,22 @@ export default function BackOfficePageAbout() {
   const [file, setFile] = useState<File | null>(null);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-  type Event = {
-    id: number;
-    location: string;
-    date: string;
-    description: string;
-    url: string;
-  };
-
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/pages/about`)
-      .then((response) => response.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No authentication");
+      return;
+    }
+
+    fetch(`${import.meta.env.VITE_API_URL}/api/pages/about`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unauthorized");
+        return response.json();
+      })
       .then((data) => {
         setTitle(data.title || "");
         setDescription(data.description || "");
@@ -48,8 +55,15 @@ export default function BackOfficePageAbout() {
         console.error("Erreur lors du fetch de la page:", error),
       );
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/events`)
-      .then((response) => response.json())
+    fetch(`${import.meta.env.VITE_API_URL}/api/events`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unauthorized");
+        return response.json();
+      })
       .then((data) => setRows(data))
       .catch((error) =>
         console.error("Erreur lors du fetch des événements:", error),
@@ -57,24 +71,66 @@ export default function BackOfficePageAbout() {
   }, []);
 
   const handleRowChange = (id: number, field: keyof Event, value: string) => {
-    setRows((prevRows) =>
-      prevRows.map((row) => (row.id === id ? { ...row, [field]: value } : row)),
-    );
+    setRows((prevRows) => {
+      const updatedRows = prevRows.map((row) =>
+        row.id === id ? { ...row, [field]: value } : row,
+      );
+      return updatedRows;
+    });
   };
 
-  const handleAddRow = () => {
-    setRows([
-      ...rows,
-      { id: Date.now(), location: "", date: "", description: "", url: "" },
-    ]);
+  const handleAddRow = async () => {
+    const newRow = {
+      name: "",
+      location: "",
+      date: "",
+      description: "",
+      url: "",
+    };
+
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRow),
+      });
+
+      if (response.ok) {
+        const addedEvent = await response.json();
+        // Ajoutez l'ID dans l'état après l'ajout de l'événement
+        setRows([
+          ...rows,
+          {
+            ...newRow,
+            id: addedEvent.id, // L'ID généré par la base de données
+          },
+        ]);
+      } else {
+        console.error("Failed to add event");
+      }
+    } catch (error) {
+      console.error("Error adding event:", error);
+    }
   };
 
   const handleDeleteRow = async (id: number) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/events/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         },
       );
 
@@ -82,34 +138,67 @@ export default function BackOfficePageAbout() {
         throw new Error("Erreur lors de la suppression.");
       }
 
-      setRows(rows.filter((row) => row.id !== id));
+      setRows((prevRows) => prevRows.filter((row) => row.id !== id));
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
     }
   };
 
   const handleUpdateRow = async (event: Event) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
+    const cleanedEvent: Partial<Event> = {};
+
+    if (event.name !== undefined) cleanedEvent.name = event.name || "";
+    if (event.location !== undefined)
+      cleanedEvent.location = event.location || "";
+    if (event.description !== undefined)
+      cleanedEvent.description = event.description || "";
+    if (event.url !== undefined) cleanedEvent.url = event.url || "";
+
+    if (event.date) {
+      try {
+        cleanedEvent.date = new Date(event.date).toISOString().split("T")[0];
+      } catch {
+        cleanedEvent.date = "";
+      }
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/events/${event.id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(event),
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cleanedEvent),
         },
       );
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la mise à jour.");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erreur lors de la mise à jour");
       }
 
       alert("Événement mis à jour !");
     } catch (error) {
       console.error("Erreur lors de la mise à jour :", error);
+      alert(error);
     }
   };
 
   const handleFileUpload = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
     if (!file) return;
 
     const formData = new FormData();
@@ -121,6 +210,9 @@ export default function BackOfficePageAbout() {
         `${import.meta.env.VITE_API_URL}/api/pages/upload`,
         {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           body: formData,
         },
       );
@@ -138,6 +230,11 @@ export default function BackOfficePageAbout() {
   };
 
   const handleDeleteImage = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
     if (!urlIllustration) return;
 
     try {
@@ -145,7 +242,10 @@ export default function BackOfficePageAbout() {
         `${import.meta.env.VITE_API_URL}/api/pages/delete-image`,
         {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({ filePath: urlIllustration, name: "about" }),
         },
       );
@@ -155,23 +255,30 @@ export default function BackOfficePageAbout() {
         alert("Image supprimée !");
         setUrlIllustration("");
         setFile(null);
-        (document.getElementById("fileInput") as HTMLInputElement).value = "";
       } else {
         alert(`Erreur : ${data.error || "Problème inconnu"}`);
       }
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
-      alert("Une erreur est survenue, veuillez réessayer.");
     }
   };
 
   const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/pages/about`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             title,
             description,
@@ -189,6 +296,45 @@ export default function BackOfficePageAbout() {
       setOpenDialog(false);
     } catch (error) {
       console.error("Erreur lors de la sauvegarde :", error);
+    }
+  };
+
+  const handleEventImageUpload = async (id: number, file: File | null) => {
+    if (!file) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Vous devez être connecté");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/events/${id}/image`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        },
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        setRows((prevRows) =>
+          prevRows.map((row) =>
+            row.id === id ? { ...row, url: data.imageUrl } : row,
+          ),
+        );
+      } else {
+        alert(`Erreur lors de l'upload : ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'upload :", error);
     }
   };
 
@@ -243,72 +389,18 @@ export default function BackOfficePageAbout() {
         </Box>
       )}
 
-      <TableContainer component={Paper} className="table-container">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Lieu</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Photo</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>
-                  <TextField
-                    value={row.location}
-                    onChange={(e) =>
-                      handleRowChange(row.id, "location", e.target.value)
-                    }
-                    fullWidth
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    type="date"
-                    value={row.date ? row.date.split("T")[0] : ""}
-                    onChange={(e) =>
-                      handleRowChange(row.id, "date", e.target.value)
-                    }
-                    fullWidth
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    value={row.description}
-                    onChange={(e) =>
-                      handleRowChange(row.id, "description", e.target.value)
-                    }
-                    fullWidth
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button variant="contained" startIcon={<Upload />}>
-                    Charger
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleUpdateRow(row)}
-                  >
-                    <Save />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDeleteRow(row.id)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Stack direction="column" spacing={2}>
+        {rows.map((row) => (
+          <EventCard
+            key={row.id}
+            row={row}
+            onDelete={handleDeleteRow}
+            onSave={handleUpdateRow}
+            onChange={handleRowChange}
+            onFileUpload={handleEventImageUpload}
+          />
+        ))}
+      </Stack>
 
       <Button variant="outlined" onClick={handleAddRow}>
         Ajouter un événement

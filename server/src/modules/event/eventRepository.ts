@@ -138,6 +138,31 @@ class EventsRepository {
 
     return result.affectedRows;
   }
+
+  async updateImage(eventId: number, imageUrl: string): Promise<void> {
+    const connection = await databaseClient.getConnection();
+    try {
+      await connection.beginTransaction();
+
+      const [result] = await connection.execute<Result>(
+        `UPDATE photos 
+         SET URL = ?
+         WHERE id = (SELECT photos_id FROM photos_events WHERE events_id = ?)`,
+        [imageUrl, eventId],
+      );
+
+      if (result.affectedRows === 0) {
+        throw new Error("Échec de la mise à jour de l'image.");
+      }
+
+      await connection.commit();
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
 }
 
 export default new EventsRepository();
