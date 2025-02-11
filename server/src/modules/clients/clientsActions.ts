@@ -128,7 +128,7 @@ const unlike = async (req: Request, res: Response) => {
     const clientId = Number.parseInt(req.params.clientId, 10);
     const jewelryId = Number.parseInt(req.params.jewelryId, 10);
 
-    if ((clientId) || (jewelryId)) {
+    if (clientId || jewelryId) {
       return res.status(400).json({ message: "Invalid client or jewelry ID" });
     }
 
@@ -154,5 +154,5 @@ export default {
   like,
   getLikeStatus,
   getClientLikes,
-  unlike
+  unlike,
 };
