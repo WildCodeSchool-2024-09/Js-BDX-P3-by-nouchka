@@ -115,7 +115,41 @@ class ClientsRepository {
     );
     return result.affectedRows;
   }
+  async getClientLikes(clientId: number) {
+    const [rows] = await databaseClient.execute<Rows>(
+      `SELECT DISTINCT j.*, 
+                (SELECT p.URL 
+                 FROM photos p 
+                 INNER JOIN photos_jewelry pj ON p.id = pj.photos_id 
+                 WHERE pj.jewelry_id = j.id 
+                 LIMIT 1) as URL
+            FROM likes l
+            INNER JOIN jewelry j ON l.jewelry_id = j.id 
+            WHERE l.clients_id = ?
+            GROUP BY j.id`,
+      [clientId]
+    );
+    return rows;
+  }
+  async removeLike(clientId: number, jewelryId: number) {
+    const [like] = await databaseClient.execute<Rows>(
+        `SELECT id FROM likes 
+         WHERE clients_id = ? AND jewelry_id = ?`,
+        [clientId, jewelryId]
+    );
 
+    if (!like || !like[0]) {
+        throw new Error('Like not found');
+    }
+
+    const [result] = await databaseClient.execute<Result>(
+        `DELETE FROM likes 
+         WHERE clients_id = ? AND jewelry_id = ?`,
+        [clientId, jewelryId]
+    );
+
+    return result.affectedRows;
+}
   async delete(clientsID: number) {
     const [rows] = await databaseClient.execute<Result>(
       `DELETE FROM users

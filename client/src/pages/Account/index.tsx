@@ -3,6 +3,7 @@ import "../../App.css";
 import { useAuth } from "../../components/Login/login_persistance/persistance";
 import "./style.css";
 import ClientLogin from "../../components/Login";
+import LikedJewelry from "../../components/Likes/likesAccount";
 
 export default function Account() {
   const { isLogged, userFirstName, logout } = useAuth();
@@ -11,6 +12,7 @@ export default function Account() {
       {isLogged ? (
         <section className="onceConnected">
           <h2 className="hello">Bonjour {userFirstName} 🩷</h2>
+          <LikedJewelry />
           <h2 className="message-account">ça arrive bientôt 😃</h2>
           <button className="btnDisconnection" type="button" onClick={logout}>
             Déconnexion
