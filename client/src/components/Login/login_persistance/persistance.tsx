@@ -9,7 +9,12 @@ interface AuthContextType {
   logout: () => void;
   userFirstName: string | null;
   setUserFirstName: (value: string) => void;
-  login: (token: string, firstName: string, role: string, userId: number) => void;
+  login: (
+    token: string,
+    firstName: string,
+    role: string,
+    userId: number,
+  ) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -26,7 +31,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return localStorage.getItem("userRole") || "client";
   });
 
-  const login = (token: string, firstName: string, role: string, userId: number) => {
+  const login = (
+    token: string,
+    firstName: string,
+    role: string,
+    userId: number,
+  ) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userFirstName", firstName);
     localStorage.setItem("userRole", role);

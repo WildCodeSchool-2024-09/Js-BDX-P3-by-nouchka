@@ -127,29 +127,29 @@ class ClientsRepository {
             INNER JOIN jewelry j ON l.jewelry_id = j.id 
             WHERE l.clients_id = ?
             GROUP BY j.id`,
-      [clientId]
+      [clientId],
     );
     return rows;
   }
   async removeLike(clientId: number, jewelryId: number) {
     const [like] = await databaseClient.execute<Rows>(
-        `SELECT id FROM likes 
+      `SELECT id FROM likes 
          WHERE clients_id = ? AND jewelry_id = ?`,
-        [clientId, jewelryId]
+      [clientId, jewelryId],
     );
 
     if (!like || !like[0]) {
-        throw new Error('Like not found');
+      throw new Error("Like not found");
     }
 
     const [result] = await databaseClient.execute<Result>(
-        `DELETE FROM likes 
+      `DELETE FROM likes 
          WHERE clients_id = ? AND jewelry_id = ?`,
-        [clientId, jewelryId]
+      [clientId, jewelryId],
     );
 
     return result.affectedRows;
-}
+  }
   async delete(clientsID: number) {
     const [rows] = await databaseClient.execute<Result>(
       `DELETE FROM users

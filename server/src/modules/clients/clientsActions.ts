@@ -1,4 +1,4 @@
-import type { Request, Response,RequestHandler } from "express";
+import type { Request, Response, RequestHandler } from "express";
 
 import clientsRepository from "./clientsRepository";
 
@@ -108,13 +108,13 @@ const getLikeStatus: RequestHandler = async (req, res, next) => {
     const clientId = Number(req.params.clientId);
     const jewelryId = Number(req.params.jewelryId);
     const like = await clientsRepository.getLikedJewelry(clientId, jewelryId);
- 
+
     res.json({ isLiked: !!like });
   } catch (err) {
     next(err);
   }
- };
- const getClientLikes: RequestHandler = async (req, res, next) => {
+};
+const getClientLikes: RequestHandler = async (req, res, next) => {
   try {
     const clientId = Number(req.params.clientId);
     const likes = await clientsRepository.getClientLikes(clientId);
@@ -130,23 +130,22 @@ const unlike = async (req: Request, res: Response) => {
 
     // Vérifiez que les IDs sont valides
     if (isNaN(clientId) || isNaN(jewelryId)) {
-        return res.status(400).json({ message: "Invalid client or jewelry ID" });
+      return res.status(400).json({ message: "Invalid client or jewelry ID" });
     }
 
     const like = await clientsRepository.getLikedJewelry(clientId, jewelryId);
-    
+
     if (!like) {
-        return res.status(404).json({ message: "Like not found" });
+      return res.status(404).json({ message: "Like not found" });
     }
 
     await clientsRepository.unlikeJewelry(like.id);
     return res.status(200).json({ message: "Like successfully removed" });
-
-} catch (err) {
+  } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
-}
-}
+  }
+};
 export default {
   browse,
   read,
@@ -156,5 +155,5 @@ export default {
   like,
   getLikeStatus,
   getClientLikes,
-  unlike
+  unlike,
 };

@@ -60,8 +60,10 @@ router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
 router.post("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.like);
-router.get("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.getLikeStatus);
+router.get(
+  "/api/clients/:clientId/jewelry/:jewelryId",
+  clientsActions.getLikeStatus,
+);
 router.get("/api/clients/:clientId/likes", clientsActions.getClientLikes);
-
 
 export default router;

@@ -35,8 +35,8 @@ export default function ClientLogin({
       });
 
       const data = await response.json();
-      console.log('Data from login response:', data); // Ajouté
-      console.log('User info:', data.user);; 
+      console.log("Data from login response:", data); // Ajouté
+      console.log("User info:", data.user);
       if (!response.ok) {
         throw new Error("Erreur de connexion");
       }
@@ -44,7 +44,7 @@ export default function ClientLogin({
       const [, payload] = data.token.split(".");
       const decodedPayload = JSON.parse(atob(payload));
       const isUserAdmin = decodedPayload.isAdmin;
-      console.log('Decoded payload:', decodedPayload);
+      console.log("Decoded payload:", decodedPayload);
       if (isAdmin && !isUserAdmin) {
         setError("Vous n'avez pas les droits administrateur");
         return;
@@ -53,11 +53,12 @@ export default function ClientLogin({
       const role = isUserAdmin ? "admin" : "client";
 
       login(data.token, data.user.firstname, role, data.user.id);
-      console.log('LocalStorage after login:', { // Ajouté
-        token: localStorage.getItem('token'),
-        userId: localStorage.getItem('userId'),
-        firstName: localStorage.getItem('userFirstName'),
-        role: localStorage.getItem('userRole')
+      console.log("LocalStorage after login:", {
+        // Ajouté
+        token: localStorage.getItem("token"),
+        userId: localStorage.getItem("userId"),
+        firstName: localStorage.getItem("userFirstName"),
+        role: localStorage.getItem("userRole"),
       });
       setError("");
       setEmailError(undefined);
