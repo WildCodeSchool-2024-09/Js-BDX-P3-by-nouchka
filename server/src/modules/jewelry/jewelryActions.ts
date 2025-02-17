@@ -1,7 +1,5 @@
-import type { NextFunction, RequestHandler, Response } from "express";
-import type { MulterRequest } from "../../Middleware/upload";
 import path from "node:path";
-import fs from "node:fs";
+import type { RequestHandler } from "express";
 
 // Import access to data
 import JewelryRepository from "./jewelryRepository";
