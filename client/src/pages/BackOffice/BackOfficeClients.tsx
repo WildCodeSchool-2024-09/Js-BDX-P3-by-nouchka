@@ -1,3 +1,4 @@
+import OrdersList from "../../components/OrdersList/ordersList";
 import { useClients } from "../../services/useClient";
 import type { Clients } from "../../types/clientsData";
 
@@ -13,7 +14,7 @@ const ClientList = () => {
   }
 
   return (
-    <div>
+    <article>
       <h1>Liste des Clients</h1>
       <ul>
         {clients.map((client: Clients) => (
@@ -22,7 +23,8 @@ const ClientList = () => {
           </li>
         ))}
       </ul>
-    </div>
+      <OrdersList />
+    </article>
   );
 };
 

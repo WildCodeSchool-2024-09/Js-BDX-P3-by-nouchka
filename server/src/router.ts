@@ -14,7 +14,6 @@ const router = express.Router();
 
 /* ************************************************************************* */
 // Routes publiques (pas d'authentification requise)
-
 router.get("/api/jewelry", jewelryActions.browse);
 router.get("/api/jewelry/:id", jewelryActions.read);
 router.get("/api/pages", pagesActions.browse);
