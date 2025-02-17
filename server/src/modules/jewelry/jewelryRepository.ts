@@ -86,10 +86,11 @@ class JewelryRepository {
 
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT jewelry.*, photos.URL
-      FROM jewelry
-      INNER JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id
-      INNER JOIN photos ON photos_jewelry.photos_id = photos.id`,
+      `SELECT jewelry.*, MIN(photos.URL) as URL 
+     FROM jewelry 
+     LEFT JOIN photos_jewelry ON jewelry.id = photos_jewelry.jewelry_id 
+     LEFT JOIN photos ON photos_jewelry.photos_id = photos.id 
+     GROUP BY jewelry.id, jewelry.name, jewelry.price, jewelry.type`,
     );
 
     return rows as Jewelry[];

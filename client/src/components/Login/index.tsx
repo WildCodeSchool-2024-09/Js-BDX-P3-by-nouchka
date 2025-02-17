@@ -35,7 +35,6 @@ export default function ClientLogin({
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error("Erreur de connexion");
       }
@@ -43,7 +42,6 @@ export default function ClientLogin({
       const [, payload] = data.token.split(".");
       const decodedPayload = JSON.parse(atob(payload));
       const isUserAdmin = decodedPayload.isAdmin;
-
       if (isAdmin && !isUserAdmin) {
         setError("Vous n'avez pas les droits administrateur");
         return;
@@ -51,7 +49,7 @@ export default function ClientLogin({
 
       const role = isUserAdmin ? "admin" : "client";
 
-      login(data.token, data.user.firstname, role);
+      login(data.token, data.user.firstname, role, data.user.id);
       setError("");
       setEmailError(undefined);
 
@@ -106,7 +104,7 @@ export default function ClientLogin({
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Votre mots de passe..."
+            placeholder="Votre mot de passe..."
           />
         </label>
         {error && <p className="errorMessage">{error}</p>}
