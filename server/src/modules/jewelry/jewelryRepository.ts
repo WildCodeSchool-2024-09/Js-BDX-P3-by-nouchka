@@ -9,7 +9,7 @@ type Jewelry = {
   description: string;
   name: string;
   price: number;
-  url: string;
+  url: string | null;
 };
 
 class JewelryRepository {
