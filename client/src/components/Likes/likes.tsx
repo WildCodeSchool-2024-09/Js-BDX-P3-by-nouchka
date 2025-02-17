@@ -23,7 +23,7 @@ export default function LikesButton({
       aria-label={ariaLabel}
       disabled={isLoading}
     >
-      {likes ? "🩷" : "🖤"}
+      {likes ? "🩷" : "🤍"}
     </button>
   );
 }
