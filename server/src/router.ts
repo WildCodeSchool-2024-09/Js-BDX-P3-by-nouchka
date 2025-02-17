@@ -1,5 +1,6 @@
 import express from "express";
 import authMiddleware from "../src/Middleware/authMiddleware";
+import mailjet from "./Middleware/mailJet";
 import upload from "./Middleware/upload";
 import adminActions from "./modules/admin/adminActions";
 import clientsActions from "./modules/clients/clientsActions";
@@ -61,5 +62,7 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+
+router.post("/api/mails", mailjet.sendEmail);
 
 export default router;
