@@ -73,7 +73,7 @@ export default function BackOfficeProductsManagement() {
       formData.append("type", type);
       formData.append("description", description);
       formData.append("price", price);
-      formData.append("stock", stock);
+      formData.append("stock", stock.toString());
       formData.append("image", file);
 
       const response = await fetch(
