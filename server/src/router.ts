@@ -24,16 +24,11 @@ router.post("/api/auth/login", authMiddleware.login); // Pas d'auth pour login
 
 /* ************************************************************************* */
 // Middleware de protection par token
-router.use(authMiddleware.verifyToken); // Protection de toutes les routes suivantes
+// router.use(authMiddleware.verifyToken); // Protection de toutes les routes suivantes
 
 /* ************************************************************************* */
 // Routes protégées (nécessitant un token)
 router.put("/api/pages/:name", pagesActions.edit);
-router.post(
-  "/api/pages/upload",
-  upload.single("image"),
-  pagesActions.uploadImage,
-);
 router.delete("/api/pages/delete-image", pagesActions.deleteImage);
 router.put("/api/pages/:name/jewelry", pagesActions.updateWithJewelry);
 
@@ -42,9 +37,11 @@ router.put("/api/events/:id", eventActions.edit);
 router.delete("/api/events/:id", eventActions.destroy);
 
 router.get("/api/admins", adminActions.browse);
-router.post("/api/jewelry", jewelryActions.add);
-router.put("/api/jewelry/:id", jewelryActions.edit);
+router.post("/api/jewelry", upload.single("image"), jewelryActions.add);
+
+// router.delete("/api/jewelry/delete-image", jewelryActions.deleteImage);
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
+router.put("/api/jewelry/:id", jewelryActions.edit);
 
 router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
