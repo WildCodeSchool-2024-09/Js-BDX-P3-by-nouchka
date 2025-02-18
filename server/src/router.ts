@@ -24,7 +24,7 @@ router.get("/api/events/:id", eventActions.read);
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.get("/api/orders/:id", orderActions.read);
 router.get("/api/orders", orderActions.browse);
-router.post("/api/auth/login", authMiddleware.login); // Pas d'auth pour login
+router.post("/api/auth/login", authMiddleware.login);
 
 router.post(
   "/api/orders",

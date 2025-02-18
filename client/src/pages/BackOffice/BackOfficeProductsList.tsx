@@ -2,6 +2,11 @@ import {
   Alert,
   Button,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -17,6 +22,10 @@ export default function BackOfficeProductsList() {
   const [jewelryList, setJewelryList] = useState<Jewelry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedJewelryId, setSelectedJewelryId] = useState<number | null>(
+    null,
+  );
 
   const token = localStorage.getItem("token");
 
@@ -47,7 +56,7 @@ export default function BackOfficeProductsList() {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError("An unknown error occurred.");
+          setError("Une erreur inconnue est survenue.");
         }
       } finally {
         setLoading(false);
@@ -57,15 +66,17 @@ export default function BackOfficeProductsList() {
     fetchJewelry();
   }, [token]);
 
-  const deleteJewelry = async (id: string | number) => {
-    if (!token) {
-      alert("Vous devez être connecté pour effectuer cette action.");
-      return;
-    }
+  const handleOpenDialog = (id: number) => {
+    setSelectedJewelryId(id);
+    setOpenDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedJewelryId === null || !token) return;
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/jewelry/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/jewelry/${selectedJewelryId}`,
         {
           method: "DELETE",
           headers: {
@@ -75,14 +86,18 @@ export default function BackOfficeProductsList() {
       );
 
       if (response.ok) {
-        setJewelryList((prevList) => prevList.filter((item) => item.id !== id));
-        alert("Bijou supprimé avec succès.");
+        setJewelryList((prevList) =>
+          prevList.filter((item) => item.id !== selectedJewelryId),
+        );
       } else {
         throw new Error("Impossible de supprimer le bijou.");
       }
     } catch (err) {
       console.error("Erreur lors de la suppression du bijou :", err);
       alert("Une erreur est survenue lors de la suppression.");
+    } finally {
+      setOpenDialog(false);
+      setSelectedJewelryId(null);
     }
   };
 
@@ -116,7 +131,7 @@ export default function BackOfficeProductsList() {
                   <Button
                     variant="contained"
                     color="error"
-                    onClick={() => deleteJewelry(jewelry.id)}
+                    onClick={() => handleOpenDialog(jewelry.id)}
                   >
                     Supprimer
                   </Button>
@@ -126,6 +141,26 @@ export default function BackOfficeProductsList() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Confirmer la suppression</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Voulez-vous vraiment supprimer ce bijou de votre catalogue ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="inherit">
+            Annuler
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            color="primary"
+            variant="contained"
+          >
+            Confirmer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

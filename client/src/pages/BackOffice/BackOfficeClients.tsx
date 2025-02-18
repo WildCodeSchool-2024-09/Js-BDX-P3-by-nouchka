@@ -1,4 +1,3 @@
-import OrdersList from "../../components/OrdersList/ordersList";
 import { useClients } from "../../services/useClient";
 import type { Clients } from "../../types/clientsData";
 
@@ -23,7 +22,6 @@ const ClientList = () => {
           </li>
         ))}
       </ul>
-      <OrdersList />
     </article>
   );
 };

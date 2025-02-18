@@ -95,7 +95,6 @@ export default function BackOfficeProductsManagement() {
 
       resetForm();
       setOpenDialog(false);
-      alert("Bijou ajouté avec succès !");
     } catch (err) {
       setError("Une erreur est survenue lors de l'ajout du bijou!");
     } finally {
