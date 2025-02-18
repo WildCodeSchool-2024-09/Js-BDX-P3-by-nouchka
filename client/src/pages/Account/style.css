@@ -72,9 +72,3 @@
   text-decoration: underline;
   text-decoration-color: var(--primaryColor);
 }
-
-.message-account {
-  font-family: var(--textFont);
-  color: var(--textColor);
-  margin: calc(var(--spacing) * 3);
-}

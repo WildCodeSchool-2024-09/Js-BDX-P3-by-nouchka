@@ -7,6 +7,10 @@
   font-size: x-large;
   cursor: pointer;
 }
+.favoriteJewelry {
+  font-family: var(--titleFont);
+  font-size: larger;
+}
 
 @media screen and (min-width: 768px) {
   .likesButton {

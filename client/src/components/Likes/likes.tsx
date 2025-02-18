@@ -1,21 +1,29 @@
-import { useState } from "react";
+import useLikes from "../Likes/likesLogic";
 import "./style.css";
 import "../Product/style.css";
+import type LikesButtonProps from "../../types/Likes";
 
-interface LikesButtonProps {
-  className?: string;
-}
-export default function LikesButton({ className }: LikesButtonProps) {
-  const [likes, setLikes] = useState(false);
+export default function LikesButton({
+  className,
+  jewelryId,
+}: LikesButtonProps) {
+  if (typeof jewelryId !== "number" || !Number.isFinite(jewelryId)) {
+    console.error("jewelryId invalide:", jewelryId);
+    return null;
+  }
+
+  const { likes, isLoading, handleLikeClick } = useLikes(jewelryId);
   const ariaLabel = likes ? "Ajouter un like" : "supprimer un likes";
+
   return (
     <button
       type="button"
-      className={`likesButton ${className}`}
-      onClick={() => setLikes(!likes)}
+      className={`likesButton ${className || ""} ${isLoading ? "loading" : ""}`}
+      onClick={handleLikeClick}
       aria-label={ariaLabel}
+      disabled={isLoading}
     >
-      {likes ? "🩷" : "🖤"}
+      {likes ? "🩷" : "🤍"}
     </button>
   );
 }
