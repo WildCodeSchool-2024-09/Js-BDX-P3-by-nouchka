@@ -73,7 +73,7 @@ export default function BackOfficeProductsManagement() {
       formData.append("type", type);
       formData.append("description", description);
       formData.append("price", price);
-      formData.append("stock", stock);
+      formData.append("stock", stock.toString());
       formData.append("image", file);
 
       const response = await fetch(
@@ -95,7 +95,6 @@ export default function BackOfficeProductsManagement() {
 
       resetForm();
       setOpenDialog(false);
-      alert("Bijou ajouté avec succès !");
     } catch (err) {
       setError("Une erreur est survenue lors de l'ajout du bijou!");
     } finally {

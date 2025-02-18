@@ -92,7 +92,7 @@ export const useOrderForm = () => {
       const { paymentUrl } = await paymentResponse.json();
       window.location.href = paymentUrl;
     } catch (err) {
-      setError("Paiment Error");
+      setError("Stock insuffisant pour certains articles");
     } finally {
       setIsSubmitting(false);
     }
