@@ -1,6 +1,7 @@
 import express from "express";
 import authMiddleware from "../src/Middleware/authMiddleware";
 import paymentActions from "./Middleware/StripePaymentSession";
+import mailjet from "./Middleware/mailJet";
 import orderVerify from "./Middleware/orderCheckoutSession";
 import upload from "./Middleware/upload";
 import adminActions from "./modules/admin/adminActions";
@@ -21,6 +22,9 @@ router.get("/api/pages/:name", pagesActions.read);
 router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
+router.post("/api/auth/login", authMiddleware.login);
+router.post("/api/mails", mailjet.sendEmail);
+// Pas d'auth pour login
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
 router.get("/api/orders/:id", orderActions.read);
 router.get("/api/orders", orderActions.browse);
