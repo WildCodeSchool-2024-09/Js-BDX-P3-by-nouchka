@@ -15,6 +15,7 @@
   font-family: var(--titleFont);
   padding-top: calc(var(--spacing) * 0.5);
   margin: calc(var(--spacing) * 0.5);
+  text-align: center;
 }
 .mySwiper .swiper-slide {
   display: flex;
