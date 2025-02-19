@@ -1,11 +1,13 @@
 import type { RequestHandler } from "express";
 
-const mailjet = require("node-mailjet").connect(
-  process.env.MJ_APIKEY_PUBLIC,
-  process.env.MJ_APIKEY_PRIVATE,
-);
+const Mailjet = require("node-mailjet");
 
-const sendEmail: RequestHandler = async (req, res, next) => {
+const mailjet = new Mailjet({
+  apiKey: process.env.MJ_APIKEY_PUBLIC,
+  apiSecret: process.env.MJ_APIKEY_PRIVATE,
+});
+
+const sendEmail: RequestHandler = async (req, res) => {
   try {
     const { to, subject, text } = req.body;
     if (!to || !subject || !text) {
@@ -22,8 +24,7 @@ const sendEmail: RequestHandler = async (req, res, next) => {
       ],
     });
     const result = await request;
-    // console.log("Email envoyé :", result.body);
-    next();
+    res.status(201).json("envoyé avec succes");
   } catch (error) {
     console.error("Erreur Mailjet :", error);
     res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
