@@ -2,7 +2,7 @@
   font-family: var(--titleFont);
   padding: calc(var(--spacing) * 1.5);
   color: var(--primaryColor);
-  font-size: calc(var(--spacing) * 2);
+  font-size: calc(var(--spacing) * 2.8);
   text-align: center;
 }
 .shop-title::after {

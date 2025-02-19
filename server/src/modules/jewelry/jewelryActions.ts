@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { RequestHandler } from "express";
 
 // Import access to data
@@ -40,23 +41,35 @@ const read: RequestHandler = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add: RequestHandler = async (req, res, next) => {
   try {
-    // Extract the item data from the request body
+    const { type, stock, description, name, price } = req.body;
+
+    if (!type || !stock || !description || !name || !price) {
+      res.status(400).json({ error: "Missing required fields" });
+      return;
+    }
+
+    let photoUrl = null;
+    if (req.file) {
+      const photoPath = path.join("uploads", req.file.filename);
+      photoUrl = photoPath;
+    } else {
+      res.status(400).json({ error: "Image is required" });
+      return;
+    }
+
     const newJewelry = {
-      type: req.body.type,
-      stock: req.body.stock,
-      description: req.body.description,
-      name: req.body.name,
-      price: req.body.price,
-      url: req.body.url,
+      type,
+      stock: Number.parseInt(stock, 10),
+      description,
+      name,
+      price: Number.parseFloat(price),
+      url: photoUrl,
     };
 
-    // Create the item
     const insertId = await JewelryRepository.create(newJewelry);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
-    res.status(201).json({ insertId });
+    res.status(201).json({ insertId, photoUrl });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };

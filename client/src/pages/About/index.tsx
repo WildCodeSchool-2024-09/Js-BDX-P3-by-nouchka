@@ -1,6 +1,7 @@
 import "./style.css";
 import { useEffect, useState } from "react";
 import EventList from "../../components/Event/EventList";
+import Description from "../Upcycling/description";
 
 interface AboutData {
   url_illustration: string;
@@ -47,10 +48,14 @@ export default function About() {
         <h2 className="title-concept">Le concept</h2>
         <img
           className="img-about"
-          src={`${import.meta.env.VITE_API_URL}/${data?.url_illustration}`}
+          src={
+            data?.url_illustration.startsWith("http")
+              ? data.url_illustration
+              : `${import.meta.env.VITE_API_URL}${data?.url_illustration}`
+          }
           alt=""
         />
-        <p>{data?.description}</p>
+        <Description text={data?.description || ""} />
       </section>
       <EventList />
     </>

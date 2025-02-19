@@ -25,7 +25,8 @@
 }
 .Name,
 .Email,
-.Message {
+.Message,
+.Subject {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -33,7 +34,8 @@
 
 .blockMessage,
 .blockEmail,
-.blockName {
+.blockName,
+.blockSubject {
   font-family: var(--textFont);
   background-color: var(--secondaryColor);
   border: none;

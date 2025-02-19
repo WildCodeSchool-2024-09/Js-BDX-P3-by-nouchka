@@ -1,5 +1,8 @@
 import express from "express";
 import authMiddleware from "../src/Middleware/authMiddleware";
+import paymentActions from "./Middleware/StripePaymentSession";
+import mailjet from "./Middleware/mailJet";
+import orderVerify from "./Middleware/orderCheckoutSession";
 import upload from "./Middleware/upload";
 import adminActions from "./modules/admin/adminActions";
 import clientsActions from "./modules/clients/clientsActions";
@@ -12,7 +15,6 @@ const router = express.Router();
 
 /* ************************************************************************* */
 // Routes publiques (pas d'authentification requise)
-
 router.get("/api/jewelry", jewelryActions.browse);
 router.get("/api/jewelry/:id", jewelryActions.read);
 router.get("/api/pages", pagesActions.browse);
@@ -21,8 +23,28 @@ router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
 router.post("/api/auth/login", authMiddleware.login);
-router.post("api/orders", orderActions.add);
+router.post("/api/mails", mailjet.sendEmail);
+// Pas d'auth pour login
 router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
+router.get("/api/orders/:id", orderActions.read);
+router.get("/api/orders", orderActions.browse);
+router.post("/api/auth/login", authMiddleware.login);
+
+router.post(
+  "/api/orders",
+  orderVerify.verifyJewelryQuantity,
+  orderActions.add,
+  orderVerify.verifyOrderInsertion,
+);
+
+router.post(
+  "/api/payment/create-checkout-session",
+  paymentActions.createCheckoutSession,
+);
+router.get(
+  "/api/payment/verify-payment/:sessionId",
+  paymentActions.verifyPayment,
+);
 
 /* ************************************************************************* */
 // Middleware de protection par token
@@ -41,19 +63,23 @@ router.put("/api/pages/:name/jewelry", pagesActions.updateWithJewelry);
 
 router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
+router.put(
+  "/api/events/:id/upload",
+  upload.single("image"),
+  eventActions.updateImage,
+);
 router.delete("/api/events/:id", eventActions.destroy);
 
 router.get("/api/admins", adminActions.browse);
-router.post("/api/jewelry", jewelryActions.add);
-router.put("/api/jewelry/:id", jewelryActions.edit);
+router.post("/api/jewelry", upload.single("image"), jewelryActions.add);
+
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
+router.put("/api/jewelry/:id", jewelryActions.edit);
 
 router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
 router.delete("/api/admins/:id", adminActions.destroy);
 
-router.get("/api/orders", orderActions.browse);
-router.get("/api/orders/:id", orderActions.read);
 router.put("/api/orders/:id", orderActions.edit);
 router.delete("/api/orders/:id", orderActions.destroy);
 
@@ -61,5 +87,11 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+router.post("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.like);
+router.get(
+  "/api/clients/:clientId/jewelry/:jewelryId",
+  clientsActions.getLikeStatus,
+);
+router.get("/api/clients/:clientId/likes", clientsActions.getClientLikes);
 
 export default router;

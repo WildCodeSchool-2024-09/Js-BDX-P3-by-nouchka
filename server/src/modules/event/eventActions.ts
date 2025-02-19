@@ -1,4 +1,5 @@
-import type { RequestHandler } from "express";
+import type { NextFunction, RequestHandler, Response } from "express";
+import type { MulterRequest } from "../../Middleware/upload";
 
 // Import access to data
 import EventRepository from "./eventRepository";
@@ -46,7 +47,7 @@ const add: RequestHandler = async (req, res, next) => {
       date: req.body.date,
       location: req.body.location,
       description: req.body.description,
-      url: req.body.url,
+      URL: req.body.URL,
     };
 
     // Create the item
@@ -68,7 +69,7 @@ const edit: RequestHandler = async (req, res, next) => {
       date: req.body.date,
       location: req.body.location,
       description: req.body.description,
-      url: req.body.url,
+      URL: req.body.URL,
     };
 
     const updatedId = await EventRepository.update(updateEvent);
@@ -99,4 +100,39 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy };
+const updateImage = async (
+  req: MulterRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const multerReq = req as MulterRequest;
+
+    if (multerReq.fileValidationError) {
+      res.status(400).json({ error: multerReq.fileValidationError });
+      return;
+    }
+
+    if (!req.file) {
+      res.status(400).json({ error: "Aucun fichier reçu." });
+      return;
+    }
+
+    const imageUrl = `/uploads/${req.file.filename}`;
+    const eventId = +req.params.id;
+    const event = await EventRepository.read(eventId);
+
+    if (!event) {
+      res.status(404).json({ message: "Événement non trouvé" });
+      return;
+    }
+
+    await EventRepository.updateImage(eventId, imageUrl);
+
+    res.json({ imageUrl });
+  } catch (error) {
+    res.status(500).json({ error: "Erreur interne du serveur" });
+  }
+};
+
+export default { browse, read, add, edit, destroy, updateImage };

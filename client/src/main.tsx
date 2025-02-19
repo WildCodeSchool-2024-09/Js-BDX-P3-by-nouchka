@@ -14,19 +14,26 @@ import Upcycling from "./pages/Upcycling";
 import ProtectedRoute from "../src/components/ProtectedRoute"; // Add this line to import ProtectedRoute
 // Import the main app component
 import App from "./App";
+import AddressRegister from "./components/AddressForm/index";
+import Cart from "./components/Cart/Cart";
 import RegisterBlock from "./components/Register";
 import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
 import BackOfficeOrders from "./pages/BackOffice/BackOfficeOrders";
 import BackOfficePageAbout from "./pages/BackOffice/BackOfficePageAbout";
+import BackOfficePageEvents from "./pages/BackOffice/BackOfficePageEvents";
 import BackOfficePageHome from "./pages/BackOffice/BackOfficePageHome";
 import BackOfficePageUpcycling from "./pages/BackOffice/BackOfficePageUpcycling";
 import BackOfficePages from "./pages/BackOffice/BackOfficePages";
 import BackOfficeProducts from "./pages/BackOffice/BackOfficeProducts";
+import BackOfficeProductsList from "./pages/BackOffice/BackOfficeProductsList";
+import BackOfficeProductsManagement from "./pages/BackOffice/BackOfficeProductsManagement";
 import BackOfficeStats from "./pages/BackOffice/BackOfficeStats";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
 import FAQ from "./pages/FAQ/faq";
 import Home from "./pages/Home";
+import Cancel from "./pages/Payment-Redirections/CancelPayment";
+import Success from "./pages/Payment-Redirections/SuccessPayment";
 import ProductPage from "./pages/Shop/Product";
 import LegalMentions from "./pages/legal-mentions/LegalMentions";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
@@ -77,7 +84,22 @@ const router = createBrowserRouter([
         path: "/shop",
         element: <Shop />,
       },
-
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/checkout",
+        element: <AddressRegister />,
+      },
+      {
+        path: "/paymentSuccess",
+        element: <Success />,
+      },
+      {
+        path: "cancelPayment",
+        element: <Cancel />,
+      },
       {
         path: "/upcycling",
         element: <Upcycling />,
@@ -123,9 +145,17 @@ const router = createBrowserRouter([
               { path: "home", element: <BackOfficePageHome /> },
               { path: "upcycling", element: <BackOfficePageUpcycling /> },
               { path: "about", element: <BackOfficePageAbout /> },
+              { path: "events", element: <BackOfficePageEvents /> },
             ],
           },
-          { path: "products", element: <BackOfficeProducts /> },
+          {
+            path: "products",
+            element: <BackOfficeProducts />,
+            children: [
+              { path: "management", element: <BackOfficeProductsManagement /> },
+              { path: "list", element: <BackOfficeProductsList /> },
+            ],
+          },
           { path: "clients", element: <BackOfficeClients /> },
           { path: "orders", element: <BackOfficeOrders /> },
           { path: "stats", element: <BackOfficeStats /> },

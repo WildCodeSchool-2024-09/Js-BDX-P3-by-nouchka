@@ -6,5 +6,5 @@ export default function ProductPage() {
   if (!id) {
     return <p>Produit non trouvé</p>;
   }
-  return <Product jewelryId={id} />;
+  return <Product jewelryId={Number(id)} />;
 }

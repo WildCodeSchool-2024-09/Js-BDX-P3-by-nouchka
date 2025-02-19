@@ -2,7 +2,7 @@ import "../Product/style.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Jewelry, JewelryProps } from "../../types/Product_shop";
-import AddCart from "../Cart/AddCart";
+import AddCart from "../Cart/AddCart/index";
 import LikesButton from "../Likes/likes";
 import CarouselProduct from "../Product/Carousel_Product";
 import ProductDesktop from "./Product_desktop";
@@ -77,7 +77,9 @@ export default function Product({ jewelryId }: JewelryProps) {
         />
       )}
       <section className="containerTitleProduct">
-        <LikesButton className="likesProduct" />
+        {data?.id && (
+          <LikesButton className="likesProduct" jewelryId={Number(data.id)} />
+        )}
         <h2 className="titleProduct">{data.name}</h2>
       </section>
       <p className="typeProduct">{data.type}</p>
