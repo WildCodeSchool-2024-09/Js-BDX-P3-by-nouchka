@@ -22,8 +22,8 @@ router.get("/api/pages/:name/jewelry", pagesActions.readWithJewelry);
 router.get("/api/events", eventActions.browse);
 router.get("/api/events/:id", eventActions.read);
 router.post("/api/auth/login", authMiddleware.login);
-router.post("api/orders", orderActions.add);
-router.post("/api/clients", authMiddleware.hashPassword, clientsActions.add);
+router.post("/api/mails", mailjet.sendEmail);
+// Pas d'auth pour login
 
 /* ************************************************************************* */
 // Middleware de protection par token
@@ -62,7 +62,11 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
-
-router.post("/api/mails", mailjet.sendEmail);
+router.post("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.like);
+router.get(
+  "/api/clients/:clientId/jewelry/:jewelryId",
+  clientsActions.getLikeStatus,
+);
+router.get("/api/clients/:clientId/likes", clientsActions.getClientLikes);
 
 export default router;

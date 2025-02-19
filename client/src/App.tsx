@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
-import EmailForm from "./components/EmailForm"; // ✅ Ajout du formulaire d'envoi d'email
 import Header from "./components/Header";
 import AuthProvider from "./components/Login/login_persistance/persistance";
 import ContactBlock from "./components/contact-block";
@@ -14,7 +13,6 @@ const App = () => {
     <AuthProvider>
       {!isBackOffice && <Header />}
       <Outlet />
-      {!isBackOffice && <EmailForm />} {/* ✅ Affichage du formulaire */}
       {!isBackOffice && <ContactBlock />}
       {!isBackOffice && <Footer />}
     </AuthProvider>

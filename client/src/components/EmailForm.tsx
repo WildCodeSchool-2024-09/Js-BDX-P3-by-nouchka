@@ -20,7 +20,7 @@ const EmailForm = () => {
     const emailData: EmailData = { to: email, subject, text: message };
 
     try {
-      await axios.post("http://localhost:3310/send-email", emailData);
+      await axios.post("http://localhost:3310/api/mails", emailData);
       setStatus("✅ Email envoyé avec succès !");
       setEmail("");
       setSubject("");

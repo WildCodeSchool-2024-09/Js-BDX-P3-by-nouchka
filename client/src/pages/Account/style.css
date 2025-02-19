@@ -8,7 +8,7 @@
 .hello::after {
   content: "";
   display: block;
-  margin-top: 0.5rem;
+  margin-top: calc(var(--spacing) * 0.5);
   width: 10%;
   border-top: 3px solid var(--primaryColor);
   margin-left: auto;
@@ -28,10 +28,11 @@
 .btnDisconnection {
   background-color: var(--textColor);
   border: none;
-  padding: 1rem;
+  padding: var(--spacing);
   border-radius: 1rem;
   color: var(--secondaryColor);
   cursor: pointer;
+  margin-bottom: calc(var(--spacing) * 3);
 }
 .btnDisconnection:hover {
   background-color: var(--primaryColor);
@@ -54,7 +55,7 @@
 .titleAccount::after {
   content: "";
   display: block;
-  margin-top: 0.5rem;
+  margin-top: calc(var(--spacing) * 0.5);
   width: 10%;
   border-top: 3px solid var(--primaryColor);
   margin-left: auto;
@@ -64,6 +65,7 @@
   font-family: var(--textFont);
   color: var(--textColor);
   text-decoration: none;
+  padding-bottom: calc(var(--spacing) * 2);
 }
 .inscription:hover {
   color: var(--primaryColor);
