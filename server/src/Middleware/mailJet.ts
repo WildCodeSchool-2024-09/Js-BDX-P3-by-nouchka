@@ -1,7 +1,6 @@
 import type { RequestHandler } from "express";
 
-const Mailjet = require("node-mailjet");
-
+import Mailjet from "node-mailjet";
 const mailjet = new Mailjet({
   apiKey: process.env.MJ_APIKEY_PUBLIC,
   apiSecret: process.env.MJ_APIKEY_PRIVATE,
@@ -17,9 +16,9 @@ const sendEmail: RequestHandler = async (req, res) => {
       Messages: [
         {
           From: { Email: "nina.rch16@gmail.com", Name: "ByNouchka" },
-          To: [{ Email: to }],
-          Subject: subject,
-          TextPart: text,
+          To: [{ Email: "nina.rch16@gmail.com" }],
+          Subject: `Message de ${to}: ${subject}`,
+          TextPart: `Message envoyé par: ${to}\n\n${text}`,
         },
       ],
     });
