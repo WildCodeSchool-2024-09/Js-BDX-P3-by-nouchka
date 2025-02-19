@@ -13,7 +13,7 @@ const ClientList = () => {
   }
 
   return (
-    <div>
+    <article>
       <h1>Liste des Clients</h1>
       <ul>
         {clients.map((client: Clients) => (
@@ -22,7 +22,7 @@ const ClientList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 };
 

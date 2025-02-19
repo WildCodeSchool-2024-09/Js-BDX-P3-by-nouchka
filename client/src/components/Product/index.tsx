@@ -77,7 +77,9 @@ export default function Product({ jewelryId }: JewelryProps) {
         />
       )}
       <section className="containerTitleProduct">
-        <LikesButton className="likesProduct" />
+        {data?.id && (
+          <LikesButton className="likesProduct" jewelryId={Number(data.id)} />
+        )}
         <h2 className="titleProduct">{data.name}</h2>
       </section>
       <p className="typeProduct">{data.type}</p>

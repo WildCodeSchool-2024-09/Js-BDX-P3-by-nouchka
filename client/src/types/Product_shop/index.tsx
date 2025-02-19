@@ -8,5 +8,5 @@ export interface Jewelry {
   URL: string;
 }
 export interface JewelryProps {
-  jewelryId: string;
+  jewelryId: number;
 }

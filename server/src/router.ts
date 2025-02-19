@@ -14,7 +14,6 @@ const router = express.Router();
 
 /* ************************************************************************* */
 // Routes publiques (pas d'authentification requise)
-
 router.get("/api/jewelry", jewelryActions.browse);
 router.get("/api/jewelry/:id", jewelryActions.read);
 router.get("/api/pages", pagesActions.browse);
@@ -68,9 +67,10 @@ router.put(
 router.delete("/api/events/:id", eventActions.destroy);
 
 router.get("/api/admins", adminActions.browse);
-router.post("/api/jewelry", jewelryActions.add);
-router.put("/api/jewelry/:id", jewelryActions.edit);
+router.post("/api/jewelry", upload.single("image"), jewelryActions.add);
+
 router.delete("/api/jewelry/:id", jewelryActions.destroy);
+router.put("/api/jewelry/:id", jewelryActions.edit);
 
 router.post("/api/admins", authMiddleware.hashPassword, adminActions.add);
 router.put("/api/admins/:id", adminActions.edit);
@@ -83,5 +83,11 @@ router.get("/api/clients", clientsActions.browse);
 router.get("/api/clients/:id", clientsActions.read);
 router.put("/api/clients/:id", clientsActions.edit);
 router.delete("/api/clients/:id", clientsActions.destroy);
+router.post("/api/clients/:clientId/jewelry/:jewelryId", clientsActions.like);
+router.get(
+  "/api/clients/:clientId/jewelry/:jewelryId",
+  clientsActions.getLikeStatus,
+);
+router.get("/api/clients/:clientId/likes", clientsActions.getClientLikes);
 
 export default router;
