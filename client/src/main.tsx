@@ -20,10 +20,13 @@ import RegisterBlock from "./components/Register";
 import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
 import BackOfficeOrders from "./pages/BackOffice/BackOfficeOrders";
 import BackOfficePageAbout from "./pages/BackOffice/BackOfficePageAbout";
+import BackOfficePageEvents from "./pages/BackOffice/BackOfficePageEvents";
 import BackOfficePageHome from "./pages/BackOffice/BackOfficePageHome";
 import BackOfficePageUpcycling from "./pages/BackOffice/BackOfficePageUpcycling";
 import BackOfficePages from "./pages/BackOffice/BackOfficePages";
 import BackOfficeProducts from "./pages/BackOffice/BackOfficeProducts";
+import BackOfficeProductsList from "./pages/BackOffice/BackOfficeProductsList";
+import BackOfficeProductsManagement from "./pages/BackOffice/BackOfficeProductsManagement";
 import BackOfficeStats from "./pages/BackOffice/BackOfficeStats";
 import CGU from "./pages/CGU/cgu";
 import CGV from "./pages/CGV/cgv";
@@ -142,9 +145,17 @@ const router = createBrowserRouter([
               { path: "home", element: <BackOfficePageHome /> },
               { path: "upcycling", element: <BackOfficePageUpcycling /> },
               { path: "about", element: <BackOfficePageAbout /> },
+              { path: "events", element: <BackOfficePageEvents /> },
             ],
           },
-          { path: "products", element: <BackOfficeProducts /> },
+          {
+            path: "products",
+            element: <BackOfficeProducts />,
+            children: [
+              { path: "management", element: <BackOfficeProductsManagement /> },
+              { path: "list", element: <BackOfficeProductsList /> },
+            ],
+          },
           { path: "clients", element: <BackOfficeClients /> },
           { path: "orders", element: <BackOfficeOrders /> },
           { path: "stats", element: <BackOfficeStats /> },

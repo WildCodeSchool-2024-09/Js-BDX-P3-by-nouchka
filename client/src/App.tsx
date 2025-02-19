@@ -1,22 +1,27 @@
 import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
+import ContactBlock from "../src/components/contact-block/index";
 import Header from "./components/Header";
 import AuthProvider from "./components/Login/login_persistance/persistance";
-import ContactBlock from "./components/contact-block";
 import Footer from "./components/footer";
 
-const App = () => {
+function App() {
   const location = useLocation();
-  const isBackOffice = location.pathname.includes("/backoffice");
-
+  const hideHeader = location.pathname.includes("/backoffice");
+  const hideContactBlock = location.pathname.includes("/backoffice");
+  const hideFooter = location.pathname.includes("/backoffice");
   return (
-    <AuthProvider>
-      {!isBackOffice && <Header />}
-      <Outlet />
-      {!isBackOffice && <ContactBlock />}
-      {!isBackOffice && <Footer />}
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        {!hideHeader && <Header />}
+        <main>
+          <Outlet />
+          {!hideContactBlock && <ContactBlock />}
+        </main>
+        {!hideFooter && <Footer />}
+      </AuthProvider>
+    </>
   );
-};
+}
 
 export default App;

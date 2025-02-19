@@ -10,6 +10,7 @@ export default function BackOfficePages() {
     "/backoffice/pages/home",
     "/backoffice/pages/upcycling",
     "/backoffice/pages/about",
+    "/backoffice/pages/events",
   ];
 
   const currentTab = tabRoutes.indexOf(location.pathname);
@@ -30,6 +31,7 @@ export default function BackOfficePages() {
         <Tab label="Page d'accueil" />
         <Tab label="Page upcycling" />
         <Tab label="Page à propos" />
+        <Tab label="Évènements" />
       </Tabs>
       <Outlet />
     </Box>

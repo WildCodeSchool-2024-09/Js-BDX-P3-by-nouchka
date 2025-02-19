@@ -1,0 +1,55 @@
+.successTitle {
+  font-family: var(--titleFont);
+  text-align: center;
+  font-size: large;
+  color: var(--primaryColor);
+  margin: 2rem;
+}
+.successTitle::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 10%;
+  border-top: 3px solid var(--primaryColor);
+  margin-left: auto;
+  margin-right: auto;
+}
+.successText {
+  font-size: medium;
+  font-family: var(--titleFont);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.button-backHome {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  display: flex;
+  justify-self: center;
+}
+.button-backHome:hover {
+  background-color: var(--primaryColor);
+}
+.button-backHome:active {
+  background-color: var(--primaryColor);
+}
+.button-back-toCart {
+  background-color: var(--textColor);
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  display: flex;
+  justify-self: center;
+  margin-bottom: 1rem;
+}
+.button-back-toCart:hover {
+  background-color: var(--primaryColor);
+}
+.button-back-toCart:active {
+  background-color: var(--primaryColor);
+}
