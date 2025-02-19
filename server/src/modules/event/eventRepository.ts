@@ -8,7 +8,7 @@ type Event = {
   date: string;
   location: string;
   description: string;
-  url: string;
+  URL: string;
 };
 
 class EventsRepository {
@@ -22,7 +22,7 @@ class EventsRepository {
         `INSERT INTO photos
           (URL)
         VALUES (?) `,
-        [events.url],
+        [events.URL],
       );
       const photos_id = photos.insertId;
 
@@ -80,8 +80,8 @@ class EventsRepository {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT events.*, photos.URL
       FROM events
-      INNER JOIN photos_events ON events.id = photos_events.events_id
-      INNER JOIN photos ON photos_events.photos_id = photos.id`,
+      LEFT JOIN photos_events ON events.id = photos_events.events_id
+      LEFT JOIN photos ON photos_events.photos_id = photos.id`,
     );
 
     return rows as Event[];
@@ -111,7 +111,7 @@ class EventsRepository {
           SET URL = ?
           WHERE id = (SELECT photos_id FROM photos_events
           WHERE events_id = ?)`,
-        [events.url, events.id],
+        [events.URL, events.id],
       );
       if (!photos.affectedRows) {
         throw new Error("Failed to update photos");

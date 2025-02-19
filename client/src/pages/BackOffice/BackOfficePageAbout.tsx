@@ -6,203 +6,79 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Stack,
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./style.css";
-import EventCard from "./EventCard";
 
-export type Event = {
-  id: number;
-  name: string;
-  location: string;
-  date: string;
+interface PageData {
+  title: string;
   description: string;
-  url: string;
-};
+  url_illustration: string;
+}
 
 export default function BackOfficePageAbout() {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [urlIllustration, setUrlIllustration] = useState<string>("");
-  const [rows, setRows] = useState<Event[]>([]);
-  const [file, setFile] = useState<File | null>(null);
+  const [fileForAbout, setFileForAbout] = useState<File | null>(null);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No authentication");
-      return;
-    }
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError("");
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/pages/about`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Unauthorized");
-        return response.json();
-      })
-      .then((data) => {
-        setTitle(data.title || "");
-        setDescription(data.description || "");
-        setUrlIllustration(data.url_illustration || "");
-      })
-      .catch((error) =>
-        console.error("Erreur lors du fetch de la page:", error),
-      );
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Vous devez être connecté");
+        setIsLoading(false);
+        return;
+      }
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/events`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Unauthorized");
-        return response.json();
-      })
-      .then((data) => setRows(data))
-      .catch((error) =>
-        console.error("Erreur lors du fetch des événements:", error),
-      );
-  }, []);
+      try {
+        const pageResponse = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/pages/about`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+        if (!pageResponse.ok) throw new Error("Erreur d'authentification");
+        const pageData: PageData = await pageResponse.json();
 
-  const handleRowChange = (id: number, field: keyof Event, value: string) => {
-    setRows((prevRows) => {
-      const updatedRows = prevRows.map((row) =>
-        row.id === id ? { ...row, [field]: value } : row,
-      );
-      return updatedRows;
-    });
-  };
-
-  const handleAddRow = async () => {
-    const newRow = {
-      name: "",
-      location: "",
-      date: "",
-      description: "",
-      url: "",
+        setTitle(pageData.title || "");
+        setDescription(pageData.description || "");
+        setUrlIllustration(pageData.url_illustration || "");
+      } catch (error) {
+        console.error("Erreur lors du fetch:", error);
+        setError("Erreur lors du chargement des données");
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    try {
-      const response = await fetch("/api/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRow),
-      });
+    fetchData();
+  }, []);
 
-      if (response.ok) {
-        const addedEvent = await response.json();
-        // Ajoutez l'ID dans l'état après l'ajout de l'événement
-        setRows([
-          ...rows,
-          {
-            ...newRow,
-            id: addedEvent.id, // L'ID généré par la base de données
-          },
-        ]);
-      } else {
-        console.error("Failed to add event");
-      }
-    } catch (error) {
-      console.error("Error adding event:", error);
-    }
-  };
-
-  const handleDeleteRow = async (id: number) => {
+  const handleFileUpload = async (fileForAbout: File | null) => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Vous devez être connecté");
       return;
     }
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Erreur lors de la suppression.");
-      }
-
-      setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-    } catch (error) {
-      console.error("Erreur lors de la suppression :", error);
-    }
-  };
-
-  const handleUpdateRow = async (event: Event) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Vous devez être connecté");
+    if (!fileForAbout) {
+      alert("Aucun fichier sélectionné !");
       return;
     }
 
-    const cleanedEvent: Partial<Event> = {};
-
-    if (event.name !== undefined) cleanedEvent.name = event.name || "";
-    if (event.location !== undefined)
-      cleanedEvent.location = event.location || "";
-    if (event.description !== undefined)
-      cleanedEvent.description = event.description || "";
-    if (event.url !== undefined) cleanedEvent.url = event.url || "";
-
-    if (event.date) {
-      try {
-        cleanedEvent.date = new Date(event.date).toISOString().split("T")[0];
-      } catch {
-        cleanedEvent.date = "";
-      }
-    }
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${event.id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cleanedEvent),
-        },
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Erreur lors de la mise à jour");
-      }
-
-      alert("Événement mis à jour !");
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour :", error);
-      alert(error);
-    }
-  };
-
-  const handleFileUpload = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Vous devez être connecté");
-      return;
-    }
-    if (!file) return;
+    setUploading(true);
 
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", fileForAbout);
     formData.append("name", "about");
 
     try {
@@ -218,24 +94,32 @@ export default function BackOfficePageAbout() {
       );
 
       const data = await response.json();
+
       if (response.ok) {
         setUrlIllustration(data.fileUrl);
-        setFile(null);
+        setFileForAbout(null);
       } else {
         alert(`Erreur lors de l'upload : ${data.error}`);
       }
     } catch (error) {
       console.error("Erreur lors de l'upload :", error);
+      alert("Une erreur est survenue lors de l'upload.");
+    } finally {
+      setUploading(false);
     }
   };
 
-  const handleDeleteImage = async () => {
+  const handleRemoveImage = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Vous devez être connecté");
       return;
     }
-    if (!urlIllustration) return;
+
+    if (!urlIllustration) {
+      alert("Aucune image à supprimer !");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -243,35 +127,38 @@ export default function BackOfficePageAbout() {
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ filePath: urlIllustration, name: "about" }),
         },
       );
 
       const data = await response.json();
+
       if (response.ok) {
         alert("Image supprimée !");
         setUrlIllustration("");
-        setFile(null);
+        setFileForAbout(null);
+        (document.getElementById("fileInput") as HTMLInputElement).value = "";
       } else {
         alert(`Erreur : ${data.error || "Problème inconnu"}`);
       }
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
+      alert("Une erreur est survenue, veuillez réessayer.");
     }
   };
 
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Vous devez être connecté");
+      setError("Vous devez être connecté");
       return;
     }
 
     try {
-      const response = await fetch(
+      const responseAbout = await fetch(
         `${import.meta.env.VITE_API_URL}/api/pages/about`,
         {
           method: "PUT",
@@ -280,63 +167,37 @@ export default function BackOfficePageAbout() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            title,
-            description,
+            title: title,
+            description: description,
             url_illustration: urlIllustration,
-            rows,
           }),
         },
       );
 
-      if (!response.ok) {
-        throw new Error("Erreur lors de la sauvegarde des données.");
+      if (!responseAbout.ok) {
+        const errorDetails = await responseAbout.json();
+        throw new Error(
+          `Erreur lors de la sauvegarde des données About : ${errorDetails.message}`,
+        );
       }
 
-      alert("Modifications enregistrées avec succès !");
+      alert("Données enregistrées avec succès !");
       setOpenDialog(false);
     } catch (error) {
-      console.error("Erreur lors de la sauvegarde :", error);
+      console.error(error);
+      setError("Erreur lors de la sauvegarde des données");
     }
   };
 
-  const handleEventImageUpload = async (id: number, file: File | null) => {
-    if (!file) return;
+  if (isLoading) {
+    return (
+      <Box sx={{ p: 3, textAlign: "center" }}>Chargement des données...</Box>
+    );
+  }
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Vous devez être connecté");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${id}/image`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        },
-      );
-
-      const data = await response.json();
-      if (response.ok) {
-        setRows((prevRows) =>
-          prevRows.map((row) =>
-            row.id === id ? { ...row, url: data.imageUrl } : row,
-          ),
-        );
-      } else {
-        alert(`Erreur lors de l'upload : ${data.error}`);
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'upload :", error);
-    }
-  };
+  if (error) {
+    return <Box sx={{ p: 3, color: "error.main" }}>{error}</Box>;
+  }
 
   return (
     <Box className="page-container">
@@ -345,6 +206,7 @@ export default function BackOfficePageAbout() {
         fullWidth
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        sx={{ mb: 2 }}
       />
       <TextField
         label="Présentation de l'entreprise"
@@ -353,6 +215,7 @@ export default function BackOfficePageAbout() {
         rows={3}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        sx={{ mb: 2 }}
       />
 
       <TextField
@@ -362,72 +225,76 @@ export default function BackOfficePageAbout() {
         className="url-illustration-input"
         value={urlIllustration}
         onChange={(e) => setUrlIllustration(e.target.value)}
+        sx={{ mb: 2 }}
       />
 
-      <Box className="image-container">
+      <Box className="image-container" sx={{ mb: 4 }}>
         <input
           id="fileInput"
           type="file"
           accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
+          onChange={(e) => handleFileUpload(e.target.files?.[0] || null)}
         />
-        <Button variant="contained" onClick={handleFileUpload} disabled={!file}>
-          Upload Image
+
+        <Button
+          variant="contained"
+          onClick={() => handleFileUpload(fileForAbout)}
+          disabled={!fileForAbout}
+          sx={{ mt: 1 }}
+        >
+          {uploading ? "Uploading..." : "Upload Image"}
         </Button>
-        <Button variant="contained" color="error" onClick={handleDeleteImage}>
-          Supprimer
-        </Button>
+
+        {urlIllustration && (
+          <>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={async () => {
+                await handleRemoveImage();
+              }}
+              sx={{ mt: 1 }}
+            >
+              Supprimer l'image
+            </Button>
+
+            <Box className="image-preview">
+              <img
+                src={`${import.meta.env.VITE_API_URL}/uploads/${urlIllustration
+                  .split("/")
+                  .pop()}`}
+                alt=""
+                className="image-preview-img"
+                onError={(e) => {
+                  console.error("Erreur de chargement:", e);
+                }}
+              />
+            </Box>
+          </>
+        )}
       </Box>
-
-      {urlIllustration && (
-        <Box className="image-preview">
-          <img
-            src={`${import.meta.env.VITE_API_URL}${urlIllustration}`}
-            alt=""
-            className="image-preview-img"
-          />
-        </Box>
-      )}
-
-      <Stack direction="column" spacing={2}>
-        {rows.map((row) => (
-          <EventCard
-            key={row.id}
-            row={row}
-            onDelete={handleDeleteRow}
-            onSave={handleUpdateRow}
-            onChange={handleRowChange}
-            onFileUpload={handleEventImageUpload}
-          />
-        ))}
-      </Stack>
-
-      <Button variant="outlined" onClick={handleAddRow}>
-        Ajouter un événement
-      </Button>
 
       <Button
         variant="contained"
-        color="primary"
-        fullWidth
+        className="save-button"
         onClick={() => setOpenDialog(true)}
       >
         Enregistrer les modifications
       </Button>
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Confirmer l'enregistrement</DialogTitle>
+        <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Êtes-vous sûr de vouloir enregistrer ces modifications ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="secondary">
+          <Button onClick={() => setOpenDialog(false)} color="primary">
             Annuler
           </Button>
-          <Button onClick={handleSave} color="primary" variant="contained">
-            Confirmer
+          <Button onClick={handleSave} color="primary">
+            Sauvegarder
           </Button>
         </DialogActions>
       </Dialog>

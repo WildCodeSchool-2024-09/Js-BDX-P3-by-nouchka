@@ -61,7 +61,7 @@ router.put("/api/pages/:name/jewelry", pagesActions.updateWithJewelry);
 router.post("/api/events", eventActions.add);
 router.put("/api/events/:id", eventActions.edit);
 router.put(
-  "/api/events/:id/image",
+  "/api/events/:id/upload",
   upload.single("image"),
   eventActions.updateImage,
 );

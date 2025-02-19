@@ -14,8 +14,10 @@ function App() {
     <>
       <AuthProvider>
         {!hideHeader && <Header />}
-        <Outlet />
-        {!hideContactBlock && <ContactBlock />}
+        <main>
+          <Outlet />
+          {!hideContactBlock && <ContactBlock />}
+        </main>
         {!hideFooter && <Footer />}
       </AuthProvider>
     </>

@@ -47,7 +47,7 @@ const add: RequestHandler = async (req, res, next) => {
       date: req.body.date,
       location: req.body.location,
       description: req.body.description,
-      url: req.body.url,
+      URL: req.body.URL,
     };
 
     // Create the item
@@ -69,7 +69,7 @@ const edit: RequestHandler = async (req, res, next) => {
       date: req.body.date,
       location: req.body.location,
       description: req.body.description,
-      url: req.body.url,
+      URL: req.body.URL,
     };
 
     const updatedId = await EventRepository.update(updateEvent);
