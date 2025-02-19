@@ -20,6 +20,7 @@ import RegisterBlock from "./components/Register";
 import BackOfficeClients from "./pages/BackOffice/BackOfficeClients";
 import BackOfficeOrders from "./pages/BackOffice/BackOfficeOrders";
 import BackOfficePageAbout from "./pages/BackOffice/BackOfficePageAbout";
+import BackOfficePageEvents from "./pages/BackOffice/BackOfficePageEvents";
 import BackOfficePageHome from "./pages/BackOffice/BackOfficePageHome";
 import BackOfficePageUpcycling from "./pages/BackOffice/BackOfficePageUpcycling";
 import BackOfficePages from "./pages/BackOffice/BackOfficePages";
@@ -144,6 +145,7 @@ const router = createBrowserRouter([
               { path: "home", element: <BackOfficePageHome /> },
               { path: "upcycling", element: <BackOfficePageUpcycling /> },
               { path: "about", element: <BackOfficePageAbout /> },
+              { path: "events", element: <BackOfficePageEvents /> },
             ],
           },
           {
