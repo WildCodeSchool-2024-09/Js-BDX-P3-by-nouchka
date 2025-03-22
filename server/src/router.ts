@@ -48,7 +48,7 @@ router.get(
 
 /* ************************************************************************* */
 // Middleware de protection par token
-router.use(authMiddleware.verifyToken); // Protection de toutes les routes suivantes
+router.use("/api", authMiddleware.verifyToken); // Protection de toutes les routes suivantes
 
 /* ************************************************************************* */
 // Routes protégées (nécessitant un token)
