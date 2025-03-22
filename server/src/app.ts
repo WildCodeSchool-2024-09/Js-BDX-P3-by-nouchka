@@ -61,6 +61,12 @@ app.use(
 
 /* ************************************************************************* */
 
+// Import the API router
+import router from "./router";
+
+// Mount the API router under the "/api" endpoint
+app.use(router);
+
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for?
@@ -98,11 +104,7 @@ if (fs.existsSync(clientBuildPath)) {
 }
 
 /* ************************************************************************* */
-// Import the API router
-import router from "./router";
 
-// Mount the API router under the "/api" endpoint
-app.use(router);
 // Middleware for Error Logging
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
 
