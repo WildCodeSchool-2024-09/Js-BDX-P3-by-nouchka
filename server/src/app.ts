@@ -72,19 +72,20 @@ app.use(
 // - Redirecting unhandled requests (e.g., all requests not matching a defined API route) to the client's index.html. This allows the client to handle client-side routing.
 
 import fs from "node:fs";
-import path from "node:path";
 
 // Serve server resources
 
-const publicFolderPath = path.join(__dirname, "../../server/public");
+const publicFolderPath = `${__dirname}../../server/public`;
 
 if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
 
+app.use("/uploads", express.static(`${__dirname}../../server/uploads`));
+
 // Serve client resources
 
-const clientBuildPath = path.join(__dirname, "../../client/dist");
+const clientBuildPath = `${__dirname}../../client/dist`;
 
 if (fs.existsSync(clientBuildPath)) {
   app.use(express.static(clientBuildPath));
@@ -121,10 +122,5 @@ const logErrors: ErrorRequestHandler = (err, req, res, next) => {
 app.use(logErrors);
 
 /* ************************************************************************* */
-
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "../../server/uploads")),
-);
 
 export default app;
